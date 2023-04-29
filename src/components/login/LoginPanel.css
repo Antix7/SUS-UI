@@ -1,0 +1,53 @@
+
+html,body,#root {
+  height: 100%;
+}
+
+#loginPanel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+}
+
+#loginBox {
+  text-align: center;
+  background-color: var(--darker2);
+  padding: 40px 40px 30px 40px;
+  border-radius: 15px;
+  box-shadow: 0 15px 25px rgba(0,0,0,.1);
+}
+
+#loginBox > * {
+  background-color: var(--darker2);
+}
+
+#loginTitle {
+  font-weight: bold;
+  font-size: 30px;
+  margin: 0 0 30px;
+}
+
+.loginInput {
+  font-size: 15px;
+  width: 90%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #000;
+  margin-bottom: 15px;
+}
+
+#loginButton {
+  background-color: var(--darker4);
+  font-size: 20px;
+  padding: 10px 15px;
+  margin-top: 15px;
+  border-radius: 4px;
+}
+#loginButton:hover {
+  background-color: var(--darker5);
+}
+#loginButton:active {
+  background-color: var(--darker6);
+}
