@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/SUS-UI/static/css/main.59efd24f.css",
+    "main.js": "/SUS-UI/static/js/main.7859bc38.js",
+    "index.html": "/SUS-UI/index.html",
+    "main.59efd24f.css.map": "/SUS-UI/static/css/main.59efd24f.css.map",
+    "main.7859bc38.js.map": "/SUS-UI/static/js/main.7859bc38.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.59efd24f.css",
+    "static/js/main.7859bc38.js"
+  ]
+}
