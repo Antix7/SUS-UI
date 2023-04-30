@@ -41,8 +41,9 @@
   transition-duration: 0.1s;
   background-color: var(--darker2);
 }
-.sidepanelOption:hover {
+.sidepanelOption:hover, .sidepanelOption:active {
   text-shadow:0 0 1px black;
+  /* this is used instead of font-weight:bold in order to prevent buttons from changing in width */
 }
 
 
