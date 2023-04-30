@@ -1,0 +1,58 @@
+#navbar {
+  display: flex;
+  align-items: center;
+}
+
+.sidepanel {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: aqua;
+  overflow-x: hidden;
+  transition-duration: 0.5s;
+}
+.hidden {
+  width: 0;
+}
+
+#userPanel {
+  margin: 3px 7px 3px auto;
+}
+
+.navbarButton {
+  font-weight: bold;
+  font-size: 20px;
+  padding: 10px 25px;
+  transition-duration: 0.1s;
+  background-color: aqua;
+}
+.navbarButton:hover {
+  background-color: var(--darker1);
+}
+.navbarButton:active {
+  background-color: var(--darker2);
+}
+
+#username {
+  float: right;
+  margin: 2px 4px;
+}
+
+.userPanelButton {
+  background-color: var(--darker2);
+  border-radius: 2px;
+  padding: 4px 8px;
+  margin: 2px 2px;
+  transition-duration: 0.1s;
+}
+.userPanelButton:hover {
+  background-color: var(--darker3);
+}
+.userPanelButton:active {
+  background-color: var(--darker4);
+}
+
+
