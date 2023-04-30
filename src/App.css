@@ -19,6 +19,7 @@ html,body,#root {
 }
 
 * {
+  -webkit-tap-highlight-color: transparent;
   font-family: 'Montserrat', sans-serif;
   background-color: var(--background);
 }
