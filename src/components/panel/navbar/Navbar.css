@@ -38,7 +38,7 @@
   white-space: nowrap;
   font-size: 20px;
   padding: 15px 0;
-  transition-duration: 0.2s;
+  transition-duration: 0.1s;
   background-color: var(--darker2);
 }
 .sidepanelOption:hover {
