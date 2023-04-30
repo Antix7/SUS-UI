@@ -1,39 +1,53 @@
 #navbar {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .sidepanel {
+  display: inline-block;
   height: 100%;
-  width: 200px;
-  position: fixed;
+  position: absolute;
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: aqua;
   overflow-x: hidden;
-  transition-duration: 0.5s;
+  transform: translateX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+  background-color: var(--darker2);
+  padding: 10px 30px 10px 20px;
 }
 .hidden {
-  width: 0;
+  transform: translateX(-100%);
 }
+
+#sidebarOpenButton {
+  margin: 10px;
+}
+#sidebarCloseButton {
+  margin-bottom: 5px;
+  padding-left: 0;
+  background-color: var(--darker2);
+}
+#sidebarCloseButton img {
+  background-color: var(--darker2);
+}
+
+.sidepanelOption {
+  display: block;
+  white-space: nowrap;
+  font-size: 20px;
+  padding: 15px 0;
+  transition-duration: 0.2s;
+  background-color: var(--darker2);
+}
+.sidepanelOption:hover {
+  text-shadow:0 0 1px black;
+}
+
 
 #userPanel {
   margin: 3px 7px 3px auto;
-}
-
-.navbarButton {
-  font-weight: bold;
-  font-size: 20px;
-  padding: 10px 25px;
-  transition-duration: 0.1s;
-  background-color: aqua;
-}
-.navbarButton:hover {
-  background-color: var(--darker1);
-}
-.navbarButton:active {
-  background-color: var(--darker2);
 }
 
 #username {
@@ -54,5 +68,3 @@
 .userPanelButton:active {
   background-color: var(--darker4);
 }
-
-

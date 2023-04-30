@@ -12,6 +12,12 @@
   --darker8: #f0b105ff;
 }
 
+html,body,#root {
+  margin: 0;
+  height: 100%;
+  overflow: hidden
+}
+
 * {
   font-family: 'Montserrat', sans-serif;
   background-color: var(--background);
