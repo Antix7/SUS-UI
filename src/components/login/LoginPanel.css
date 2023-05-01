@@ -3,6 +3,10 @@ html,body,#root {
   height: 100%;
 }
 
+p {
+  margin: 0;
+}
+
 #loginPanel {
   display: flex;
   justify-content: center;
@@ -50,4 +54,12 @@ html,body,#root {
 }
 #loginButton:active {
   background-color: var(--darker6);
+}
+
+#errorMessage {
+  text-align: center;
+  background-color: var(--darker2);
+  color: red;
+  font-size: 15px;
+  margin: 5px 0;
 }

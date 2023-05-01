@@ -13,7 +13,16 @@ export default function App() {
 
   return (
     <>
-      {username ? <AdminPanel username={username+"@burza"} handleLogout={()=>handleUsernameChange(null)}/> : <LoginPanel handleLogin={handleUsernameChange}/>}
+      {username ?
+        <AdminPanel
+          username={username+"@burza"}
+          handleLogout={()=>handleUsernameChange(null)}
+        />
+        :
+        <LoginPanel
+          handleLogin={handleUsernameChange}
+        />
+      }
     </>
   )
 }

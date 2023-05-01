@@ -18,6 +18,10 @@ html,body,#root {
   overflow: hidden
 }
 
+input:-webkit-autofill {
+  -webkit-background-clip: text; /* disable color change upon autofilling */
+}
+
 * {
   -webkit-tap-highlight-color: transparent;
   font-family: 'Montserrat', sans-serif;
