@@ -26,4 +26,4 @@ You may also see any lint errors in the console.
 
 Builds the app for production and commits it to the `gh-pages` branch.\
 It correctly bundles React in production mode and optimizes the build for the best performance.\
-The app can be then accessed at [https://antix.github.io/SUS-UI](https://antix.github.io/SUS-UI)
+The app can be then accessed at [https://antix7.github.io/SUS-UI](https://antix7.github.io/SUS-UI)
