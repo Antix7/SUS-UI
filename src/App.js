@@ -16,16 +16,21 @@ export default function App() {
     setUsername(null);
   }
 
+  function handleLogin(username, token) {
+    setUsername(username);
+    localStorage.setItem("token", token);
+  }
+
   return (
     <>
       {username ?
         <AdminPanel
-          username={username+"@burza"}
+          username={`${username}@${process.env.REACT_APP_ORGANISATION_NAME}`}
           handleLogout={handleLogout}
         />
         :
         <LoginPanel
-          handleLogin={setUsername}
+          handleLogin={handleLogin}
         />
       }
     </>

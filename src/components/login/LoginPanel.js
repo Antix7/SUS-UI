@@ -12,10 +12,10 @@ export default function LoginPanel({ handleLogin }) {
     const form = e.target;
     const formData = new FormData(form);
 
-    axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/auth`, formData)
+    axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/auth`, formData, {withCredentials: false})
       .then((response) => {
         setErrorMessage(response.data.message);
-        if(response.data.success) handleLogin(form.nick.value);
+        if(response.data.success) handleLogin(form.nick.value, response.data.token);
       })
       .catch((error) => {
         setErrorMessage("Wystąpił błąd w komunikacji z serwerem")

@@ -1,5 +1,55 @@
-export default function ZmienHaslo() {
+import {useState} from "react";
+import axios from "axios";
+import authHeader from "../../authHeader";
+
+export default function ZmienHaslo({ handleLogout }) {
+
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    if(form.password_new1.value !== form.password_new2.value) {
+      setErrorMessage("Hasła nie są takie same");
+      return;
+    }
+    if(form.password_old.value === form.password_new1.value) {
+      setErrorMessage("Nowe hasło musi być inne od poprzedniego");
+      return;
+    }
+
+    const formData = new FormData(form);
+
+    await axios.post(
+      `${process.env.REACT_APP_SERVER_DOMAIN}/zmien_haslo`,
+      formData,
+      {headers: authHeader()})
+      .then((response) => {
+        setErrorMessage(response.data.message);
+        if(response.data.success) {
+          setErrorMessage("Hasło zostało zmienione pomyślnie");
+          // delay(1000);
+          // handleLogout();
+        }
+      }).catch((error) => {
+        setErrorMessage("Wystąpił błąd w komunikacji z serwerem")
+        console.log(error);
+      });
+  }
+
   return (<>
-    <p>Zmiana hasla</p>
+    <p className="contentTitle">Zmiana hasła</p>
+    <form
+      id="passwordChangeForm"
+      onSubmit={handleSubmit}
+    >
+      <input name="password_old" type="password" placeholder="Stare hasło"/>
+      <input name="password_new1" type="password" placeholder="Nowe hasło"/>
+      <input name="password_new2" type="password" placeholder="Powtórz nowe hasło"/>
+      <p id="errorMessage">{errorMessage}</p>
+      <button type="submit" id="submitButton">Zmień hasło</button>
+    </form>
   </>)
 }
