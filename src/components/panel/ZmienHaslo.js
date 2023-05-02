@@ -6,8 +6,7 @@ export default function ZmienHaslo({ handleLogout }) {
 
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const delay = ms => new Promise(res => setTimeout(res, ms));
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
 
     const form = e.target;
@@ -22,16 +21,16 @@ export default function ZmienHaslo({ handleLogout }) {
 
     const formData = new FormData(form);
 
-    await axios.post(
+    axios.post(
       `${process.env.REACT_APP_SERVER_DOMAIN}/zmien_haslo`,
       formData,
-      {headers: authHeader()})
+      {headers: authHeader()}
+    )
       .then((response) => {
         setErrorMessage(response.data.message);
         if(response.data.success) {
           setErrorMessage("Hasło zostało zmienione pomyślnie");
-          // delay(1000);
-          // handleLogout();
+          // TODO handle logging out after password reset
         }
       }).catch((error) => {
         setErrorMessage("Wystąpił błąd w komunikacji z serwerem")

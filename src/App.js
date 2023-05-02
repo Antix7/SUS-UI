@@ -8,17 +8,13 @@ export default function App() {
 
   const [username, setUsername] = useState(null);
 
-  function handleLogout() {
-    axios.get(`${process.env.REACT_APP_SERVER_DOMAIN}/wyloguj`)
-      .catch((error) => {
-        console.log(error);
-      });
-    setUsername(null);
-  }
-
   function handleLogin(username, token) {
     setUsername(username);
-    localStorage.setItem("token", token);
+    sessionStorage.setItem("token", token);
+  }
+  function handleLogout() {
+    setUsername(null);
+    sessionStorage.removeItem("token");
   }
 
   return (
