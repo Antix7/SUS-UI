@@ -49,6 +49,7 @@ export default function GeneratorKluczy() {
           name="data"
           type="date"/>
       </div>
+      <p>Zostaw dd.mm.rrrr aby konto nie wygasło</p>
 
       <button className="button" type="submit" id="submitButton">Generuj klucz</button>
     </form>
