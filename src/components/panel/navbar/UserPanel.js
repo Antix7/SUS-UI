@@ -1,4 +1,4 @@
-import ZmienHaslo from "../ZmienHaslo";
+import ZmienHaslo from "../pages/ZmienHaslo";
 
 export default function UserPanel({ username, handleNavbarButtonClick, handleLogout }) {
   return (

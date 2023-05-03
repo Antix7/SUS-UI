@@ -1,10 +1,11 @@
 import {useState} from "react";
 import axios from "axios";
-import authHeader from "../../authHeader";
+import authHeader from "../../../authHeader";
+import "../../css/contentPage.css"
 
 export default function ZmienHaslo({ handleLogout }) {
 
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("\u00A0");
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -24,7 +25,7 @@ export default function ZmienHaslo({ handleLogout }) {
     axios.post(
       `${process.env.REACT_APP_SERVER_DOMAIN}/zmien_haslo`,
       formData,
-      {headers: authHeader()}
+      {headers: authHeader()} // passing JWT
     )
       .then((response) => {
         setErrorMessage(response.data.message);
@@ -38,17 +39,30 @@ export default function ZmienHaslo({ handleLogout }) {
       });
   }
 
-  return (<>
+  return (<div className="contentDiv">
     <p className="contentTitle">Zmiana hasła</p>
     <form
       id="passwordChangeForm"
       onSubmit={handleSubmit}
     >
-      <input name="password_old" type="password" placeholder="Stare hasło"/>
-      <input name="password_new1" type="password" placeholder="Nowe hasło"/>
-      <input name="password_new2" type="password" placeholder="Powtórz nowe hasło"/>
+      <input
+        className="textInput"
+        name="password_old"
+        type="password"
+        placeholder="Stare hasło"/>
+      <input
+        className="textInput"
+        name="password_new1"
+        type="password"
+        placeholder="Nowe hasło"/>
+      <input
+        className="textInput"
+        name="password_new2"
+        type="password"
+        placeholder="Powtórz nowe hasło"/>
+
       <p id="errorMessage">{errorMessage}</p>
-      <button type="submit" id="submitButton">Zmień hasło</button>
+      <button className="button" type="submit" id="submitButton">Zmień hasło</button>
     </form>
-  </>)
+  </div>)
 }

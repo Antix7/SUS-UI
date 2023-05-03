@@ -18,10 +18,6 @@ html,body,#root {
   overflow: hidden
 }
 
-/*input:-webkit-autofill {*/
-/*  -webkit-background-clip: text; !* disable color change upon autofilling *!*/
-/*}*/
-
 * {
   -webkit-tap-highlight-color: transparent;
   font-family: 'Montserrat', sans-serif;
@@ -34,6 +30,16 @@ button {
   cursor: pointer;
 }
 
+#adminPanel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+}
+
 #content {
-  padding: 20px;
+  flex: 1;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
 }

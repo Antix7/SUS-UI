@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import "./Navbar.css"
 import UserPanel from "./UserPanel";
-import WyswietlSprzet from "../WyswietlSprzet";
-import DodajSprzet from "../DodajSprzet";
-import GeneratorKluczy from "../GeneratorKluczy";
-import ListaUzytkownikow from "../ListaUzytkownikow";
-import Query from "../Query";
+import WyswietlSprzet from "../pages/WyswietlSprzet";
+import DodajSprzet from "../pages/DodajSprzet";
+import GeneratorKluczy from "../pages/GeneratorKluczy";
+import ListaUzytkownikow from "../pages/ListaUzytkownikow";
+import Query from "../pages/Query";
 import MenuButton from "./MenuButton";
 import Sidepanel from "./Sidepanel";
 
