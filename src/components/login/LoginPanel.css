@@ -53,7 +53,6 @@ p {
 }
 
 #loginErrorMessage {
-  /*width: 350px;*/
   text-align: center;
   background-color: var(--darker2);
   color: red;

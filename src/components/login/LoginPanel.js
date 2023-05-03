@@ -6,14 +6,14 @@ import "../css/input.css";
 
 export default function LoginPanel({ handleLogin }) {
 
-  const [errorMessage, setErrorMessage] = useState("\u00A0");
+  const [errorMessage, setErrorMessage] = useState(null);
 
   function handleSubmit(e) {
     e.preventDefault();
 
     const form = e.target;
     const formData = new FormData(form);
-    handleLogin(form.username.value, ""); // for mobile testing with GitHub Pages
+    // handleLogin(form.username.value, ""); // for mobile testing with GitHub Pages
 
     axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/auth`, formData)
       .then((response) => {
@@ -29,7 +29,7 @@ export default function LoginPanel({ handleLogin }) {
   return (
     <div id="loginPanel">
       <div id="loginBox">
-        <p id="loginTitle">Logowanie do SUS</p>
+        <p id="loginTitle">Logowanie do&nbsp;SUS</p>
         <form id="loginForm" onSubmit={handleSubmit}>
           <input
             className="textInput loginInput"
