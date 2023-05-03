@@ -18,6 +18,14 @@
   width: min(250px, 80vw);
 }
 
+.textareaInput {
+  font-family: monospace;
+  border: 1px solid #000 !important;
+  border-radius: 7px;
+  padding: 7px;
+  width: min(500px, 90vw);
+}
+
 .inputGroup {
   display: flex;
   justify-content: center;
