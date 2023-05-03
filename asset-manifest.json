@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/SUS-UI/static/css/main.034875a3.css",
-    "main.js": "/SUS-UI/static/js/main.e0d3ab11.js",
+    "main.css": "/SUS-UI/static/css/main.93748f27.css",
+    "main.js": "/SUS-UI/static/js/main.c06594d9.js",
     "index.html": "/SUS-UI/index.html",
-    "main.034875a3.css.map": "/SUS-UI/static/css/main.034875a3.css.map",
-    "main.e0d3ab11.js.map": "/SUS-UI/static/js/main.e0d3ab11.js.map"
+    "main.93748f27.css.map": "/SUS-UI/static/css/main.93748f27.css.map",
+    "main.c06594d9.js.map": "/SUS-UI/static/js/main.c06594d9.js.map"
   },
   "entrypoints": [
-    "static/css/main.034875a3.css",
-    "static/js/main.e0d3ab11.js"
+    "static/css/main.93748f27.css",
+    "static/js/main.c06594d9.js"
   ]
 }
