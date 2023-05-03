@@ -10,7 +10,7 @@
 .contentTitle {
   font-weight: bold;
   font-size: 20px;
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
 .textInput {
@@ -18,14 +18,26 @@
   width: min(250px, 80vw);
 }
 
+.inputGroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 7px;
+}
+
+#dateInput {
+  display: inline;
+  width: 120px;
+  margin: 0 8px;
+}
+
 #errorMessage {
   background-color: var(--background);
   text-align: center;
   color: red;
   font-size: 15px;
-  margin: 5px 0;
 }
 
 #submitButton {
-  margin-top: 5px;
+  margin: 15px 0;
 }

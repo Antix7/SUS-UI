@@ -5,7 +5,7 @@ import "../../css/contentPage.css"
 
 export default function ZmienHaslo({ handleLogout }) {
 
-  const [errorMessage, setErrorMessage] = useState("\u00A0");
+  const [errorMessage, setErrorMessage] = useState(null);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -61,8 +61,8 @@ export default function ZmienHaslo({ handleLogout }) {
         type="password"
         placeholder="Powtórz nowe hasło"/>
 
-      <p id="errorMessage">{errorMessage}</p>
       <button className="button" type="submit" id="submitButton">Zmień hasło</button>
     </form>
+    <p id="errorMessage">{errorMessage}</p>
   </div>)
 }
