@@ -13,7 +13,7 @@ export default function LoginPanel({ handleLogin }) {
 
     const form = e.target;
     const formData = new FormData(form);
-    // handleLogin(form.username.value, ""); // for mobile testing with GitHub Pages
+    handleLogin(form.username.value, ""); // for mobile testing with GitHub Pages
 
     axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/auth`, formData)
       .then((response) => {
