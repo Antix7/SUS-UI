@@ -17,6 +17,7 @@ p {
 #loginBox {
   text-align: center;
   background-color: var(--darker2);
+  width: min(70vw, 350px);
   padding: 40px 40px 30px 40px;
   border-radius: 15px;
   box-shadow: 0 15px 25px rgba(0,0,0,.1);
@@ -52,7 +53,7 @@ p {
 }
 
 #loginErrorMessage {
-  width: 350px;
+  /*width: 350px;*/
   text-align: center;
   background-color: var(--darker2);
   color: red;
