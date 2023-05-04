@@ -9,11 +9,18 @@
 .contentDiv {
   height: 100%;
 }
+@media only screen and (min-width: 768px) {
+  .contentDiv {
+    position: relative;
+    top: -50px;
+    background-color: transparent;
+  }
+}
 
 .contentTitle {
   font-weight: bold;
   font-size: 20px;
-  margin: 10px 0;
+  margin: 5px 0 10px 0;
 }
 
 .textInput {
@@ -83,12 +90,6 @@ td {
 }
 tr:nth-child(odd) > * {
   background-color: var(--darker1);
-}
-
-@media only screen and (min-width: 768px) {
-  table {
-    width: auto;
-  }
 }
 
 ::-webkit-scrollbar {
