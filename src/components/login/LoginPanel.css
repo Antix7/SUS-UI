@@ -59,3 +59,63 @@ p {
   font-size: 15px;
   margin: 5px 0;
 }
+
+
+
+
+.activateInput {
+  width: 90%;
+  margin: 0 auto 15px auto;
+}
+
+#toggleActivate {
+  background-color: var(--darker4);
+  font-size: 16px;
+  padding: 8px 12px;
+  margin-top: 15px;
+  border-radius: 4px;
+}
+#toggleActivate:hover {
+  background-color: var(--darker5);
+}
+#toggleActivate:active {
+  background-color: var(--darker6);
+}
+#activateButton {
+  background-color: var(--darker4);
+  font-size: 16px;
+  padding: 8px 12px;
+  margin-top: 15px;
+  border-radius: 4px;
+}
+#activateButton:hover {
+  background-color: var(--darker5);
+}
+#activateButton:active {
+  background-color: var(--darker6);
+}
+
+#activateForm {
+  background-color: var(--darker2);
+  padding-top: 1em;
+}
+
+#activateForm > * {
+  background-color: var(--darker2);
+}
+
+#activateErrorMessage {
+  text-align: center;
+  background-color: var(--darker2);
+  color: red;
+  font-size: 15px;
+  margin: 5px 0;
+}
+
+#activateSuccessMessage {
+  text-align: center;
+  background-color: var(--darker2);
+  color: limegreen;
+  font-size: 15px;
+  margin: 5px 0;
+}
