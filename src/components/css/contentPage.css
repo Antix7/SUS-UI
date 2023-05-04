@@ -2,6 +2,7 @@
 @import "button.css";
 
 .contentDiv, .contentDiv form {
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,18 +52,27 @@
 }
 
 table {
+  display:block;
   width: 90vw;
+  height: 90%;
+  overflow-y:scroll;
   margin: 10px;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: darkorange;
 }
 th, td {
   text-align: left;
   padding: 2px 6px;
   border: 0 black solid;
+  background-color: darkorange;
 }
 th {
+  position: sticky;
+  top: 0;
   font-size: 13px;
   vertical-align: bottom;
+  border-bottom: 1px black solid;
 }
 td {
   vertical-align: top;
@@ -72,4 +82,24 @@ td {
   table {
     width: auto;
   }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
