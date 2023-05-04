@@ -21,7 +21,10 @@ export default function GeneratorKluczy() {
       {headers: authHeader()} // passing JWT
     )
       .then((response) => {
-        setKey(response.data.klucz);
+        if(!response.data.success)
+          setErrorMessage(response.data.message);
+        else
+          setKey(response.data.klucz);
       }).catch((error) => {
       setErrorMessage("Wystąpił błąd w komunikacji z serwerem")
       console.log(error);
