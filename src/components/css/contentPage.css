@@ -108,8 +108,8 @@ td {
 .accordion {
   overflow: hidden;
   transition: height 0.2s ease-out;
-  padding: 2px 6px;
+  padding: 0;
 }
 .accordionTD {
-  padding: 0;
+  padding: 2px 6px;
 }
