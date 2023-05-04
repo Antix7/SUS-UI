@@ -88,9 +88,9 @@ th {
 td {
   vertical-align: top;
 }
-tr:nth-child(odd) > * {
-  background-color: var(--darker1);
-}
+/*tr:nth-child(odd) > * {*/
+/*  background-color: var(--darker1);*/
+/*}*/
 
 ::-webkit-scrollbar {
   width: 10px;
@@ -103,4 +103,13 @@ tr:nth-child(odd) > * {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.accordion {
+  overflow: hidden;
+  transition: height 0.2s ease-out;
+  padding: 2px 6px;
+}
+.accordionTD {
+  padding: 0;
 }

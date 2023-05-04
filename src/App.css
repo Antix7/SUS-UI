@@ -45,6 +45,11 @@ button {
   justify-content: center;
 }
 
+.test {
+  position: fixed;
+  background-color: aqua;
+  width: 100%;
+}
 
 
 /*.loadingIcon {*/
