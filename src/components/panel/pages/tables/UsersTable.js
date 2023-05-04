@@ -2,7 +2,7 @@ function UsersHeader() {
   const headers = ["Nazwa", "Admin", "Aktywne"];
   return (
     <thead>
-      <tr>
+      <tr id="tableHeaderRow">
         {headers.map(header => <th>{header}</th>)}
       </tr>
     </thead>

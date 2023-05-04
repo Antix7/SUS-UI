@@ -2,10 +2,12 @@
 @import "button.css";
 
 .contentDiv, .contentDiv form {
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.contentDiv {
+  height: 100%;
 }
 
 .contentTitle {
@@ -53,29 +55,34 @@
 
 table {
   display:block;
-  width: 90vw;
+  width: auto;
+  max-width: 100vw;
   height: 90%;
-  overflow-y:scroll;
-  margin: 10px;
-  border-collapse: separate;
+  overflow-y:auto;
+  overflow-x: auto;
+  margin: 0 0 0 10px;
   border-spacing: 0;
-  background-color: darkorange;
 }
 th, td {
   text-align: left;
   padding: 2px 6px;
-  border: 0 black solid;
-  background-color: darkorange;
+  margin: 0;
 }
 th {
   position: sticky;
   top: 0;
   font-size: 13px;
   vertical-align: bottom;
-  border-bottom: 1px black solid;
+  background-color: var(--darker4) !important;
+}
+#tableHeaderRow {
+  background-color: var(--darker4);
 }
 td {
   vertical-align: top;
+}
+tr:nth-child(odd) > * {
+  background-color: var(--darker1);
 }
 
 @media only screen and (min-width: 768px) {
@@ -84,22 +91,15 @@ td {
   }
 }
 
-/* width */
 ::-webkit-scrollbar {
   width: 10px;
 }
-
-/* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--background);
 }
-
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: #888;
 }
-
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
