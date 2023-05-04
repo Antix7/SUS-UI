@@ -1,3 +1,6 @@
+import Cross from "../../Cross";
+import Checkmark from "../../Checkmark";
+
 function UsersHeader() {
   const headers = ["Nazwa", "Admin", "Aktywne"];
   return (
@@ -12,8 +15,8 @@ function UsersRow({ object }) {
   return (
     <tr>
       <td>{object.username}</td>
-      <td>{object.czy_admin ? "\u2714" : "\u2717"}</td>
-      <td>{new Date() < new Date(object.data_wygasniecia) || object.data_wygasniecia===null ? "\u2714" : "\u2717"}</td>
+      <td>{object.czy_admin ? <Checkmark/> : <Cross/>}</td>
+      <td>{new Date() < new Date(object.data_wygasniecia) || object.data_wygasniecia===null ? <Checkmark/> : <Cross/>}</td>
     </tr>
   )
 }
