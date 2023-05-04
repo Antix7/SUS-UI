@@ -26,7 +26,7 @@ export default function Query() {
       }).catch((error) => {
       setErrorMessage("Wystąpił błąd w komunikacji z serwerem")
       console.log(error);
-    });
+      });
   }
 
   return (<div className="contentDiv">

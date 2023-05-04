@@ -35,7 +35,7 @@
 
 #dateInput {
   display: inline;
-  width: 120px;
+  width: 130px;
   margin: 0 8px;
 }
 
@@ -48,4 +48,28 @@
 
 #submitButton {
   margin: 15px 0;
+}
+
+table {
+  width: 90vw;
+  margin: 10px;
+  border-collapse: collapse;
+}
+th, td {
+  text-align: left;
+  padding: 2px 6px;
+  border: 0 black solid;
+}
+th {
+  font-size: 13px;
+  vertical-align: bottom;
+}
+td {
+  vertical-align: top;
+}
+
+@media only screen and (min-width: 768px) {
+  table {
+    width: auto;
+  }
 }

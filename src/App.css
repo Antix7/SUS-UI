@@ -43,3 +43,16 @@ button {
   display: flex;
   justify-content: center;
 }
+
+/*.loadingIcon {*/
+/*  background-color: transparent;*/
+/*  animation-name:rotate;*/
+/*  animation-duration: 2s;*/
+/*  animation-iteration-count: infinite;*/
+/*  animation-timing-function: linear;*/
+/*}*/
+/*@keyframes rotate{*/
+/*  100%{*/
+/*    transform:rotate(360deg);*/
+/*  }*/
+/*}*/
