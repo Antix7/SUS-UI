@@ -37,7 +37,10 @@ export default function ListaUzytkownikow() {
     {responseData ?
       <UsersTable array={responseData}/>
       :
-      <LoadingIcon/>
+      errorMessage ?
+          null
+          :
+          <LoadingIcon/>
     }
 
   </div>)
