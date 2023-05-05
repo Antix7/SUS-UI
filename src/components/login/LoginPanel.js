@@ -2,7 +2,7 @@ import {useState} from "react";
 import axios from "axios";
 import "./LoginPanel.css";
 import "../css/input.css";
-import AccordionDiv from "../AccordionDiv";
+import Accordion from "../Accordion";
 
 
 export default function LoginPanel({ handleLogin }) {
@@ -73,7 +73,7 @@ export default function LoginPanel({ handleLogin }) {
           <button type="submit" id="loginButton">Zaloguj</button>
         </form>
 
-        <AccordionDiv trigger={<button id="toggleActivate">Aktywuj konto</button>}>
+        <Accordion triggerContent={<button id="toggleActivate">Aktywuj konto</button>}>
           <form id="activateForm" onSubmit={handleActivateSubmit}>
             <input
                 className="textInput activateInput"
@@ -105,7 +105,7 @@ export default function LoginPanel({ handleLogin }) {
             <p id="activateSuccessMessage">{activateSuccessMessage}</p>
             <button type="submit" id="activateButton">Zaloguj</button>
           </form>
-        </AccordionDiv>
+        </Accordion>
     </div>
   </div>
   )
