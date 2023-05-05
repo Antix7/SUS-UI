@@ -83,7 +83,7 @@ th {
   background-color: var(--darker4) !important;
 }
 #tableHeaderRow {
-  background-color: var(--darker4);
+  background-color: var(--darker3);
 }
 tr:nth-child(2n+1) > * {
   vertical-align: top;
