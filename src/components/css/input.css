@@ -2,7 +2,8 @@
   display: block;
   font-size: 15px;
   background: transparent;
-  border: none;
+  border: 1px solid #666;
+  border-radius: 20px;
+  padding: 4px 12px;
   outline: none;
-  border-bottom: 1px solid #000;
 }
