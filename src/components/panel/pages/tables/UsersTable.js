@@ -7,23 +7,33 @@ function UsersHeader() {
   return (
     <thead>
       <tr id="tableHeaderRow">
-        {headers.map(header => <th>{header}</th>)}
+        {headers.map(header => <th key={header}>{header}</th>)}
       </tr>
     </thead>
   )
 }
 function UsersRowCells({ object }) {
-  return ( <>
-    <td>{object.username}</td>
-    <td>{object.czy_admin ? <Checkmark/> : <Cross/>}</td>
-    <td>{new Date() < new Date(object.data_wygasniecia) || object.data_wygasniecia===null ? <Checkmark/> : <Cross/>}</td>
+  return (<>
+    <td key={object.username}>{object.username}</td>
+    <td key={object.username + "_Admin"}>{object.czy_admin ? <Checkmark/> : <Cross/>}</td>
+    <td key={object.username + "_Aktywne"}>{
+      new Date() < new Date(object.data_wygasniecia) || object.data_wygasniecia===null ?
+        <Checkmark/> :
+        <Cross/>
+    }</td>
   </>)
 }
-export default function UsersTable({ array }) { // TODO add keys
+function UsersRowAccordionContent({ object }) {
+  return (<>
+    <p>{`Adres e-mail: ${object.adres_email ? object.adres_email : "-"}`}</p>
+    <p>{`Data wygaśnięcia: ${object.data_wygasniecia ? 
+      new Date(object.data_wygasniecia).toLocaleDateString() 
+      : "-"}`}
+    </p>
+  </>)
 
-  function Junk() {
-    return <div className="junk">dsdfsddsfdfsdfsdfsdfsfdsdfsdffgdhdfgjhkjlkuyjhgffdggfdfsfsdfsdf</div>
-  }
+}
+export default function UsersTable({ array }) { // TODO add keys
 
   return (
     <table id="usersTable">
@@ -31,8 +41,10 @@ export default function UsersTable({ array }) { // TODO add keys
       <tbody>
       {array.map(row => <TableAccordion
         triggerContent={<UsersRowCells object={row}/>}
-        panelContent={<Junk/>}
+        panelContent={<UsersRowAccordionContent object={row}/>}
         colSpan={3}
+        Key={row.username}
+        key={row.username}
       />)}
       </tbody>
     </table>
