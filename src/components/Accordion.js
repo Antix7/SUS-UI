@@ -14,15 +14,15 @@ export default function Accordion({ triggerContent, triggerClass, children }) {
 
   return (<>
     <div
-        className={"accordionTrigger " + triggerClass}
-        onClick={()=>setShown(!shown)}
+      className={"accordionTrigger " + triggerClass}
+      onClick={()=>setShown(!shown)}
     >
       {triggerContent}
     </div>
     <div
-        className={"accordionPanel"}
-        ref={panel}
-        style={{height:panelHeight}}
+      className={"accordionPanel"}
+      ref={panel}
+      style={{height:panelHeight}}
     >
       {children}
     </div>
