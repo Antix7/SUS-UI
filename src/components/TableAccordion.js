@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 
-export default function TableAccordion({ triggerContent, triggerClass, panelContent, panelClass, colSpan, Key }) {
+export default function TableAccordion({ triggerContent, triggerClass, children, colSpan, Key }) {
   // I couldn't find a way to make a universal accordion
 
   const [shown, setShown] = useState(false);
@@ -10,8 +10,8 @@ export default function TableAccordion({ triggerContent, triggerClass, panelCont
 
   useEffect(() => {
     setPanelHeight(shown ? panel.current.scrollHeight : 0);
-    setWrapperPadding(shown && panelContent ? 2 : 0)
-  }, [shown, panelContent]);
+    setWrapperPadding(shown && children ? 2 : 0)
+  }, [shown, children]);
 
   return (<>
     <tr
@@ -31,11 +31,11 @@ export default function TableAccordion({ triggerContent, triggerClass, panelCont
         }}
       >
         <div
-          className={"accordionPanel tableAccordionPanel " + panelClass}
+          className={"accordionPanel tableAccordionPanel"}
           ref={panel}
           style={{height:panelHeight}}
         >
-          {panelContent}
+          {children}
         </div>
       </td>
     </tr>

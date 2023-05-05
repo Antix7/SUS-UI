@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import authHeader from "../../../authHeader";
 import "../../css/contentPage.css"
-import Accordion from "../Accordion";
+import Accordion from "../../Accordion";
 
 function DropdownAccordion({ name }) {
 
