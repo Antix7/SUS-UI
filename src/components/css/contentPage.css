@@ -6,15 +6,9 @@
   flex-direction: column;
   align-items: center;
 }
+
 .contentDiv {
   height: 100%;
-}
-@media only screen and (min-width: 768px) {
-  .contentDiv {
-    position: relative;
-    top: -50px;
-    background-color: transparent;
-  }
 }
 
 .contentTitle {
@@ -24,7 +18,7 @@
 }
 
 .textInput {
-  margin: 7px;
+  margin: 6px;
   width: min(250px, 80vw);
 }
 
@@ -115,4 +109,16 @@ tr:nth-child(2n+1) > * {
 }
 .tableAccordionPanel > * {
   overflow-wrap: break-word;
+}
+.disableSelect {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.formLabel {
+  font-weight: bold;
+  margin-top: 10px;
+  margin-left: 15px;
+  margin-right: auto;
 }
