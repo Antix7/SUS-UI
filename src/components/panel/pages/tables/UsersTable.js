@@ -1,6 +1,6 @@
 import Cross from "../../Cross";
 import Checkmark from "../../Checkmark";
-import AccordionRow from "../../AccordionRow";
+import TableAccordion from "../../TableAccordion";
 
 function UsersHeader() {
   const headers = ["Nazwa", "Admin", "Aktywne"];
@@ -22,14 +22,18 @@ function UsersRowCells({ object }) {
 export default function UsersTable({ array }) { // TODO add keys
 
   function Junk() {
-    return <div>dsdfsddsfdfsdfsdfsdfsfdsdfsdffgdhdfgjhkjlkuyjhgffdggfdfsfsdfsdf</div>
+    return <div className="junk">dsdfsddsfdfsdfsdfsdfsfdsdfsdffgdhdfgjhkjlkuyjhgffdggfdfsfsdfsdf</div>
   }
 
   return (
     <table id="usersTable">
       <UsersHeader/>
       <tbody>
-      {array.map(row => <AccordionRow colSpan={3} triggerContent={<UsersRowCells object={row}/>} accordionContent={<Junk/>} />)}
+      {array.map(row => <TableAccordion
+        triggerContent={<UsersRowCells object={row}/>}
+        panelContent={<Junk/>}
+        colSpan={3}
+      />)}
       </tbody>
     </table>
   )
