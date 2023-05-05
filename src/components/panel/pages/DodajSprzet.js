@@ -2,6 +2,13 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import authHeader from "../../../authHeader";
 import "../../css/contentPage.css"
+import Accordion from "../Accordion";
+
+function DropdownAccordion({ name }) {
+
+
+}
+
 
 export default function DodajSprzet() {
 
@@ -24,12 +31,13 @@ export default function DodajSprzet() {
         name="ilosc" id="ilosc"
         type="number"
       />
-      <select name="status_id" className="textInput">
-        <option value="" selected={true} disabled={true} hidden={true}>Status</option>
-        <option value="1">Dostępny</option>
-        <option value="2">Niedostępny</option>
-        <option value="3">Zgubiony💀</option>
-      </select>
+      <Accordion
+        triggerContent={<button className="button" type="button">Kliknij mnie</button>}
+      >
+        <input type="radio" name="q" value="1" id="1"/><label htmlFor="1">opcja 1</label>
+        <input type="radio" name="q" value="2" id="2"/><label htmlFor="2">opcja 2</label>
+        <input type="radio" name="q" value="3" id="3"/><label htmlFor="3">opcja 3</label>
+      </Accordion>
 
     </form>
 
