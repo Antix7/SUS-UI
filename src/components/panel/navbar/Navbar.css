@@ -40,6 +40,8 @@
   padding: 15px 0;
   transition-duration: 0.1s;
   background-color: var(--darker2);
+  text-decoration: none;
+  color: black;
 }
 .sidepanelOption:hover, .sidepanelOption:active {
   text-shadow:0 0 1px black;
