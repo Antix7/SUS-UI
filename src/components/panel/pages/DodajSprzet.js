@@ -10,8 +10,9 @@ function DropdownAccordion({ children, title, selected, data }) {
   return (<>
     <label className="formLabel">{title}</label>
     <Accordion
-      triggerContent={<p className="dropdownAccordionField">{data[selected] ? data[selected] : "Opcje"}</p>}
+      triggerContent={<p className="dropdownAccordionField disableSelect">{data[selected] ? data[selected] : "Opcje"}</p>}
       altTrigger={selected}
+      panelClass="dropdownAccordionPanel"
     >
       {children}
     </Accordion>
@@ -60,13 +61,14 @@ function SprzetForm({ data }) {
         {Object.entries(data["statusy"]).map(([id, nazwa])=> <div key={id} className="disappear">
           {/* these elements need to be wrapped in a disappearing div with key because React doesn't like mapping to multiple components */}
           <input
+            className="radioInput"
             type="radio"
             name="status"
             value={id}
             id={"status"+id} key={"status_"+id}
             onChange={handleFormChange}
           />
-          <label htmlFor={"status"+id} className="radioLabel">
+          <label htmlFor={"status"+id} className="radioLabel disableSelect">
             {nazwa}
           </label><br/>
         </div>)}

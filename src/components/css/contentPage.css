@@ -125,3 +125,17 @@ tr:nth-child(2n+1) > * {
 .disappear {
   display: contents;
 }
+
+.radioInput {
+/* TODO style */
+}
+.radioLabel {
+  font-size: 15px;
+  margin-left: 5px;
+  vertical-align:top;
+}
+
+.dropdownAccordionPanel {
+  margin: 2px 0;
+  width: min(270px, 87vw);
+}
