@@ -59,14 +59,14 @@ function SprzetForm({ data }) {
   return(<>
     <form>
 
-      <label htmlFor="nazwa" className="formLabel">Nazwa</label>
+      <label htmlFor="nazwa" className="formLabel disableSelect">Nazwa</label>
       <input
         className="textInput withLabel"
         name="nazwa" id="nazwa"
         type="text"
       />
 
-      <label htmlFor="ilosc" className="formLabel">Ilość</label>
+      <label htmlFor="ilosc" className="formLabel disableSelect">Ilość</label>
       <input
         className="textInput withLabel"
         name="ilosc" id="ilosc"
@@ -150,6 +150,13 @@ function SprzetForm({ data }) {
         />
       </DropdownAccordion>
 
+      <label htmlFor="opis" className="formLabel disableSelect">Opis</label>
+      <textarea
+        className="textareaInput textInput"
+        name="opis" id="opisInput"
+        placeholder="(opcjonalne)"
+        rows="5"
+      ></textarea>
 
 
 
