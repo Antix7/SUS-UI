@@ -71,6 +71,7 @@ function SprzetForm({ data }) {
         className="textInput withLabel"
         name="ilosc" id="ilosc"
         type="number"
+        defaultValue={1}
       />
 
       <DropdownAccordion
@@ -150,7 +151,7 @@ function SprzetForm({ data }) {
         />
       </DropdownAccordion>
 
-      <label htmlFor="opis" className="formLabel disableSelect">Opis</label>
+      <label htmlFor="opisInput" className="formLabel disableSelect">Opis</label>
       <textarea
         className="textareaInput textInput"
         name="opis" id="opisInput"
