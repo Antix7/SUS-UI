@@ -8,7 +8,7 @@ import LoadingIcon from "../../LoadingIcon";
 function DropdownAccordion({ children, title, selected, data }) {
 
   return (<>
-    <label className="formLabel">{title}</label>
+    <label className="formLabel disableSelect">{title}</label>
     <Accordion
       triggerContent={<p className="dropdownAccordionField disableSelect">{data[selected] ? data[selected] : "Opcje"}</p>}
       altTrigger={selected}
@@ -17,6 +17,26 @@ function DropdownAccordion({ children, title, selected, data }) {
       {children}
     </Accordion>
   </>)
+}
+
+function DropdownOptions({ data, handleFormChange, name }) {
+  return(
+    Object.entries(data).map(([id, nazwa])=> <div key={id} className="disappear">
+        {/* these elements need to be wrapped in a disappearing div with key because React doesn't like mapping to multiple components */}
+        <input
+          className="radioInput"
+          type="radio"
+          name={name}
+          value={id}
+          id={name+id} key={name+id}
+          onChange={handleFormChange}
+        />
+        <label htmlFor={name+id} className="radioLabel disableSelect">
+          {nazwa}
+        </label><br/>
+      </div>)
+  )
+
 }
 
 function SprzetForm({ data }) {
@@ -58,21 +78,79 @@ function SprzetForm({ data }) {
         selected={formdata.status}
         data={data["statusy"]}
       >
-        {Object.entries(data["statusy"]).map(([id, nazwa])=> <div key={id} className="disappear">
-          {/* these elements need to be wrapped in a disappearing div with key because React doesn't like mapping to multiple components */}
-          <input
-            className="radioInput"
-            type="radio"
-            name="status"
-            value={id}
-            id={"status"+id} key={"status_"+id}
-            onChange={handleFormChange}
-          />
-          <label htmlFor={"status"+id} className="radioLabel disableSelect">
-            {nazwa}
-          </label><br/>
-        </div>)}
+        <DropdownOptions
+          name="status"
+          data={data["statusy"]}
+          handleFormChange={handleFormChange}
+        />
       </DropdownAccordion>
+
+
+      <DropdownAccordion
+        title="Kategoria"
+        selected={formdata.kategoria}
+        data={data["kategorie"]}
+      >
+        <DropdownOptions
+          name="kategoria"
+          data={data["kategorie"]}
+          handleFormChange={handleFormChange}
+        />
+      </DropdownAccordion>
+
+      {/*TODO stany*/}
+      {/*<DropdownAccordion*/}
+      {/*  title="Stan"*/}
+      {/*  selected={formdata.stan}*/}
+      {/*  data={data["stany"]}*/}
+      {/*>*/}
+      {/*  <DropdownOptions*/}
+      {/*    name="stan"*/}
+      {/*    data={data["stany"]}*/}
+      {/*    handleFormChange={handleFormChange}*/}
+      {/*  />*/}
+      {/*</DropdownAccordion>*/}
+
+
+      <DropdownAccordion
+        title="Lokalizacja"
+        selected={formdata.lokalizacja}
+        data={data["lokalizacje"]}
+      >
+        <DropdownOptions
+          name="lokalizacja"
+          data={data["lokalizacje"]}
+          handleFormChange={handleFormChange}
+        />
+      </DropdownAccordion>
+
+
+      <DropdownAccordion
+        title="Właściciel"
+        selected={formdata.wlasciciel}
+        data={data["podmioty"]}
+      >
+        <DropdownOptions
+          name="wlasciciel"
+          data={data["podmioty"]}
+          handleFormChange={handleFormChange}
+        />
+      </DropdownAccordion>
+
+
+      <DropdownAccordion
+        title="Użytkownik"
+        selected={formdata.uzytkownik}
+        data={data["podmioty"]}
+      >
+        <DropdownOptions
+          name="uzytkownik"
+          data={data["podmioty"]}
+          handleFormChange={handleFormChange}
+        />
+      </DropdownAccordion>
+
+
 
 
 
@@ -100,7 +178,7 @@ export default function DodajSprzet() {
       });
   }, []);
 
-  return (<div className="contentDiv">
+  return (<div className="contentDiv longForm">
     <p className="contentTitle">Dodawanie sprzętu</p>
     <p id="errorMessage">{errorMessage}</p>
 
