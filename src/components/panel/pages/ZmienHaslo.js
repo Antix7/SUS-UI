@@ -39,7 +39,7 @@ export default function ZmienHaslo({ handleLogout }) {
       });
   }
 
-  return (<div id="content">
+  return (
     <div className="contentDiv">
     <p className="contentTitle">Zmiana hasła</p>
     <form
@@ -65,5 +65,6 @@ export default function ZmienHaslo({ handleLogout }) {
       <button className="button" type="submit" id="submitButton">Zmień hasło</button>
     </form>
     <p id="errorMessage">{errorMessage}</p>
-  </div></div>)
+  </div>
+  )
 }
