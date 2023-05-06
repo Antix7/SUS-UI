@@ -6,7 +6,7 @@ export default function UserPanel({ username, handleNavbarButtonClick, handleLog
       <p id="username">{username}</p><br/>
       <button
         className="userPanelButton"
-        onClick={()=>handleNavbarButtonClick(<ZmienHaslo handleLogout={handleLogout}/>)}
+        onClick={()=>handleNavbarButtonClick('ZmienHaslo')}
       >
         Zmień hasło
       </button>
