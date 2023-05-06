@@ -11,6 +11,7 @@ import DodajSprzet from "./components/panel/pages/DodajSprzet";
 import GeneratorKluczy from "./components/panel/pages/GeneratorKluczy";
 import ListaUzytkownikow from "./components/panel/pages/ListaUzytkownikow";
 import Query from "./components/panel/pages/Query";
+import Welcome from "./components/panel/pages/Welcome";
 
 export default function App() {
   const navigate = useNavigate();
@@ -32,17 +33,6 @@ export default function App() {
 
   return (
     <>
-{/*      {username ?
-        <AdminPanel
-          username={`${username}@${process.env.REACT_APP_ORGANISATION_NAME}`}
-          handleLogout={handleLogout}
-        />
-        :
-        <LoginPanel
-          handleLogin={handleLogin}
-        />
-      }*/}
-
         <Routes>
           <Route path='/' element={
             <LoginPanel
@@ -56,7 +46,7 @@ export default function App() {
                 setUsername={setUsername}
             />
           } >
-            <Route index element={<div id="content"> Witaj w SUSie </div>} />
+            <Route index element={<Welcome username={username}/>} />
             <Route path='ZmienHaslo' element={<ZmienHaslo />} />
             <Route path='WyswietlSprzet' element={<WyswietlSprzet />} />
             <Route path='DodajSprzet' element={<DodajSprzet />} />
