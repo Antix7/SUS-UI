@@ -5,12 +5,11 @@ import "../../css/contentPage.css"
 import Accordion from "../../Accordion";
 import LoadingIcon from "../../LoadingIcon";
 
-function DropdownAccordion({ children, title, selected, data }) {
-
+function DropdownAccordion({ children, title, selected, data, fieldText }) {
   return (<>
     <label className="formLabel disableSelect">{title}</label>
     <Accordion
-      triggerContent={<p className="dropdownAccordionField disableSelect">{data[selected] ? data[selected] : "Opcje"}</p>}
+      triggerContent={<p className="dropdownAccordionField disableSelect">{data[selected] ? data[selected] : fieldText ? fieldText : "Opcje"}</p>}
       altTrigger={selected}
       panelClass="dropdownAccordionPanel"
     >
@@ -99,18 +98,19 @@ function SprzetForm({ data }) {
         />
       </DropdownAccordion>
 
-      {/*TODO stany*/}
-      {/*<DropdownAccordion*/}
-      {/*  title="Stan"*/}
-      {/*  selected={formdata.stan}*/}
-      {/*  data={data["stany"]}*/}
-      {/*>*/}
-      {/*  <DropdownOptions*/}
-      {/*    name="stan"*/}
-      {/*    data={data["stany"]}*/}
-      {/*    handleFormChange={handleFormChange}*/}
-      {/*  />*/}
-      {/*</DropdownAccordion>*/}
+
+      <DropdownAccordion
+        title="Stan"
+        selected={formdata.stan}
+        data={formdata.kategoria ? data["stany"][formdata.kategoria] : {}}
+        fieldText={formdata.kategoria ? "" : "Najpierw wybierz kategorię"}
+      >
+        <DropdownOptions
+          name="stan"
+          data={formdata.kategoria ? data["stany"][formdata.kategoria] : {}}
+          handleFormChange={handleFormChange}
+        />
+      </DropdownAccordion>
 
 
       <DropdownAccordion
