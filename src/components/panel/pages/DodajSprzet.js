@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import authHeader from "../../../authHeader";
 import "../../css/contentPage.css"
@@ -11,6 +11,7 @@ function DropdownAccordion({ children, title, selected, data }) {
     <label className="formLabel">{title}</label>
     <Accordion
       triggerContent={<p className="dropdownAccordionField">{data[selected] ? data[selected] : "Opcje"}</p>}
+      altTrigger={selected}
     >
       {children}
     </Accordion>

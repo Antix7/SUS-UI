@@ -17,7 +17,7 @@
   margin: 5px 0 10px 0;
 }
 
-.textInput {
+.textInput, .dropdownAccordionField {
   margin: 6px;
   width: min(250px, 80vw);
 }

@@ -1,4 +1,4 @@
-.textInput {
+.textInput, .dropdownAccordionField {
   display: block;
   font-size: 15px;
   background: transparent;
