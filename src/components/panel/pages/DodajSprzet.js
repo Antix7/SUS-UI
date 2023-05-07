@@ -148,7 +148,14 @@ function SprzetForm({ data }) {
         name="opis" id="opisInput"
         placeholder="(opcjonalne)"
         rows="5"
-      ></textarea>
+      />
+
+      <label htmlFor="zdjecieInput" className="formLabel disableSelect">Zdjęcie</label>
+      <input
+        className="textInput"
+        type="file" accept="image/*"
+        name="zdjecie" id="zdjecieInput"
+      />
 
 
 

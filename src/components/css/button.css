@@ -1,12 +1,13 @@
-.button {
+.button, ::file-selector-button {
   background-color: var(--darker2);
   font-size: 16px;
   padding: 7px 10px;
   border-radius: 4px;
+  border: none;
 }
-.button:hover {
+.button:hover, ::file-selector-button:hover {
   background-color: var(--darker3);
 }
-.button:active {
+.button:active, ::file-selector-button:active {
   background-color: var(--darker4);
 }
