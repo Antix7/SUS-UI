@@ -18,7 +18,7 @@ function DropdownAccordion({ children, title, selected, data, fieldText }) {
   </>)
 }
 
-function DropdownOptions({ data, handleFormChange, name }) {
+function DropdownOptions({ data, handleFormChange, name, selected }) {
   return(
     Object.entries(data).map(([id, nazwa])=> <div key={id} className="disappear">
         {/* these elements need to be wrapped in a disappearing div with key because React doesn't like mapping to multiple components */}
@@ -54,6 +54,12 @@ function SprzetForm({ data }) {
     nextFormdata[e.target.name] = e.target.value;
     setFormdata(nextFormdata);
   }
+
+  useEffect(() => {
+    const nextFormdata = Object.assign({}, formdata);
+    nextFormdata.stan = 0;
+    setFormdata(nextFormdata);
+  }, [formdata.kategoria]);
 
   return(<>
     <form>

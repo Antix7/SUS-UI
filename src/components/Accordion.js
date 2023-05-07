@@ -13,7 +13,7 @@ export default function Accordion({ triggerContent, triggerClass, panelClass, ch
   }, [shown, children]);
   
   useEffect(() => {
-    setShown(s => !s);
+    setShown(false);
   }, [altTrigger])
 
   return (<>
