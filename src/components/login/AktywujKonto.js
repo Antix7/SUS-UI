@@ -5,11 +5,11 @@ import "../css/input.css";
 import {useNavigate} from "react-router-dom";
 
 
-export default function AktywujKonto({ handleLogin }) {
+export default function AktywujKonto() {
   const navigate = useNavigate();
 
-  const [activateErrorMessage, setActivateErrorMessage] = useState(null);
-  const [activateSuccessMessage, setActivateSuccessMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   function handleActivateSubmit(e) {
     e.preventDefault();
@@ -17,19 +17,24 @@ export default function AktywujKonto({ handleLogin }) {
     const form = e.target;
     const formData = new FormData(form);
 
+    if(form.password1.value !== form.password2.value) {
+      setErrorMessage("Hasła się nie zgadzają");
+      return;
+    }
+
     axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/aktywuj`, formData)
         .then((response) => {
           if(response.data.success) {
-            setActivateSuccessMessage(response.data.message);
-            setActivateErrorMessage(null);
+            setSuccessMessage(response.data.message);
+            setErrorMessage(null);
           }
           else {
-            setActivateErrorMessage(response.data.message);
-            setActivateSuccessMessage(null);
+            setErrorMessage(response.data.message);
+            setSuccessMessage(null);
           }
         })
         .catch((error) => {
-          setActivateErrorMessage("Wystąpił błąd w komunikacji z serwerem")
+          setErrorMessage("Wystąpił błąd w komunikacji z serwerem")
           console.log(error);
         });
   }
@@ -71,8 +76,8 @@ export default function AktywujKonto({ handleLogin }) {
                   type="password"
                   placeholder="Powtórz hasło"/>
 
-              <p id="activateErrorMessage">{activateErrorMessage}</p>
-              <p id="activateSuccessMessage">{activateSuccessMessage}</p>
+              <p id="activateErrorMessage">{errorMessage}</p>
+              <p id="activateSuccessMessage">{successMessage}</p>
               <button type="submit" id="activateButton">Aktywuj</button>
             </form>
           <button className="goBackButton" onClick={handleGoBack}>Wróć</button>
