@@ -58,7 +58,7 @@ function DropdownAccordionWithOptions({ title, selected, data, fieldText, handle
 }
 
 
-function SprzetForm({ data }) {
+function SprzetForm({ data, handleSubmit }) {
 
   const [formdata, setFormdata] = useState({
     status: 0,
@@ -82,7 +82,7 @@ function SprzetForm({ data }) {
   }, [formdata.kategoria]);
 
   return(<>
-    <form>
+    <form id="dodajSprzetForm" onSubmit={handleSubmit}>
 
       <label htmlFor="nazwa" className="formLabel disableSelect">Nazwa</label>
       <input
@@ -157,8 +157,7 @@ function SprzetForm({ data }) {
         name="zdjecie" id="zdjecieInput"
       />
 
-
-
+      <button className="button" type="submit" id="submitButton">Dodaj</button>
 
     </form>
   </>)
@@ -184,12 +183,32 @@ export default function DodajSprzet() {
       });
   }, []);
 
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    axios.post(
+      `${process.env.REACT_APP_SERVER_DOMAIN}/dodaj`,
+      formData,
+      {headers: authHeader()}
+    )
+      .then((response) => {
+        if(response.data.success) setErrorMessage("Dodano przedmiot do bazy danych");
+        else setErrorMessage(response.data.message);
+      }).catch((error) => {
+      setErrorMessage("Wystąpił błąd w komunikacji z serwerem")
+      console.log(error);
+    });
+  }
+
   return (<div className="contentDiv longForm">
     <p className="contentTitle">Dodawanie sprzętu</p>
     <p id="errorMessage">{errorMessage}</p>
 
     {data && !errorMessage ?
-      <SprzetForm data={data}/>
+      <SprzetForm data={data} handleSubmit={handleSubmit}/>
       :
       <LoadingIcon/>
     }

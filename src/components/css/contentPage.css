@@ -152,7 +152,7 @@ tr:nth-child(2n+1) > * {
 
 ::file-selector-button {
   border-radius: 8px;
-  padding: 4px 7px;
+  padding: 3px 7px;
   margin: 2px 5px 2px -7px;
   background-color: var(--darker3);
 }
