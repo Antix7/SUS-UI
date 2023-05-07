@@ -12,6 +12,7 @@ import GeneratorKluczy from "./components/panel/pages/GeneratorKluczy";
 import ListaUzytkownikow from "./components/panel/pages/ListaUzytkownikow";
 import Query from "./components/panel/pages/Query";
 import Welcome from "./components/panel/pages/Welcome";
+import AktywujKonto from "./components/login/AktywujKonto";
 
 export default function App() {
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ export default function App() {
                 handleLogin={handleLogin}
             />
           } />
+          <Route path='/AktywujKonto' element={<AktywujKonto />} />
           <Route path='/Panel' element={
             <AdminPanel
                 username={`${username}@${process.env.REACT_APP_ORGANISATION_NAME}`}

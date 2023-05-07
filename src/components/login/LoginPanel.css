@@ -83,7 +83,7 @@ p {
 }
 #activateButton {
   background-color: var(--darker4) !important;
-  font-size: 16px;
+  font-size: 20px;
   padding: 8px 12px;
   margin-top: 15px;
   border-radius: 4px;
@@ -118,4 +118,19 @@ p {
   color: limegreen;
   font-size: 15px;
   margin: 5px 0;
+}
+
+
+.goBackButton {
+  background-color: var(--darker4) !important;
+  font-size: 16px;
+  padding: 8px 12px;
+  margin-top: 15px;
+  border-radius: 4px;
+}
+.goBackButton:hover {
+  background-color: var(--darker5);
+}
+.goBackButton:active {
+  background-color: var(--darker6);
 }
