@@ -27,7 +27,7 @@ function UsersRowAccordionContent({ object }) {
   return (<>
     <p>{`Adres e-mail: ${object.adres_email ? object.adres_email : "-"}`}</p>
     <p>{`Data wygaśnięcia: ${object.data_wygasniecia ? 
-      new Date(object.data_wygasniecia).toLocaleDateString() 
+      new Date(object.data_wygasniecia).toLocaleDateString('en-GB')
       : "-"}`}
     </p>
   </>)

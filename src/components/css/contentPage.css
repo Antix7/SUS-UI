@@ -17,16 +17,16 @@
   margin: 5px 0 10px 0;
 }
 
-.textInput {
+.textInput, .dropdownAccordionField {
   margin: 6px;
   width: min(250px, 80vw);
 }
 
 .textareaInput {
   font-family: monospace;
-  border: 1px solid #000 !important;
-  border-radius: 7px;
-  padding: 7px;
+  border: 1px solid #666 !important;
+  border-radius: 10px !important;
+  padding: 7px !important;
   width: min(500px, 90vw);
 }
 
@@ -85,7 +85,7 @@ tr:nth-child(2n+1) > * {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 0;
 }
 ::-webkit-scrollbar-track {
   background: var(--background);
@@ -122,3 +122,39 @@ tr:nth-child(2n+1) > * {
   margin-left: 15px;
   margin-right: auto;
 }
+.disappear {
+  display: contents;
+}
+
+.radioInput {
+/* TODO style */
+}
+.radioLabel {
+  /*margin: 5px 0;*/
+  font-size: 15px;
+  margin-left: 5px;
+  vertical-align:top;
+}
+
+.dropdownAccordionPanel {
+  margin: 2px 0;
+  width: min(270px, 87vw);
+}
+.longForm {
+  overflow-y: scroll;
+  width: 100%;
+}
+#opisInput {
+  font-family: inherit;
+  width: min(260px, 80vw);
+  resize: none;
+}
+
+::file-selector-button {
+  border-radius: 8px;
+  padding: 3px 7px;
+  margin: 2px 5px 2px -7px;
+  background-color: var(--darker3);
+}
+::file-selector-button:hover {background-color: var(--darker4)}
+::file-selector-button:active {background-color: var(--darker5)}
