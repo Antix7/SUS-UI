@@ -1,10 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import AdminPanel from "./components/panel/AdminPanel";
 import LoginPanel from "./components/login/LoginPanel";
-import axios from "axios";
-import authHeader from "./authHeader";
-import {BrowserRouter, Route, Routes, useNavigate} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import ZmienHaslo from "./components/panel/pages/ZmienHaslo";
 import WyswietlSprzet from "./components/panel/pages/WyswietlSprzet";
 import DodajSprzet from "./components/panel/pages/DodajSprzet";
@@ -23,7 +21,7 @@ export default function App() {
     setUsername(username);
     sessionStorage.setItem("username", username);
     sessionStorage.setItem("token", token);
-    navigate('/Panel');
+    navigate('/panel');
   }
   function handleLogout() {
     setUsername(null);
@@ -40,21 +38,21 @@ export default function App() {
                 handleLogin={handleLogin}
             />
           } />
-          <Route path='/AktywujKonto' element={<AktywujKonto />} />
-          <Route path='/Panel' element={
+          <Route path='/aktywuj_konto' element={<AktywujKonto />} />
+          <Route path='/panel' element={
             <AdminPanel
                 username={`${username}@${process.env.REACT_APP_ORGANISATION_NAME}`}
                 handleLogout={handleLogout}
                 setUsername={setUsername}
             />
-          } >
+          }>
             <Route index element={<Welcome username={username}/>} />
-            <Route path='ZmienHaslo' element={<ZmienHaslo />} />
-            <Route path='WyswietlSprzet' element={<WyswietlSprzet />} />
-            <Route path='DodajSprzet' element={<DodajSprzet />} />
-            <Route path='GeneratorKluczy' element={<GeneratorKluczy />} />
-            <Route path='ListaUzytkownikow' element={<ListaUzytkownikow />} />
-            <Route path='Query' element={<Query />} />
+            <Route path='zmien_haslo' element={<ZmienHaslo/>} />
+            <Route path='wyswietl_sprzet' element={<WyswietlSprzet/>} />
+            <Route path='dodaj_sprzet' element={<DodajSprzet/>} />
+            <Route path='generator_kluczy' element={<GeneratorKluczy/>} />
+            <Route path='lista_uzytkownikow' element={<ListaUzytkownikow/>} />
+            <Route path='query' element={<Query />} />
           </Route>
         </Routes>
     </>

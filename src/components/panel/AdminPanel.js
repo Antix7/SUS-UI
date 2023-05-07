@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import Navbar from "./navbar/Navbar";
 import {Outlet, useNavigate} from "react-router-dom";
 import axios from "axios";
@@ -7,10 +7,8 @@ import authHeader from "../../authHeader";
 export default function AdminPanel({ username, handleLogout, setUsername }) {
   const navigate = useNavigate();
 
-  const [activeContent, setActiveContent] = useState(null);
-
   function handleNavButtonClick(address) {
-    navigate(address)
+    navigate(address);
   }
 
   useEffect(() => {
@@ -21,7 +19,7 @@ export default function AdminPanel({ username, handleLogout, setUsername }) {
           if(response.data.success) setUsername(sessionStorage.getItem("username"));
           else navigate('/');
         });
-  }, []);
+  }, [navigate, setUsername]);
 
   return (
     <>

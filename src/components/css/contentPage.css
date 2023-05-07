@@ -151,6 +151,7 @@ tr:nth-child(2n+1) > * {
 }
 
 ::file-selector-button {
+  font-size: 15px;
   border-radius: 8px;
   padding: 3px 7px;
   margin: 2px 5px 2px -7px;

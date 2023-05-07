@@ -1,11 +1,6 @@
 import { useState } from 'react';
 import "./Navbar.css"
 import UserPanel from "./UserPanel";
-import WyswietlSprzet from "../pages/WyswietlSprzet";
-import DodajSprzet from "../pages/DodajSprzet";
-import GeneratorKluczy from "../pages/GeneratorKluczy";
-import ListaUzytkownikow from "../pages/ListaUzytkownikow";
-import Query from "../pages/Query";
 import MenuButton from "./MenuButton";
 import Sidepanel from "./Sidepanel";
 
@@ -18,11 +13,11 @@ export default function Navbar({ handleNavbarButtonClick, username, handleLogout
   }
 
   const sidepanelOptions = [
-    {text: "Wyświetl sprzęt", link: 'WyswietlSprzet'},
-    {text: "Dodaj sprzęt", link:'DodajSprzet'},
-    {text: "Generator kluczy", link:'GeneratorKluczy'},
-    {text: "Lista użytkowników", link:'ListaUzytkownikow'},
-    {text: "Query", link:'Query'}
+    {text: "Wyświetl sprzęt", link: 'wyswietl_sprzet'},
+    {text: "Dodaj sprzęt", link:'dodaj_sprzet'},
+    {text: "Generator kluczy", link:'generator_kluczy'},
+    {text: "Lista użytkowników", link:'lista_uzytkownikow'},
+    {text: "Query", link:'query'}
   ]
 
   return (

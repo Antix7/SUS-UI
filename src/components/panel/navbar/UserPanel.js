@@ -1,4 +1,3 @@
-import ZmienHaslo from "../pages/ZmienHaslo";
 
 export default function UserPanel({ username, handleNavbarButtonClick, handleLogout }) {
   return (
@@ -6,7 +5,7 @@ export default function UserPanel({ username, handleNavbarButtonClick, handleLog
       <p id="username">{username}</p><br/>
       <button
         className="userPanelButton"
-        onClick={()=>handleNavbarButtonClick('ZmienHaslo')}
+        onClick={()=>handleNavbarButtonClick('zmien_haslo')}
       >
         Zmień hasło
       </button>
