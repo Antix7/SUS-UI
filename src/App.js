@@ -1,11 +1,21 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import AdminPanel from "./components/panel/AdminPanel";
 import LoginPanel from "./components/login/LoginPanel";
 import axios from "axios";
 import authHeader from "./authHeader";
+import {BrowserRouter, Route, Routes, useNavigate} from "react-router-dom";
+import ZmienHaslo from "./components/panel/pages/ZmienHaslo";
+import WyswietlSprzet from "./components/panel/pages/WyswietlSprzet";
+import DodajSprzet from "./components/panel/pages/DodajSprzet";
+import GeneratorKluczy from "./components/panel/pages/GeneratorKluczy";
+import ListaUzytkownikow from "./components/panel/pages/ListaUzytkownikow";
+import Query from "./components/panel/pages/Query";
+import Welcome from "./components/panel/pages/Welcome";
+import AktywujKonto from "./components/login/AktywujKonto";
 
 export default function App() {
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState(null);
 
@@ -13,34 +23,40 @@ export default function App() {
     setUsername(username);
     sessionStorage.setItem("username", username);
     sessionStorage.setItem("token", token);
+    navigate('/Panel');
   }
   function handleLogout() {
     setUsername(null);
     sessionStorage.removeItem("username");
     sessionStorage.removeItem("token");
+    navigate('/');
   }
-
-  useEffect(() => {
-    axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/auth`,
-      null,
-      {headers: authHeader()})
-      .then((response) => {
-        if(response.data.success) setUsername(sessionStorage.getItem("username"));
-      });
-  }, []);
 
   return (
     <>
-      {username ?
-        <AdminPanel
-          username={`${username}@${process.env.REACT_APP_ORGANISATION_NAME}`}
-          handleLogout={handleLogout}
-        />
-        :
-        <LoginPanel
-          handleLogin={handleLogin}
-        />
-      }
+        <Routes>
+          <Route path='/' element={
+            <LoginPanel
+                handleLogin={handleLogin}
+            />
+          } />
+          <Route path='/AktywujKonto' element={<AktywujKonto />} />
+          <Route path='/Panel' element={
+            <AdminPanel
+                username={`${username}@${process.env.REACT_APP_ORGANISATION_NAME}`}
+                handleLogout={handleLogout}
+                setUsername={setUsername}
+            />
+          } >
+            <Route index element={<Welcome username={username}/>} />
+            <Route path='ZmienHaslo' element={<ZmienHaslo />} />
+            <Route path='WyswietlSprzet' element={<WyswietlSprzet />} />
+            <Route path='DodajSprzet' element={<DodajSprzet />} />
+            <Route path='GeneratorKluczy' element={<GeneratorKluczy />} />
+            <Route path='ListaUzytkownikow' element={<ListaUzytkownikow />} />
+            <Route path='Query' element={<Query />} />
+          </Route>
+        </Routes>
     </>
   )
 }

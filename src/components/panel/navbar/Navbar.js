@@ -18,11 +18,11 @@ export default function Navbar({ handleNavbarButtonClick, username, handleLogout
   }
 
   const sidepanelOptions = [
-    {text: "Wyświetl sprzęt", link:<WyswietlSprzet/>},
-    {text: "Dodaj sprzęt", link:<DodajSprzet/>},
-    {text: "Generator kluczy", link:<GeneratorKluczy/>},
-    {text: "Lista użytkowników", link:<ListaUzytkownikow/>},
-    {text: "Query", link:<Query/>}
+    {text: "Wyświetl sprzęt", link: 'WyswietlSprzet'},
+    {text: "Dodaj sprzęt", link:'DodajSprzet'},
+    {text: "Generator kluczy", link:'GeneratorKluczy'},
+    {text: "Lista użytkowników", link:'ListaUzytkownikow'},
+    {text: "Query", link:'Query'}
   ]
 
   return (

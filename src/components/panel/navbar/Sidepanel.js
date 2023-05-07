@@ -1,15 +1,18 @@
 import MenuButton from "./MenuButton";
+import {Link} from "react-router-dom";
 
 function SidepanelOptions({ options, toggleSidepanel, handleNavbarButtonClick }) {
   return options.map(option =>
-    <button className="sidepanelOption"
+    <Link className="sidepanelOption"
             key={option.text}
             onClick={()=>{
               toggleSidepanel();
-              handleNavbarButtonClick(option.link);
-            }}>
+              // handleNavbarButtonClick(option.link);
+            }}
+            to={option.link}
+    >
       {option.text}
-    </button>
+    </Link>
   )
 }
 
