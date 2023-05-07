@@ -31,7 +31,7 @@ export default function LoginPanel({ handleLogin }) {
   function handleActivateClick(e) {
     e.preventDefault();
 
-    navigate("/AktywujKonto");
+    navigate("/aktywuj_konto");
   }
 
   return (
