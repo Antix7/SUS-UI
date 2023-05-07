@@ -207,7 +207,9 @@ export default function DodajSprzet() {
     <p className="contentTitle">Dodawanie sprzętu</p>
     <p id="errorMessage">{errorMessage}</p>
 
-    {data && !errorMessage ?
+    {/*TODO better error/success communication*/}
+
+    {data ?
       <SprzetForm data={data} handleSubmit={handleSubmit}/>
       :
       <LoadingIcon/>
