@@ -29,14 +29,34 @@ function DropdownOptions({ data, handleFormChange, name, selected }) {
           value={id}
           id={name+id} key={name+id}
           onChange={handleFormChange}
+          checked={id === selected}
         />
         <label htmlFor={name+id} className="radioLabel disableSelect">
           {nazwa}
         </label><br/>
       </div>)
   )
-
 }
+
+function DropdownAccordionWithOptions({ title, selected, data, fieldText, handleFormChange, name }) {
+  // this might be confusing, but it's just another wrapper component to simplify code in SprzetForm
+  return (
+    <DropdownAccordion
+      title={title}
+      selected={selected}
+      data={data}
+      fieldText={fieldText}
+    >
+      <DropdownOptions
+        name={name}
+        data={data}
+        handleFormChange={handleFormChange}
+        selected={selected}
+      />
+    </DropdownAccordion>
+  )
+}
+
 
 function SprzetForm({ data }) {
 
@@ -79,83 +99,48 @@ function SprzetForm({ data }) {
         defaultValue={1}
       />
 
-      <DropdownAccordion
-        title="Status"
-        selected={formdata.status}
+      <DropdownAccordionWithOptions
+        title="Status" name="status"
         data={data["statusy"]}
-      >
-        <DropdownOptions
-          name="status"
-          data={data["statusy"]}
-          handleFormChange={handleFormChange}
-        />
-      </DropdownAccordion>
+        selected={formdata.status}
+        handleFormChange={handleFormChange}
+      />
 
-
-      <DropdownAccordion
-        title="Kategoria"
-        selected={formdata.kategoria}
+      <DropdownAccordionWithOptions
+        title="Kategoria" name="kategoria"
         data={data["kategorie"]}
-      >
-        <DropdownOptions
-          name="kategoria"
-          data={data["kategorie"]}
-          handleFormChange={handleFormChange}
-        />
-      </DropdownAccordion>
+        selected={formdata.kategoria}
+        handleFormChange={handleFormChange}
+      />
 
-
-      <DropdownAccordion
-        title="Stan"
-        selected={formdata.stan}
+      <DropdownAccordionWithOptions
+        title="Stan" name="stan"
         data={formdata.kategoria ? data["stany"][formdata.kategoria] : {}}
+        selected={formdata.stan}
+        handleFormChange={handleFormChange}
         fieldText={formdata.kategoria ? "" : "Najpierw wybierz kategorię"}
-      >
-        <DropdownOptions
-          name="stan"
-          data={formdata.kategoria ? data["stany"][formdata.kategoria] : {}}
-          handleFormChange={handleFormChange}
-        />
-      </DropdownAccordion>
+      />
 
-
-      <DropdownAccordion
-        title="Lokalizacja"
-        selected={formdata.lokalizacja}
+      <DropdownAccordionWithOptions
+        title="Lokalizacja" name="lokalizacja"
         data={data["lokalizacje"]}
-      >
-        <DropdownOptions
-          name="lokalizacja"
-          data={data["lokalizacje"]}
-          handleFormChange={handleFormChange}
-        />
-      </DropdownAccordion>
+        selected={formdata.lokalizacja}
+        handleFormChange={handleFormChange}
+      />
 
-
-      <DropdownAccordion
-        title="Właściciel"
+      <DropdownAccordionWithOptions
+        title="Właściciel" name="wlasciciel"
+        data={data["podmioty"]}
         selected={formdata.wlasciciel}
+        handleFormChange={handleFormChange}
+      />
+
+      <DropdownAccordionWithOptions
+        title="Użytkownik" name="uzytkownik"
         data={data["podmioty"]}
-      >
-        <DropdownOptions
-          name="wlasciciel"
-          data={data["podmioty"]}
-          handleFormChange={handleFormChange}
-        />
-      </DropdownAccordion>
-
-
-      <DropdownAccordion
-        title="Użytkownik"
         selected={formdata.uzytkownik}
-        data={data["podmioty"]}
-      >
-        <DropdownOptions
-          name="uzytkownik"
-          data={data["podmioty"]}
-          handleFormChange={handleFormChange}
-        />
-      </DropdownAccordion>
+        handleFormChange={handleFormChange}
+      />
 
       <label htmlFor="opisInput" className="formLabel disableSelect">Opis</label>
       <textarea
