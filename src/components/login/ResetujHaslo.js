@@ -14,6 +14,11 @@ function ResetForm() {
 
     const form = e.target;
     const formData = new FormData(form);
+    if(form.password1.value !== form.password2.value) {
+      setSuccessMessage(null);
+      setErrorMessage("Hasła nie są takie same");
+      return;
+    }
 
     axios.post(
         `${process.env.REACT_APP_SERVER_DOMAIN}/resetuj_haslo`,
