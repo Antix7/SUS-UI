@@ -56,9 +56,10 @@ function ResetForm() {
   )
 }
 
-function SendResetCodeForm() {
+function SendResetCodeForm({formUsername, setFormUsername}) {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -88,7 +89,12 @@ function SendResetCodeForm() {
             className="textInput loginInput"
             name="username"
             type="text"
-            placeholder="Nazwa użytkownika"/>
+            placeholder="Nazwa użytkownika"
+            value={formUsername}
+            onChange={(e) => {
+              setFormUsername(e.target.value);
+            }}
+        />
         <p className="loginErrorMessage sendResetCodeMessage">{errorMessage}</p>
         <p className="loginSuccessMessage sendResetCodeMessage">{successMessage}</p>
         <button type="submit" className="loginButtonSmall" id="sendCodeButton">Wyślij kod na email</button>
@@ -96,7 +102,7 @@ function SendResetCodeForm() {
   )
 }
 
-function CheckResetCodeForm({setCurrentForms, handleResetLogin}) {
+function CheckResetCodeForm({setCurrentForms, handleResetLogin, formUsername}) {
   const [errorMessage, setErrorMessage] = useState(null);
 
   function handleSubmit(e) {
@@ -104,13 +110,13 @@ function CheckResetCodeForm({setCurrentForms, handleResetLogin}) {
 
     const form = e.target;
     const formData = new FormData(form);
-    // formData.forEach((x, y) => console.log(x, y));
+    formData.append('username', formUsername);
 
     axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/check_reset_code`, formData)
         .then((response) => {
           if(response.data.success) {
             setCurrentForms(<ResetForm />);
-            handleResetLogin(form.username.value, response.data.token);
+            handleResetLogin(formUsername, response.data.token);
           }
           else setErrorMessage(response.data.message);
         })
@@ -120,14 +126,8 @@ function CheckResetCodeForm({setCurrentForms, handleResetLogin}) {
         });
   }
 
-  // TODO wykorzystanie nazwy użytkownika z drugiego forma
   return (
       <form className="loginForm" onSubmit={handleSubmit}>
-        <input
-            className="textInput loginInput"
-            name="username"
-            type="text"
-            placeholder="Nazwa użytkownika"/>
         <input
             className="textInput loginInput"
             name="code"
@@ -145,12 +145,13 @@ export default function ResetujHaslo({handleResetLogin}) {
   const navigate = useNavigate();
 
   const [currentForms, setCurrentForms] = useState(null);
+  const [formUsername, setFormUsername] = useState('');
   useEffect(() => {setCurrentForms(
       <>
-        <SendResetCodeForm />
-        <CheckResetCodeForm setCurrentForms={setCurrentForms} handleResetLogin={handleResetLogin}/>
+        <SendResetCodeForm formUsername={formUsername} setFormUsername={setFormUsername}/>
+        <CheckResetCodeForm setCurrentForms={setCurrentForms} handleResetLogin={handleResetLogin} formUsername={formUsername}/>
       </>
-  )}, []);
+  )}, [formUsername]);
 
   function handleGoBack(e) {
     e.preventDefault();
