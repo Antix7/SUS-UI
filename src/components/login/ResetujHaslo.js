@@ -72,7 +72,7 @@ function SendResetCodeForm() {
             setErrorMessage(null);
           }
           else {
-            setErrorMessage(response.data.error);
+            setErrorMessage(response.data.message);
             setSuccessMessage(null);
           }
         })
