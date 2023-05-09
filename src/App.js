@@ -11,6 +11,7 @@ import ListaUzytkownikow from "./components/panel/pages/ListaUzytkownikow";
 import Query from "./components/panel/pages/Query";
 import Welcome from "./components/panel/pages/Welcome";
 import AktywujKonto from "./components/login/AktywujKonto";
+import ResetujHaslo from "./components/login/ResetujHaslo";
 
 export default function App() {
   const navigate = useNavigate();
@@ -23,6 +24,13 @@ export default function App() {
     sessionStorage.setItem("token", token);
     navigate('/panel');
   }
+
+  function handleResetLogin(username, token) {
+    setUsername(username);
+    sessionStorage.setItem("username", username);
+    sessionStorage.setItem("token", token);
+  }
+
   function handleLogout() {
     setUsername(null);
     sessionStorage.removeItem("username");
@@ -39,6 +47,7 @@ export default function App() {
             />
           } />
           <Route path='/aktywuj_konto' element={<AktywujKonto />} />
+          <Route path='/resetuj_haslo' element={<ResetujHaslo handleResetLogin={handleResetLogin}/>} />
           <Route path='/panel' element={
             <AdminPanel
                 username={`${username}@${process.env.REACT_APP_ORGANISATION_NAME}`}

@@ -70,8 +70,8 @@ p {
 
 
 .activateInput {
-  width: 90%;
-  margin: 0 auto 15px auto;
+  width: 90% !important;
+  margin: 0 auto 15px auto !important;
 }
 
 #toggleActivate {
@@ -103,7 +103,6 @@ p {
 
 #activateForm {
   background-color: var(--darker2);
-  padding-top: 1em;
 }
 
 #activateForm > * {
@@ -139,4 +138,182 @@ p {
 }
 .goBackButton:active {
   background-color: var(--darker6);
+}
+
+
+.resetInput {
+  width: 90% !important;
+  margin: 0 auto 15px auto !important;
+}
+
+#toggleReset {
+  background-color: var(--darker4);
+  font-size: 16px;
+  padding: 8px 12px;
+  margin: 15px 4px;
+  margin-bottom: 0;
+  border-radius: 4px;
+}
+#toggleReset:hover {
+  background-color: var(--darker5);
+}
+#toggleReset:active {
+  background-color: var(--darker6);
+}
+#resetButton {
+  background-color: var(--darker4) !important;
+  font-size: 20px;
+  margin-top: 15px;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+#resetButton:hover {
+  background-color: var(--darker5);
+}
+#resetButton:active {
+  background-color: var(--darker6);
+}
+
+#resetForm {
+  background-color: var(--darker2);
+}
+
+#resetForm > * {
+  background-color: var(--darker2);
+}
+
+#resetErrorMessage {
+  text-align: center;
+  background-color: var(--darker2);
+  color: red;
+  font-size: 15px;
+  margin: 5px 0;
+}
+
+#resetSuccessMessage {
+  text-align: center;
+  background-color: var(--darker2);
+  color: limegreen;
+  font-size: 15px;
+  margin: 5px 0;
+}
+
+
+
+
+.sendCodeInput {
+  width: 90% !important;
+  margin: 0 auto 15px auto !important;
+}
+
+#toggleSendCode {
+  background-color: var(--darker4);
+  font-size: 16px;
+  padding: 8px 12px;
+  margin: 15px 4px;
+  margin-bottom: 0;
+  border-radius: 4px;
+}
+#toggleSendCode:hover {
+  background-color: var(--darker5);
+}
+#toggleSendCode:active {
+  background-color: var(--darker6);
+}
+#sendCodeButton {
+  background-color: var(--darker4) !important;
+  font-size: 20px;
+  padding: 8px 12px;
+  margin-bottom: 30px;
+  border-radius: 4px;
+}
+#sendCodeButton:hover {
+  background-color: var(--darker5);
+}
+#sendCodeButton:active {
+  background-color: var(--darker6);
+}
+
+#sendCodeForm {
+  background-color: var(--darker2);
+}
+
+#sendCodeForm > * {
+  background-color: var(--darker2);
+}
+
+#sendCodeErrorMessage {
+  text-align: center;
+  background-color: var(--darker2);
+  color: red;
+  font-size: 15px;
+  margin: 5px 0;
+}
+
+#sendCodeSuccessMessage {
+  text-align: center;
+  background-color: var(--darker2);
+  color: limegreen;
+  font-size: 15px;
+  margin: 5px 0;
+}
+
+
+
+
+.checkCodeInput {
+  width: 90% !important;
+  margin: 0 auto 15px auto !important;
+}
+
+#toggleCheckCode {
+  background-color: var(--darker4);
+  font-size: 16px;
+  padding: 8px 12px;
+  margin: 15px 4px;
+  margin-bottom: 0;
+  border-radius: 4px;
+}
+#toggleCheckCode:hover {
+  background-color: var(--darker5);
+}
+#toggleCheckCode:active {
+  background-color: var(--darker6);
+}
+#checkCodeButton {
+  background-color: var(--darker4) !important;
+  font-size: 20px;
+  margin-top: 15px;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+#checkCodeButton:hover {
+  background-color: var(--darker5);
+}
+#checkCodeButton:active {
+  background-color: var(--darker6);
+}
+
+#checkCodeForm {
+  background-color: var(--darker2);
+}
+
+#checkCodeForm > * {
+  background-color: var(--darker2);
+}
+
+#checkCodeErrorMessage {
+  text-align: center;
+  background-color: var(--darker2);
+  color: red;
+  font-size: 15px;
+  margin: 5px 0;
+}
+
+#checkCodeSuccessMessage {
+  text-align: center;
+  background-color: var(--darker2);
+  color: limegreen;
+  font-size: 15px;
+  margin: 5px 0;
 }

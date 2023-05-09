@@ -34,6 +34,12 @@ export default function LoginPanel({ handleLogin }) {
     navigate("/aktywuj_konto");
   }
 
+  function handleResetClick(e) {
+    e.preventDefault();
+
+    navigate("/resetuj_haslo");
+  }
+
   return (
     <div id="loginPanel">
       <div id="loginBox">
@@ -55,6 +61,7 @@ export default function LoginPanel({ handleLogin }) {
         </form>
 
         <button onClick={handleActivateClick} id="toggleActivate">Aktywuj konto</button>
+        <button onClick={handleResetClick} id="toggleReset">Resetuj hasło</button>
     </div>
   </div>
   )
