@@ -37,21 +37,21 @@ function ResetForm() {
   }
 
   return (
-      <form id="resetForm" onSubmit={handleSubmit}>
+      <form className="loginForm" onSubmit={handleSubmit}>
         <input
-            className="textInput resetInput"
+            className="textInput loginInput"
             name="password1"
             type="password"
             placeholder="Nowe hasło"/>
         <input
-            className="textInput resetInput"
+            className="textInput loginInput"
             name="password2"
             type="password"
             placeholder="Powtórz nowe hasło"/>
 
-        <p id="resetErrorMessage">{errorMessage}</p>
-        <p id="resetSuccessMessage">{successMessage}</p>
-        <button type="submit" id="resetButton">Resetuj hasło</button>
+        <p className="loginErrorMessage">{errorMessage}</p>
+        <p className="loginSuccessMessage">{successMessage}</p>
+        <button type="submit" className="loginButtonBig">Resetuj hasło</button>
       </form>
   )
 }
@@ -83,15 +83,15 @@ function SendResetCodeForm() {
   }
 
   return (
-      <form id="sendCodeForm" onSubmit={handleSubmit}>
+      <form className="loginForm" onSubmit={handleSubmit}>
         <input
-            className="textInput sendCodeInput"
+            className="textInput loginInput"
             name="username"
             type="text"
             placeholder="Nazwa użytkownika"/>
-        <p id="sendCodeErrorMessage">{errorMessage}</p>
-        <p id="sendCodeSuccessMessage">{successMessage}</p>
-        <button type="submit" id="sendCodeButton">Wyślij kod na email</button>
+        <p className="loginErrorMessage sendResetCodeMessage">{errorMessage}</p>
+        <p className="loginSuccessMessage sendResetCodeMessage">{successMessage}</p>
+        <button type="submit" className="loginButtonSmall" id="sendCodeButton">Wyślij kod na email</button>
       </form>
   )
 }
@@ -122,20 +122,20 @@ function CheckResetCodeForm({setCurrentForms, handleResetLogin}) {
 
   // TODO wykorzystanie nazwy użytkownika z drugiego forma
   return (
-      <form id="checkCodeForm" onSubmit={handleSubmit}>
+      <form className="loginForm" onSubmit={handleSubmit}>
         <input
-            className="textInput checkCodeInput"
+            className="textInput loginInput"
             name="username"
             type="text"
             placeholder="Nazwa użytkownika"/>
         <input
-            className="textInput checkCodeInput"
+            className="textInput loginInput"
             name="code"
             type="text"
             placeholder="Kod otrzymany mailem"/>
 
-        <p id="checkCodeErrorMessage">{errorMessage}</p>
-        <button type="submit" id="checkCodeButton">Resetuj hasło</button>
+        <p className="loginErrorMessage">{errorMessage}</p>
+        <button type="submit" className="loginButtonBig">Resetuj hasło</button>
       </form>
   );
 }
@@ -162,7 +162,7 @@ export default function ResetujHaslo({handleResetLogin}) {
         <div id="loginBox">
           <p id="loginTitle">Resetowanie hasła</p>
           {currentForms}
-          <button className="goBackButton" onClick={handleGoBack}>Wróć</button>
+          <button className="loginButtonSmall" onClick={handleGoBack}>Wróć</button>
         </div>
       </div>
   )
