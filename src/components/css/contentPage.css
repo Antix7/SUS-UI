@@ -43,10 +43,9 @@
   margin: 0 8px;
 }
 
-#errorMessage {
+.errorMessage {
   background-color: var(--background);
   text-align: center;
-  color: red;
   font-size: 15px;
 }
 

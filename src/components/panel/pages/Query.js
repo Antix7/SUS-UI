@@ -2,10 +2,12 @@ import {useState} from "react";
 import axios from "axios";
 import authHeader from "../../../authHeader";
 import "../../css/contentPage.css"
+import ErrorMessage from "../../ErrorMessage";
 
 export default function Query() {
 
   const [errorMessage, setErrorMessage] = useState(null);
+  const [isErrorGood, setIsErrorGood] = useState(null);
   const [queryResult, setQueryResult] = useState(null);
 
   function handleSubmit(e) {
@@ -22,7 +24,11 @@ export default function Query() {
     )
       .then((response) => {
         setErrorMessage(response.data.message);
-        if(response.data.success) setQueryResult(JSON.stringify(response.data.result));
+        if(response.data.success) {
+          setQueryResult(JSON.stringify(response.data.result));
+          setIsErrorGood(true);
+        }
+        else setIsErrorGood(false);
       }).catch((error) => {
       setErrorMessage("Wystąpił błąd w komunikacji z serwerem")
       console.log(error);
@@ -44,7 +50,10 @@ export default function Query() {
 
       <button className="button" type="submit" id="submitButton">Wykonaj</button>
     </form>
-    <p id="errorMessage">{errorMessage}</p>
+    <ErrorMessage
+      message={errorMessage}
+      success={isErrorGood}
+    />
     <p id="queryResult">{queryResult}</p>
   </div>)
 }

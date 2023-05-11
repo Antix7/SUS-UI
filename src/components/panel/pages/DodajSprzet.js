@@ -4,6 +4,7 @@ import authHeader from "../../../authHeader";
 import "../../css/contentPage.css"
 import Accordion from "../../Accordion";
 import LoadingIcon from "../../LoadingIcon";
+import ErrorMessage from "../../ErrorMessage";
 
 function DropdownAccordion({ children, title, selected, data, fieldText }) {
   return (<>
@@ -166,6 +167,7 @@ function SprzetForm({ data, handleSubmit }) {
 export default function DodajSprzet() {
 
   const [errorMessage, setErrorMessage] = useState(null);
+  const [isErrorGood, setIsErrorGood] = useState(null);
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -174,8 +176,12 @@ export default function DodajSprzet() {
       {headers: authHeader()}
     )
       .then((response) => {
-        if(response.data.success) setData(response.data.data);
-        else setErrorMessage(response.data.message);
+        setErrorMessage(response.data.message);
+        if(response.data.success) {
+          setData(response.data.data);
+          setIsErrorGood(true);
+        }
+        else setIsErrorGood(false);
       })
       .catch((error) => {
         setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
@@ -195,8 +201,12 @@ export default function DodajSprzet() {
       {headers: authHeader()}
     )
       .then((response) => {
-        if(response.data.success) setErrorMessage("Dodano przedmiot do bazy danych");
-        else setErrorMessage(response.data.message);
+        setErrorMessage(response.data.message);
+        if(response.data.success) {
+          setErrorMessage("Dodano przedmiot do bazy danych");
+          setIsErrorGood(true);
+        }
+        else setIsErrorGood(false);
       }).catch((error) => {
       setErrorMessage("Wystąpił błąd w komunikacji z serwerem")
       console.log(error);
@@ -205,9 +215,10 @@ export default function DodajSprzet() {
 
   return (<div className="contentDiv longForm">
     <p className="contentTitle">Dodawanie sprzętu</p>
-    <p id="errorMessage">{errorMessage}</p>
-
-    {/*TODO better error/success communication*/}
+    <ErrorMessage
+      message={errorMessage}
+      success={isErrorGood}
+    />
 
     {data ?
       <SprzetForm data={data} handleSubmit={handleSubmit}/>

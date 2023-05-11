@@ -3,9 +3,7 @@ import Checkmark from "../../Checkmark";
 import TableAccordion from "../../../TableAccordion";
 
 function SprzetHeader() {
-  const headers =
-    ["ID", "Nazwa", "Ilość", "Status", "Kategoria", "Stan", "Lokalizacja",
-      "Właściciel", "Użytkownik", "Opis", "Zdjęcie", "OG ID"];
+  const headers = ["Nazwa", "Ilość", "Status", "Stan"];
   return (
     <thead>
     <tr id="tableHeaderRow">
@@ -16,17 +14,23 @@ function SprzetHeader() {
 }
 function SprzetRowCells({ object }) {
   return (<>
-
-    {Object.entries(object).map(([key, value]) =>
-      <td key={object["przedmiot_id"] + key}>
-        {value}
-      </td>)}
-
+    <td>{object["nazwa"]}</td>
+    <td>{object["ilosc"]}</td>
+    <td>{object["status"] === "Dostępny" ? <Checkmark/> : <Cross/>}</td>
+    <td>{object["stan"] === "Dobry" || object["stan"] === "Nowy" ? <Checkmark/> : <Cross/>}</td>
   </>)
 }
 function SprzetRowAccordionContent({ object }) {
   return (<>
-    {/*<p>{`Adres e-mail: ${object.adres_email ? object.adres_email : "-"}`}</p>*/}
+    <p>{`Status: ${object["status"]}`}</p>
+    <p>{`Kategoria: ${object["kategoria"]}`}</p>
+    <p>{`Stan: ${object["stan"]}`}</p>
+    <p>{`Lokalizacja: ${object["lokalizacja"]}`}</p>
+    <p>{`Właściciel: ${object["wlasciciel"]}`}</p>
+    <p>{`Użytkownik: ${object["uzytkownik"]}`}</p>
+    <p>{`Opis: ${object["opis"]}`}</p>
+    <p>{`Zdjęcie: ${object["zdjecie_path"]}`}</p>
+    <p>{`OG ID: ${object["og_id"]}`}</p>
   </>)
 
 }
@@ -38,7 +42,7 @@ export default function SprzetTable({ array }) {
       <tbody>
       {array.map(row => <TableAccordion
         triggerContent={<SprzetRowCells object={row}/>}
-        colSpan={12}
+        colSpan={4}
         Key={row.username}
         key={row.username}
       >
