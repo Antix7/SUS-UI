@@ -34,11 +34,17 @@ export default function LoginPanel({ handleLogin }) {
     navigate("/aktywuj_konto");
   }
 
+  function handleResetClick(e) {
+    e.preventDefault();
+
+    navigate("/resetuj_haslo");
+  }
+
   return (
     <div id="loginPanel">
       <div id="loginBox">
         <p id="loginTitle">Logowanie do&nbsp;SUS</p>
-        <form id="loginForm" onSubmit={handleSubmit}>
+        <form className="loginForm" onSubmit={handleSubmit}>
           <input
             className="textInput loginInput"
             name="username"
@@ -50,11 +56,12 @@ export default function LoginPanel({ handleLogin }) {
             type="password"
             placeholder="Hasło"/>
 
-          <p id="loginErrorMessage">{errorMessage}</p>
-          <button type="submit" id="loginButton">Zaloguj</button>
+          <p className="loginErrorMessage">{errorMessage}</p>
+          <button type="submit" className="loginButtonBig">Zaloguj</button>
         </form>
 
-        <button onClick={handleActivateClick} id="toggleActivate">Aktywuj konto</button>
+        <button onClick={handleActivateClick} className="loginButtonSmall">Aktywuj konto</button>
+        <button onClick={handleResetClick} className="loginButtonSmall">Resetuj hasło</button>
     </div>
   </div>
   )

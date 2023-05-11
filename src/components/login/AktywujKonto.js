@@ -49,38 +49,38 @@ export default function AktywujKonto() {
       <div id="loginPanel">
         <div id="loginBox">
           <p id="loginTitle">Aktywacja konta w SUS</p>
-            <form id="activateForm" onSubmit={handleActivateSubmit}>
+            <form className="loginForm" onSubmit={handleActivateSubmit}>
               <input
-                  className="textInput activateInput"
+                  className="textInput loginInput"
                   name="key"
                   type="text"
                   placeholder="Kod do aktywacji"/>
               <input
-                  className="textInput activateInput"
+                  className="textInput loginInput"
                   name="username"
                   type="text"
                   placeholder="Nazwa użytkownika"/>
               <input
-                  className="textInput activateInput"
+                  className="textInput loginInput"
                   name="email"
                   type="email"
                   placeholder="Adres email"/>
               <input
-                  className="textInput activateInput"
+                  className="textInput loginInput"
                   name="password1"
                   type="password"
                   placeholder="Hasło"/>
               <input
-                  className="textInput activateInput"
+                  className="textInput loginInput"
                   name="password2"
                   type="password"
                   placeholder="Powtórz hasło"/>
 
-              <p id="activateErrorMessage">{errorMessage}</p>
-              <p id="activateSuccessMessage">{successMessage}</p>
-              <button type="submit" id="activateButton">Aktywuj</button>
+              <p className="loginErrorMessage">{errorMessage}</p>
+              <p className="loginSuccessMessage">{successMessage}</p>
+              <button type="submit" className="loginButtonBig">Aktywuj</button>
             </form>
-          <button className="goBackButton" onClick={handleGoBack}>Wróć</button>
+          <button className="loginButtonSmall" onClick={handleGoBack}>Wróć</button>
         </div>
       </div>
   )

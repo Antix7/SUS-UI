@@ -23,11 +23,8 @@ p {
   box-shadow: 0 15px 25px rgba(0,0,0,.1);
 }
 
-#loginBox > * {
-  background-color: var(--darker2);
-}
-
 #loginTitle {
+  background-color: var(--darker2);
   font-weight: bold;
   font-size: 25px;
   margin: 0 0 30px;
@@ -38,105 +35,69 @@ p {
   margin: 0 auto 15px auto !important;
 }
 
-#loginButton {
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--darker2);
+}
+
+.loginButtonBig {
   background-color: var(--darker4);
   font-size: 20px;
   padding: 10px 15px;
   margin-top: 10px;
   border-radius: 4px;
 }
-#loginButton:hover {
+.loginButtonBig:hover {
   background-color: var(--darker5);
 }
-#loginButton:active {
+.loginButtonBig:active {
   background-color: var(--darker6);
 }
 
-#loginErrorMessage {
-  width: 90%;
-  text-align: center;
-  background-color: var(--darker2);
-  color: red;
-  font-size: 15px;
-  margin: 0;
-}
-
-#loginForm {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-
-
-.activateInput {
-  width: 90%;
-  margin: 0 auto 15px auto;
-}
-
-#toggleActivate {
+.loginButtonSmall {
   background-color: var(--darker4);
   font-size: 16px;
   padding: 8px 12px;
-  margin-top: 15px;
+  margin: 15px 5px;
+  margin-bottom: 0;
   border-radius: 4px;
 }
-#toggleActivate:hover {
+.loginButtonSmall:hover {
   background-color: var(--darker5);
 }
-#toggleActivate:active {
-  background-color: var(--darker6);
-}
-#activateButton {
-  background-color: var(--darker4) !important;
-  font-size: 20px;
-  padding: 8px 12px;
-  margin-top: 15px;
-  border-radius: 4px;
-}
-#activateButton:hover {
-  background-color: var(--darker5);
-}
-#activateButton:active {
+.loginButtonSmall:active {
   background-color: var(--darker6);
 }
 
-#activateForm {
-  background-color: var(--darker2);
-  padding-top: 1em;
-}
-
-#activateForm > * {
-  background-color: var(--darker2);
-}
-
-#activateErrorMessage {
+.loginErrorMessage {
   text-align: center;
   background-color: var(--darker2);
   color: red;
   font-size: 15px;
   margin: 5px 0;
 }
+.loginErrorMessage:empty {
+  margin: 0 0;
+}
 
-#activateSuccessMessage {
+.loginSuccessMessage {
   text-align: center;
   background-color: var(--darker2);
   color: limegreen;
   font-size: 15px;
   margin: 5px 0;
 }
-
-
-.goBackButton {
-  background-color: var(--darker4) !important;
-  font-size: 16px;
-  padding: 8px 12px;
-  margin-top: 15px;
-  border-radius: 4px;
+.loginSuccessMessage:empty {
+  margin: 0 0;
 }
-.goBackButton:hover {
-  background-color: var(--darker5);
+
+#sendCodeButton {
+  margin-top: 5px;
+  margin-bottom: 1.5em;
 }
-.goBackButton:active {
-  background-color: var(--darker6);
+
+.sendResetCodeMessage {
+  margin-top: 0 !important;
 }
