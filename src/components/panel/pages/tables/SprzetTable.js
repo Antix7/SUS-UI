@@ -22,15 +22,15 @@ function SprzetRowCells({ object }) {
 }
 function SprzetRowAccordionContent({ object }) {
   return (<>
-    <p>{`Status: ${object["status"]}`}</p>
-    <p>{`Kategoria: ${object["kategoria"]}`}</p>
-    <p>{`Stan: ${object["stan"]}`}</p>
-    <p>{`Lokalizacja: ${object["lokalizacja"]}`}</p>
-    <p>{`Właściciel: ${object["wlasciciel"]}`}</p>
-    <p>{`Użytkownik: ${object["uzytkownik"]}`}</p>
-    <p>{`Opis: ${object["opis"]}`}</p>
-    <p>{`Zdjęcie: ${object["zdjecie_path"]}`}</p>
-    <p>{`OG ID: ${object["og_id"]}`}</p>
+    <p><strong>Status: </strong>{object["status"]}</p>
+    <p><strong>Kategoria: </strong>{object["kategoria"]}</p>
+    <p><strong>Stan: </strong>{object["stan"]}</p>
+    <p><strong>Lokalizacja: </strong>{object["lokalizacja"]}</p>
+    <p><strong>Właściciel: </strong>{object["wlasciciel"]}</p>
+    <p><strong>Użytkownik: </strong>{object["uzytkownik"]}</p>
+    {object["opis"] && <p><strong>Opis: </strong>{object["opis"]}</p>}
+    {object["zdjecie_path"] && <p><strong>Zdjęcie: </strong>{object["zdjecie_path"]}</p>}
+    {object["og_id"] && <p><strong>OG ID: </strong>{object["og_id"]}</p>}
   </>)
 
 }
