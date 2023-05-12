@@ -59,7 +59,7 @@ function DropdownAccordionWithOptions({ title, selected, data, fieldText, handle
 }
 
 
-function SprzetForm({ data, handleSubmit }) {
+function SprzetForm({ data, handleSubmit, errorMessage, isErrorGood }) {
 
   const [formdata, setFormdata] = useState({
     status: 0,
@@ -158,6 +158,11 @@ function SprzetForm({ data, handleSubmit }) {
         name="zdjecie" id="zdjecieInput"
       />
 
+      <ErrorMessage
+        message={errorMessage}
+        success={isErrorGood}
+      />
+
       <button className="button" type="submit" id="submitButton">Dodaj</button>
 
     </form>
@@ -215,13 +220,15 @@ export default function DodajSprzet() {
 
   return (<div className="contentDiv longForm">
     <p className="contentTitle">Dodawanie sprzętu</p>
-    <ErrorMessage
-      message={errorMessage}
-      success={isErrorGood}
-    />
+
 
     {data ?
-      <SprzetForm data={data} handleSubmit={handleSubmit}/>
+      <SprzetForm
+        data={data}
+        handleSubmit={handleSubmit}
+        errorMessage={errorMessage}
+        isErrorGood={isErrorGood}
+      />
       :
       <LoadingIcon/>
     }

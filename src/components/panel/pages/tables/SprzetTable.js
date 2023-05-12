@@ -6,7 +6,7 @@ function SprzetHeader() {
   const headers = ["Nazwa", "Ilość", "Status", "Stan"];
   return (
     <thead>
-    <tr id="tableHeaderRow">
+    <tr id="tableHeaderRow" className="disableSelect">
       {headers.map(header => <th key={header}>{header}</th>)}
     </tr>
     </thead>
