@@ -7,7 +7,7 @@ import LoadingIcon from "../../LoadingIcon";
 import Accordion from "../../Accordion";
 
 
-function CheckboxAccordion({ title, name, data }) {
+function CheckboxAccordion({ title, name, data, onChange }) {
   return (
     <Accordion
       triggerContent={<p className="dropdownAccordionField disableSelect">{title}</p>}
@@ -20,6 +20,7 @@ function CheckboxAccordion({ title, name, data }) {
             type="checkbox"
             name={name+"_"+id}
             id={name+id} key={name+id}
+            onChange={onChange}
           />
           <label htmlFor={name+id} className="radioLabel disableSelect">
             {nazwa}
@@ -32,16 +33,70 @@ function CheckboxAccordion({ title, name, data }) {
 
 
 function SprzetSelectForm({ filtersData }) {
-  return (
+
+  const [kategorie, setKategorie] = useState(new Set());
+  const [stanData, setStanData] = useState({});
+
+  function handleKategoriaChange(e) {
+    let newKategorie = new Set(kategorie);
+    let kategoria_id = e.target.name.split("_").at(-1);
+    if(e.target.checked) newKategorie.add(kategoria_id);
+    else newKategorie.delete(kategoria_id);
+    setKategorie(newKategorie);
+
+    let stany = new Set();
+    newKategorie.forEach(katID => {
+      for (let stanID in filtersData["stany"][katID]) {
+        stany.add(stanID);
+      }
+    });
+    let newStanData = {};
+    stany.forEach(stanID => {
+      newStanData[stanID] = filtersData["stanyAll"][stanID];
+    });
+    setStanData(newStanData);
+  }
+
+  return (<>
     <CheckboxAccordion
       title="Status"
       name="status"
       data={filtersData["statusy"]}
     />
 
+    <CheckboxAccordion
+      title="Kategoria"
+      name="kategoria"
+      data={filtersData["kategorie"]}
+      onChange={handleKategoriaChange}
+    />
+
+    <CheckboxAccordion
+      title="Stan"
+      name="stan"
+      data={stanData}
+    />
+
+    <CheckboxAccordion
+      title="Lokalizacja"
+      name="lokalizacja"
+      data={filtersData["lokalizacje"]}
+    />
+
+    <CheckboxAccordion
+      title="Właściciel"
+      name="wlasciciel"
+      data={filtersData["podmioty"]}
+    />
+
+    <CheckboxAccordion
+      title="Użytkownik"
+      name="uzytkownik"
+      data={filtersData["podmioty"]}
+    />
 
 
-  )
+  </>)
 }
 
 
