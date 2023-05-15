@@ -83,7 +83,7 @@ function SprzetForm({ data, handleSubmit, errorMessage, isErrorGood }) {
   }, [formdata.kategoria]);
 
   return(<>
-    <form id="dodajSprzetForm" onSubmit={handleSubmit}>
+    <form className="centeredForm" id="dodajSprzetForm" onSubmit={handleSubmit}>
 
       <label htmlFor="nazwa" className="formLabel disableSelect">Nazwa</label>
       <input
@@ -177,7 +177,7 @@ export default function DodajSprzet() {
 
   useEffect(() => {
     axios.get(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/dodaj/dropdowns`,
+      `${process.env.REACT_APP_SERVER_DOMAIN}/available_values`,
       {headers: authHeader()}
     )
       .then((response) => {

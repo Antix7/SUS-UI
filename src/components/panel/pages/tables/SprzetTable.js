@@ -35,7 +35,6 @@ function SprzetRowAccordionContent({ object }) {
 
 }
 export default function SprzetTable({ array }) {
-
   return (
     <table id="sprzetTable">
       <SprzetHeader/>

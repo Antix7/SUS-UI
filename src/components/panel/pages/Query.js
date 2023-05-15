@@ -38,6 +38,7 @@ export default function Query() {
   return (<div className="contentDiv">
     <p className="contentTitle">Własne query do bazy danych</p>
     <form
+      className="centeredForm"
       id="queryForm"
       onSubmit={handleSubmit}
     >
