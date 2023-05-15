@@ -57,7 +57,7 @@ function SprzetSelectForm({ filtersData }) {
     setStanData(newStanData);
   }
 
-  return (<>
+  return (<div className="centeredForm">
     <CheckboxAccordion
       title="Status"
       name="status"
@@ -96,7 +96,9 @@ function SprzetSelectForm({ filtersData }) {
     />
 
 
-  </>)
+
+
+  </div>)
 }
 
 
@@ -139,7 +141,7 @@ export default function WyswietlSprzet() {
     fetchFilters()
   }, []);
 
-  return (<div className="contentDiv">
+  return (<div className="contentDiv longForm">
     <p className="contentTitle">Tabela sprzętu</p>
     <p id="errorMessage">{errorMessage}</p>
 
