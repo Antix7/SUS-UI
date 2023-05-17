@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import authHeader from "../../../authHeader";
 import "../../css/contentPage.css"
@@ -7,13 +7,13 @@ import LoadingIcon from "../../LoadingIcon";
 import Accordion from "../../Accordion";
 
 
-function CheckboxAccordion({ title, name, data, onChange }) {
+function CheckboxAccordion({ title, name, data, onChange, Ref }) {
   return (
     <Accordion
       triggerContent={<p className="dropdownAccordionField disableSelect">{title}</p>}
       panelClass="dropdownAccordionPanel"
     >
-      <form id={name+"_filter_form"}>
+      <form id={name+"_filter_form"} ref={Ref}>
         {Object.entries(data).map(([id, nazwa]) => <div key={id} className="disappear">
           <input
             className="checkboxInput"
@@ -32,7 +32,7 @@ function CheckboxAccordion({ title, name, data, onChange }) {
 }
 
 
-function SprzetSelectForm({ filtersData }) {
+function SprzetSelectForm({ filtersData, submit }) {
 
   const [kategorie, setKategorie] = useState(new Set());
   const [stanData, setStanData] = useState({});
@@ -57,11 +57,40 @@ function SprzetSelectForm({ filtersData }) {
     setStanData(newStanData);
   }
 
+  const status_form = useRef();
+  const kategoria_form = useRef();
+  const stan_form = useRef();
+  const lokalizacja_form = useRef();
+  const wlasciciel_form = useRef();
+  const uzytkownik_form = useRef();
+  const nazwa_form = useRef();
+
+  function FormDataToObject(formdata) {
+    let object = {};
+    formdata.forEach((value, key) => {
+      object[key] = value;
+    });
+    return object;
+  }
+  function handleSubmit() {
+    submit({
+      status: FormDataToObject(new FormData(status_form.current)),
+      kategoria: FormDataToObject(new FormData(kategoria_form.current)),
+      stan: FormDataToObject(new FormData(stan_form.current)),
+      lokalizacja: FormDataToObject(new FormData(lokalizacja_form.current)),
+      wlasciciel: FormDataToObject(new FormData(wlasciciel_form.current)),
+      uzytkownik: FormDataToObject(new FormData(uzytkownik_form.current)),
+      nazwa: FormDataToObject(new FormData(nazwa_form.current)),
+    });
+  }
+
   return (<div className="centeredForm">
+
     <CheckboxAccordion
       title="Status"
       name="status"
       data={filtersData["statusy"]}
+      Ref={status_form}
     />
 
     <CheckboxAccordion
@@ -69,34 +98,53 @@ function SprzetSelectForm({ filtersData }) {
       name="kategoria"
       data={filtersData["kategorie"]}
       onChange={handleKategoriaChange}
+      Ref={kategoria_form}
     />
 
     <CheckboxAccordion
       title="Stan"
       name="stan"
       data={stanData}
+      Ref={stan_form}
     />
 
     <CheckboxAccordion
       title="Lokalizacja"
       name="lokalizacja"
       data={filtersData["lokalizacje"]}
+      Ref={lokalizacja_form}
     />
 
     <CheckboxAccordion
       title="Właściciel"
       name="wlasciciel"
       data={filtersData["podmioty"]}
+      Ref={wlasciciel_form}
     />
 
     <CheckboxAccordion
       title="Użytkownik"
       name="uzytkownik"
       data={filtersData["podmioty"]}
+      Ref={uzytkownik_form}
     />
 
+    <form id="nazwa_filter_form" ref={nazwa_form}>
+      <input
+        className="textInput"
+        type="text"
+        name="nazwa"
+        placeholder="Nazwa"
+      />
+    </form>
 
-
+    <button
+      className="button"
+      type="button"
+      onClick={handleSubmit}
+    >
+      Filtruj
+    </button>
 
   </div>)
 }
@@ -105,10 +153,10 @@ function SprzetSelectForm({ filtersData }) {
 export default function WyswietlSprzet() {
 
   const [errorMessage, setErrorMessage] = useState(null);
-  const [responseData, setResponseData] = useState(null);
+  const [tableData, setTableData] = useState(null);
   const [filtersData, setFiltersData] = useState(null);
 
-  function fetchFilters() {
+  function fetchFiltersData() {
     axios.get(
       `${process.env.REACT_APP_SERVER_DOMAIN}/available_values`,
       {headers: authHeader()}
@@ -122,15 +170,16 @@ export default function WyswietlSprzet() {
       });
   }
 
-  function fetchData() {
+  function fetchTableData(filterFormData) {
+    console.log(filterFormData)
     axios.post(
       `${process.env.REACT_APP_SERVER_DOMAIN}/wyswietl`,
-      new FormData(),
+      filterFormData,
       {headers: authHeader()}
     )
       .then((response) => {
         setErrorMessage(response.data.message);
-        if(response.data.success) setResponseData(response.data.data);
+        if(response.data.success) setTableData(response.data.data);
       }).catch((error) => {
       setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
       console.log(error);
@@ -138,15 +187,15 @@ export default function WyswietlSprzet() {
   }
 
   useEffect(() => {
-    fetchFilters()
+    fetchFiltersData()
   }, []);
 
   return (<div className="contentDiv longForm">
-    <p className="contentTitle">Tabela sprzętu</p>
+    <p className="contentTitle disableSelect">Tabela sprzętu</p>
     <p id="errorMessage">{errorMessage}</p>
 
     {filtersData ?
-      <SprzetSelectForm filtersData={filtersData}/>
+      <SprzetSelectForm filtersData={filtersData} submit={fetchTableData}/>
       :
       errorMessage ?
         null
@@ -154,7 +203,7 @@ export default function WyswietlSprzet() {
         <LoadingIcon/>
     }
 
-    {responseData && <SprzetTable array={responseData}/>}
+    {tableData && <SprzetTable array={tableData}/>}
 
   </div>)
 }
