@@ -1,7 +1,7 @@
 @import "input.css";
 @import "button.css";
 
-.contentDiv, .contentDiv form {
+.contentDiv, .centeredForm {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,15 +43,15 @@
   margin: 0 8px;
 }
 
-#errorMessage {
+.errorMessage {
   background-color: var(--background);
   text-align: center;
-  color: red;
   font-size: 15px;
+  margin: 10px 0;
 }
 
 #submitButton {
-  margin: 15px 0;
+  margin: 5px 0;
 }
 
 table {

@@ -43,6 +43,7 @@ export default function ZmienHaslo({ handleLogout }) {
     <div className="contentDiv">
     <p className="contentTitle">Zmiana hasła</p>
     <form
+      className="centeredForm"
       id="passwordChangeForm"
       onSubmit={handleSubmit}
     >

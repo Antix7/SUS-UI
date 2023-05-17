@@ -3,10 +3,10 @@ import Checkmark from "../../Checkmark";
 import TableAccordion from "../../../TableAccordion";
 
 function SprzetHeader() {
-  const headers = ["Nazwa", "Admin", "Aktywne"];
+  const headers = ["Nazwa", "Ilość", "Status", "Stan"];
   return (
     <thead>
-    <tr id="tableHeaderRow">
+    <tr id="tableHeaderRow" className="disableSelect">
       {headers.map(header => <th key={header}>{header}</th>)}
     </tr>
     </thead>
@@ -14,34 +14,34 @@ function SprzetHeader() {
 }
 function SprzetRowCells({ object }) {
   return (<>
-    <td key={object.username}>{object.username}</td>
-    <td key={object.username + "_Admin"}>{object.czy_admin ? <Checkmark/> : <Cross/>}</td>
-    <td key={object.username + "_Aktywne"}>{
-      new Date() < new Date(object.data_wygasniecia) || object.data_wygasniecia===null ?
-        <Checkmark/> :
-        <Cross/>
-    }</td>
+    <td>{object["nazwa"]}</td>
+    <td>{object["ilosc"]}</td>
+    <td>{object["status"] === "Dostępny" ? <Checkmark/> : <Cross/>}</td>
+    <td>{object["stan"] === "Dobry" || object["stan"] === "Nowy" ? <Checkmark/> : <Cross/>}</td>
   </>)
 }
 function SprzetRowAccordionContent({ object }) {
   return (<>
-    <p>{`Adres e-mail: ${object.adres_email ? object.adres_email : "-"}`}</p>
-    <p>{`Data wygaśnięcia: ${object.data_wygasniecia ?
-      new Date(object.data_wygasniecia).toLocaleDateString('en-GB')
-      : "-"}`}
-    </p>
+    <p><strong>Status: </strong>{object["status"]}</p>
+    <p><strong>Kategoria: </strong>{object["kategoria"]}</p>
+    <p><strong>Stan: </strong>{object["stan"]}</p>
+    <p><strong>Lokalizacja: </strong>{object["lokalizacja"]}</p>
+    <p><strong>Właściciel: </strong>{object["wlasciciel"]}</p>
+    <p><strong>Użytkownik: </strong>{object["uzytkownik"]}</p>
+    {object["opis"] && <p><strong>Opis: </strong>{object["opis"]}</p>}
+    {object["zdjecie_path"] && <p><strong>Zdjęcie: </strong>{object["zdjecie_path"]}</p>}
+    {object["og_id"] && <p><strong>OG ID: </strong>{object["og_id"]}</p>}
   </>)
 
 }
 export default function SprzetTable({ array }) {
-
   return (
-    <table id="usersTable">
+    <table id="sprzetTable">
       <SprzetHeader/>
       <tbody>
       {array.map(row => <TableAccordion
         triggerContent={<SprzetRowCells object={row}/>}
-        colSpan={3}
+        colSpan={4}
         Key={row.username}
         key={row.username}
       >

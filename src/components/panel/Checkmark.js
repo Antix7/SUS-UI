@@ -7,6 +7,6 @@ export default function Checkmark() {
         padding: 0,
         backgroundColor: "transparent",
         color: "#7cb340"
-      }}>&#x2714;</p>
+    }}>&#x2714;</p>
   )
 }

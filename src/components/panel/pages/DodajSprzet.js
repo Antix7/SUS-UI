@@ -4,6 +4,7 @@ import authHeader from "../../../authHeader";
 import "../../css/contentPage.css"
 import Accordion from "../../Accordion";
 import LoadingIcon from "../../LoadingIcon";
+import ErrorMessage from "../../ErrorMessage";
 
 function DropdownAccordion({ children, title, selected, data, fieldText }) {
   return (<>
@@ -58,7 +59,7 @@ function DropdownAccordionWithOptions({ title, selected, data, fieldText, handle
 }
 
 
-function SprzetForm({ data, handleSubmit }) {
+function SprzetForm({ data, handleSubmit, errorMessage, isErrorGood }) {
 
   const [formdata, setFormdata] = useState({
     status: 0,
@@ -82,7 +83,7 @@ function SprzetForm({ data, handleSubmit }) {
   }, [formdata.kategoria]);
 
   return(<>
-    <form id="dodajSprzetForm" onSubmit={handleSubmit}>
+    <form className="centeredForm" id="dodajSprzetForm" onSubmit={handleSubmit}>
 
       <label htmlFor="nazwa" className="formLabel disableSelect">Nazwa</label>
       <input
@@ -157,6 +158,11 @@ function SprzetForm({ data, handleSubmit }) {
         name="zdjecie" id="zdjecieInput"
       />
 
+      <ErrorMessage
+        message={errorMessage}
+        success={isErrorGood}
+      />
+
       <button className="button" type="submit" id="submitButton">Dodaj</button>
 
     </form>
@@ -166,16 +172,21 @@ function SprzetForm({ data, handleSubmit }) {
 export default function DodajSprzet() {
 
   const [errorMessage, setErrorMessage] = useState(null);
+  const [isErrorGood, setIsErrorGood] = useState(null);
   const [data, setData] = useState(null);
 
   useEffect(() => {
     axios.get(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/dodaj/dropdowns`,
+      `${process.env.REACT_APP_SERVER_DOMAIN}/available_values`,
       {headers: authHeader()}
     )
       .then((response) => {
-        if(response.data.success) setData(response.data.data);
-        else setErrorMessage(response.data.message);
+        setErrorMessage(response.data.message);
+        if(response.data.success) {
+          setData(response.data.data);
+          setIsErrorGood(true);
+        }
+        else setIsErrorGood(false);
       })
       .catch((error) => {
         setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
@@ -195,8 +206,12 @@ export default function DodajSprzet() {
       {headers: authHeader()}
     )
       .then((response) => {
-        if(response.data.success) setErrorMessage("Dodano przedmiot do bazy danych");
-        else setErrorMessage(response.data.message);
+        setErrorMessage(response.data.message);
+        if(response.data.success) {
+          setErrorMessage("Dodano przedmiot do bazy danych");
+          setIsErrorGood(true);
+        }
+        else setIsErrorGood(false);
       }).catch((error) => {
       setErrorMessage("Wystąpił błąd w komunikacji z serwerem")
       console.log(error);
@@ -205,12 +220,15 @@ export default function DodajSprzet() {
 
   return (<div className="contentDiv longForm">
     <p className="contentTitle">Dodawanie sprzętu</p>
-    <p id="errorMessage">{errorMessage}</p>
 
-    {/*TODO better error/success communication*/}
 
     {data ?
-      <SprzetForm data={data} handleSubmit={handleSubmit}/>
+      <SprzetForm
+        data={data}
+        handleSubmit={handleSubmit}
+        errorMessage={errorMessage}
+        isErrorGood={isErrorGood}
+      />
       :
       <LoadingIcon/>
     }

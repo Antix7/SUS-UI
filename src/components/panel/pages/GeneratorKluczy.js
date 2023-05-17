@@ -34,6 +34,7 @@ export default function GeneratorKluczy() {
   return (<div className="contentDiv">
     <p className="contentTitle">Generator kluczy</p>
     <form
+      className="centeredForm"
       id="generateKeyForm"
       onSubmit={handleSubmit}
     >

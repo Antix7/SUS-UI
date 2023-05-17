@@ -6,9 +6,9 @@ function UsersHeader() {
   const headers = ["Nazwa", "Admin", "Aktywne"];
   return (
     <thead>
-      <tr id="tableHeaderRow">
-        {headers.map(header => <th key={header}>{header}</th>)}
-      </tr>
+    <tr id="tableHeaderRow">
+      {headers.map(header => <th key={header}>{header}</th>)}
+    </tr>
     </thead>
   )
 }
