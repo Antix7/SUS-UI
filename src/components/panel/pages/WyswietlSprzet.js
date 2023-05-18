@@ -5,6 +5,7 @@ import "../../css/contentPage.css"
 import SprzetTable from "./tables/SprzetTable";
 import LoadingIcon from "../../LoadingIcon";
 import Accordion from "../../Accordion";
+import FilterButton from "../../FilterButton";
 
 
 function CheckboxAccordion({ title, name, data, onChange, Ref }) {
@@ -139,7 +140,7 @@ function SprzetSelectForm({ filtersData, submit }) {
     </form>
 
     <button
-      className="button"
+      className="button submitButton"
       type="button"
       onClick={handleSubmit}
     >
@@ -194,8 +195,11 @@ export default function WyswietlSprzet() {
     <p className="contentTitle disableSelect">Tabela sprzętu</p>
     <p id="errorMessage">{errorMessage}</p>
 
+
     {filtersData ?
-      <SprzetSelectForm filtersData={filtersData} submit={fetchTableData}/>
+      <Accordion triggerContent={<FilterButton/>}>
+        <SprzetSelectForm filtersData={filtersData} submit={fetchTableData}/>
+      </Accordion>
       :
       errorMessage ?
         null

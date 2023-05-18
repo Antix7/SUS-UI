@@ -9,6 +9,7 @@
 
 .contentDiv {
   height: 100%;
+  overflow-y: scroll;
 }
 
 .contentTitle {
@@ -50,7 +51,7 @@
   margin: 10px 0;
 }
 
-#submitButton {
+#submitButton, .submitButton {
   margin: 5px 0;
 }
 
@@ -155,4 +156,8 @@ tr:nth-child(2n+1) > * {
   border-radius: 8px;
   padding: 3px 7px;
   margin: 2px 5px 2px -7px;
+}
+
+.filterButton {
+  margin: 4px;
 }
