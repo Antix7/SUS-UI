@@ -195,11 +195,10 @@ export default function WyswietlSprzet() {
     <p className="contentTitle disableSelect">Tabela sprzętu</p>
     <p id="errorMessage">{errorMessage}</p>
 
+    <FilterButton/>
 
     {filtersData ?
-      <Accordion triggerContent={<FilterButton/>}>
-        <SprzetSelectForm filtersData={filtersData} submit={fetchTableData}/>
-      </Accordion>
+      <SprzetSelectForm filtersData={filtersData} submit={fetchTableData}/>
       :
       errorMessage ?
         null

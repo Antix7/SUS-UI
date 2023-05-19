@@ -59,8 +59,7 @@ table {
   display:block;
   width: auto;
   max-width: calc(100vw - 30px);
-  height: 90%;
-  overflow-y:auto;
+  overflow-y: auto;
   overflow-x: auto;
   margin: 0;
   border-spacing: 0;

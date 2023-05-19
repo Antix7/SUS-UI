@@ -30,7 +30,6 @@ export default function Accordion({ triggerContent, triggerClass, panelClass, ch
     >
       {children}
     </div>
-    {shown ? <div></div> : <p></p>}
 
   </>)
 }
