@@ -1,0 +1,16 @@
+.filterSidepanel {
+  display: inline-block;
+  height: calc(100% - 75px);
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  overflow-x: hidden;
+  transform: translateX(0);
+  transform-origin: right;
+  transition: transform 0.3s;
+}
+
+.filterSidepanelHidden {
+  transform: translateX(100%);
+}

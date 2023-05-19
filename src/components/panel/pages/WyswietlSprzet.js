@@ -1,7 +1,8 @@
 import {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import authHeader from "../../../authHeader";
-import "../../css/contentPage.css"
+import "../../css/contentPage.css";
+import "../../css/wyswietlSprzet.css";
 import SprzetTable from "./tables/SprzetTable";
 import LoadingIcon from "../../LoadingIcon";
 import Accordion from "../../Accordion";
@@ -32,8 +33,7 @@ function CheckboxAccordion({ title, name, data, onChange, Ref }) {
   )
 }
 
-
-function SprzetSelectForm({ filtersData, submit }) {
+function SprzetSelectForm({ filtersData, onSubmit }) {
 
   const [kategorie, setKategorie] = useState(new Set());
   const [stanData, setStanData] = useState({});
@@ -74,7 +74,7 @@ function SprzetSelectForm({ filtersData, submit }) {
     return object;
   }
   function handleSubmit() {
-    submit({
+    onSubmit({
       status: FormDataToObject(new FormData(status_form.current)),
       kategoria: FormDataToObject(new FormData(kategoria_form.current)),
       stan: FormDataToObject(new FormData(stan_form.current)),
@@ -150,12 +150,18 @@ function SprzetSelectForm({ filtersData, submit }) {
   </div>)
 }
 
+function FilterSidepanel({ children, sidepanelShown }) {
+  return (<div className={"filterSidepanel" + (sidepanelShown ? "" : " filterSidepanelHidden")}>
+    {children}
+  </div>)
+}
 
 export default function WyswietlSprzet() {
 
   const [errorMessage, setErrorMessage] = useState(null);
   const [tableData, setTableData] = useState(null);
   const [filtersData, setFiltersData] = useState(null);
+  const [sidepanelShown, setSidepanelShown] = useState(false);
 
   function fetchFiltersData() {
     axios.get(
@@ -187,6 +193,11 @@ export default function WyswietlSprzet() {
       });
   }
 
+  function handleSprzetSelectFormSubmit(filterFormData) {
+    fetchTableData(filterFormData);
+    setSidepanelShown(false);
+  }
+
   useEffect(() => {
     fetchFiltersData()
   }, []);
@@ -195,16 +206,19 @@ export default function WyswietlSprzet() {
     <p className="contentTitle disableSelect">Tabela sprzętu</p>
     <p id="errorMessage">{errorMessage}</p>
 
-    <FilterButton/>
+    <FilterButton onClick={()=>setSidepanelShown(!sidepanelShown)}/>
 
-    {filtersData ?
-      <SprzetSelectForm filtersData={filtersData} submit={fetchTableData}/>
-      :
-      errorMessage ?
-        null
+    <FilterSidepanel sidepanelShown={sidepanelShown}>
+      {filtersData ?
+        <SprzetSelectForm filtersData={filtersData} onSubmit={handleSprzetSelectFormSubmit}/>
         :
-        <LoadingIcon/>
-    }
+        errorMessage ?
+          null
+          :
+          <LoadingIcon/>
+      }
+    </FilterSidepanel>
+
 
     {tableData && <SprzetTable array={tableData}/>}
 
