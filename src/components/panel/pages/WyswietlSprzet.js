@@ -151,42 +151,74 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
 
   </div>)
 }
-function SortujField({ title, moveUp, moveDown }) {
+function SortujField({ title, name, handleMove }) {
   return (
     <li>
       {title}
-      <button onClick={moveUp}>Góra</button>
-      <button onClick={moveDown}>Dół</button>
+      <button onClick={()=>handleMove(name, "up")}>Góra</button>
+      <button onClick={()=>handleMove(name, "down")}>Dół</button>
     </li>
   )
 }
 function SortujForm() {
 
-  const [fieldsIndexes, setFieldsIndexes] = useState({
-    "status": 0,
-    "kategoria": 0,
-    "stan": 0,
-    "lokalizacja": 0,
-    "wlasciciel": 0,
-    "uzytkownik": 0,
-    "nazwa": 0,
-    "ilosc" : 0
-  });
+  const fieldsData = {
+    status: <SortujField title="Status" name="status" handleMove={handleFieldMove}/>,
+    kategoria: <SortujField title="Kategoria" name="kategoria" handleMove={handleFieldMove}/>,
+    stan: <SortujField title="Stan" name="stan" handleMove={handleFieldMove}/>,
+    lokalizacja: <SortujField title="Lokalizacja" name="lokalizacja" handleMove={handleFieldMove}/>,
+    // wlasciciel: 0,
+    // uzytkownik: 0,
+    // nazwa: 0,
+    // ilosc : 0
+  };
 
   const [fieldsOrder, setFieldsOrder] = useState({
-    "notChosen": ["status", "kategoria", "stan", "lokalizacja", "wlasciciel", "uzytkownik", "nazwa", "ilosc"],
+    "notChosen": ["status", "kategoria", "stan", "lokalizacja"], //"wlasciciel", "uzytkownik", "nazwa", "ilosc"
     "chosen": []
   });
 
+  function handleFieldMove(name, direction) {
 
+    const notChosenID = fieldsOrder.notChosen.indexOf(name);
+    const chosenID = fieldsOrder.chosen.indexOf(name);
+    let newFieldsOrder = JSON.parse(JSON.stringify(fieldsOrder));
+
+    if(direction === "down") {
+      if(notChosenID !== -1) {
+        newFieldsOrder.notChosen.splice(notChosenID, 1);
+        newFieldsOrder.chosen.splice(0, 0, name);
+      }
+      if(chosenID !== -1) { // corner case jak element jest ostatni sam się rozwiązuje
+        newFieldsOrder.chosen.splice(chosenID, 1);
+        newFieldsOrder.chosen.splice(chosenID+1, 0, name);
+        console.log(newFieldsOrder.chosen);
+      }
+    }
+    if(direction === "up" && chosenID !== -1) { // jeśli jest notChosen to nic się nie dzieje
+      if(chosenID === 0) {
+        newFieldsOrder.chosen.splice(0, 1);
+        newFieldsOrder.notChosen.push(name);
+      }
+      if(chosenID !== 0) {
+        newFieldsOrder.chosen.splice(chosenID, 1);
+        newFieldsOrder.chosen.splice(chosenID-1, 0, name);
+      }
+    }
+    setFieldsOrder(newFieldsOrder);
+  }
+
+  function compare(a, b) {
+    if(a.id > b.id) return 1;
+    else return -1;
+  }
 
   return (<>
     <ol>
       <li><b>Nie sortowane</b></li>
-      {fieldsOrder.notChosen.map(name => <SortujField title={name}/>)}
+      {fieldsOrder.notChosen.map(field => fieldsData[field])}
       <li><b>Sortowane</b></li>
-      {fieldsOrder.chosen.map(name => <SortujField title={name}/>)}
-    </ol>
+      {fieldsOrder.chosen.map(field => fieldsData[field])}    </ol>
   </>)
 }
 
