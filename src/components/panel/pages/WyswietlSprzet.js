@@ -220,7 +220,6 @@ export default function WyswietlSprzet() {
       }
     </FilterSidepanel>
 
-
     {tableData && <SprzetTable array={tableData}/>}
 
   </div>)

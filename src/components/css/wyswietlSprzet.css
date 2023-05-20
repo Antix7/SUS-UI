@@ -9,12 +9,12 @@
   bottom: 0;
   overflow-x: hidden;
   transform: translateX(0);
-  transform-origin: right;
+  transform-origin: left;
   transition: transform 0.3s;
 }
 
 .filterSidepanelHidden {
-  transform: translateX(100%);
+  transform: translateX(-100%);
 }
 
 .filterButton {
