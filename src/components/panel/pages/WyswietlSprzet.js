@@ -167,14 +167,14 @@ function SortujForm() {
     kategoria: <SortujField title="Kategoria" name="kategoria" handleMove={handleFieldMove}/>,
     stan: <SortujField title="Stan" name="stan" handleMove={handleFieldMove}/>,
     lokalizacja: <SortujField title="Lokalizacja" name="lokalizacja" handleMove={handleFieldMove}/>,
-    // wlasciciel: 0,
-    // uzytkownik: 0,
-    // nazwa: 0,
-    // ilosc : 0
+    wlasciciel: <SortujField title="Właściciel" name="wlasciciel" handleMove={handleFieldMove}/>,
+    uzytkownik: <SortujField title="Użytkownik" name="uzytkownik" handleMove={handleFieldMove}/>,
+    nazwa: <SortujField title="Nazwa" name="nazwa" handleMove={handleFieldMove}/>,
+    ilosc : <SortujField title="Ilość" name="ilosc" handleMove={handleFieldMove}/>
   };
 
   const [fieldsOrder, setFieldsOrder] = useState({
-    "notChosen": ["status", "kategoria", "stan", "lokalizacja"], //"wlasciciel", "uzytkownik", "nazwa", "ilosc"
+    "notChosen": ["status", "kategoria", "stan", "lokalizacja", "wlasciciel", "uzytkownik", "nazwa", "ilosc"],
     "chosen": []
   });
 
@@ -206,11 +206,6 @@ function SortujForm() {
       }
     }
     setFieldsOrder(newFieldsOrder);
-  }
-
-  function compare(a, b) {
-    if(a.id > b.id) return 1;
-    else return -1;
   }
 
   return (<>
