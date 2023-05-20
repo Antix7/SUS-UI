@@ -7,6 +7,7 @@ import SprzetTable from "./tables/SprzetTable";
 import LoadingIcon from "../../LoadingIcon";
 import Accordion from "../../Accordion";
 import FilterButton from "../../FilterButton";
+import Arrow from "../../Arrow";
 
 
 function CheckboxAccordion({ title, name, data, onChange, Ref }) {
@@ -145,6 +146,11 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
       />
     </form>
 
+    <p className="contentTitle disableSelect" style={{marginTop:12}}>Sortuj</p>
+
+    <SortujForm fieldsOrder={fieldsOrder} setFieldsOrder={setFieldsOrder}/>
+
+
     <button
       className="button submitButton"
       type="button"
@@ -153,16 +159,17 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
       Filtruj
     </button>
 
-    <SortujForm fieldsOrder={fieldsOrder} setFieldsOrder={setFieldsOrder}/>
 
   </div>)
 }
 function SortujField({ title, name, handleMove }) {
   return (
-    <li>
+    <li className="sortujField" key={name}>
+      <div className="arrowContainer">
+        <Arrow onClick={()=>handleMove(name, "up")} rotation={180}/>
+        <Arrow onClick={()=>handleMove(name, "down")}/>
+      </div>
       {title}
-      <button onClick={()=>handleMove(name, "up")}>Góra</button>
-      <button onClick={()=>handleMove(name, "down")}>Dół</button>
     </li>
   )
 }
@@ -193,7 +200,6 @@ function SortujForm({ fieldsOrder, setFieldsOrder }) {
       if(chosenID !== -1) { // corner case jak element jest ostatni sam się rozwiązuje
         newFieldsOrder.chosen.splice(chosenID, 1);
         newFieldsOrder.chosen.splice(chosenID+1, 0, name);
-        console.log(newFieldsOrder.chosen);
       }
     }
     if(direction === "up" && chosenID !== -1) { // jeśli jest notChosen to nic się nie dzieje
@@ -211,10 +217,15 @@ function SortujForm({ fieldsOrder, setFieldsOrder }) {
 
   return (<>
     <ol>
-      <li><b>Nie sortowane</b></li>
-      {fieldsOrder.notChosen.map(field => fieldsData[field])}
-      <li><b>Sortowane</b></li>
-      {fieldsOrder.chosen.map(field => fieldsData[field])}    </ol>
+      <div className="fieldsContainer">
+
+        {fieldsOrder.notChosen.map(field => fieldsData[field])}
+      </div>
+      <div className="fieldsContainer">
+        <p>Sortuj według</p>
+        {fieldsOrder.chosen.map(field => fieldsData[field])}
+      </div>
+    </ol>
   </>)
 }
 
@@ -267,7 +278,8 @@ export default function WyswietlSprzet() {
   }
 
   useEffect(() => {
-    fetchFiltersData()
+    fetchFiltersData();
+    fetchTableData();
   }, []);
 
   return (<div className="contentDiv longForm">
@@ -277,7 +289,7 @@ export default function WyswietlSprzet() {
     <FilterButton onClick={()=>setSidepanelShown(!sidepanelShown)}/>
 
     <FilterSidepanel sidepanelShown={sidepanelShown}>
-      <p className="contentTitle">Filtruj</p>
+      <p className="contentTitle disableSelect">Filtruj</p>
       {filtersData ?
         <SprzetSelectForm filtersData={filtersData} onSubmit={handleSprzetSelectFormSubmit}/>
         :

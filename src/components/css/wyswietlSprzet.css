@@ -42,4 +42,39 @@
 ol {
   list-style-type: none;
   padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.arrow {
+  margin: 0 2px;
+  background-color: inherit;
+}
+.arrowContainer {
+  margin: 0 5px 0 -5px;
+  display: inline-block;
+  background-color: inherit;
+}
+
+.sortujField {
+  display: block;
+  font-size: 15px;
+  border: 1px solid #AAA;
+  border-radius: 15px;
+  padding: 4px 14px;
+  outline: none;
+  margin: 3px;
+  width: min(220px, 80vw);
+}
+
+.fieldsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 7px;
+  padding: 8px;
+  border: 1px solid #AAA;
+  border-radius: 16px;
 }
