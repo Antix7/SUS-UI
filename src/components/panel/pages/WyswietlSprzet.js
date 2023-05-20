@@ -147,7 +147,47 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
       Filtruj
     </button>
 
+    <SortujForm/>
+
   </div>)
+}
+function SortujField({ title, moveUp, moveDown }) {
+  return (
+    <li>
+      {title}
+      <button onClick={moveUp}>Góra</button>
+      <button onClick={moveDown}>Dół</button>
+    </li>
+  )
+}
+function SortujForm() {
+
+  const [fieldsIndexes, setFieldsIndexes] = useState({
+    "status": 0,
+    "kategoria": 0,
+    "stan": 0,
+    "lokalizacja": 0,
+    "wlasciciel": 0,
+    "uzytkownik": 0,
+    "nazwa": 0,
+    "ilosc" : 0
+  });
+
+  const [fieldsOrder, setFieldsOrder] = useState({
+    "notChosen": ["status", "kategoria", "stan", "lokalizacja", "wlasciciel", "uzytkownik", "nazwa", "ilosc"],
+    "chosen": []
+  });
+
+
+
+  return (<>
+    <ol>
+      <li><b>Nie sortowane</b></li>
+      {fieldsOrder.notChosen.map(name => <SortujField title={name}/>)}
+      <li><b>Sortowane</b></li>
+      {fieldsOrder.chosen.map(name => <SortujField title={name}/>)}
+    </ol>
+  </>)
 }
 
 function FilterSidepanel({ children, sidepanelShown }) {

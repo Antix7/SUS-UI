@@ -38,3 +38,8 @@
 .filterAccordionButton:active {
   background-color: var(--darker4);
 }
+
+ol {
+  list-style-type: none;
+  padding: 0;
+}
