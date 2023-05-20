@@ -82,8 +82,14 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
       wlasciciel: FormDataToObject(new FormData(wlasciciel_form.current)),
       uzytkownik: FormDataToObject(new FormData(uzytkownik_form.current)),
       nazwa: FormDataToObject(new FormData(nazwa_form.current)),
+      sortOrder: fieldsOrder.chosen
     });
   }
+
+  const [fieldsOrder, setFieldsOrder] = useState({
+    "notChosen": ["status", "kategoria", "stan", "lokalizacja", "wlasciciel", "uzytkownik", "nazwa", "ilosc"],
+    "chosen": []
+  });
 
   return (<div className="centeredForm">
 
@@ -147,7 +153,7 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
       Filtruj
     </button>
 
-    <SortujForm/>
+    <SortujForm fieldsOrder={fieldsOrder} setFieldsOrder={setFieldsOrder}/>
 
   </div>)
 }
@@ -160,7 +166,7 @@ function SortujField({ title, name, handleMove }) {
     </li>
   )
 }
-function SortujForm() {
+function SortujForm({ fieldsOrder, setFieldsOrder }) {
 
   const fieldsData = {
     status: <SortujField title="Status" name="status" handleMove={handleFieldMove}/>,
@@ -173,11 +179,6 @@ function SortujForm() {
     ilosc : <SortujField title="Ilość" name="ilosc" handleMove={handleFieldMove}/>
   };
 
-  const [fieldsOrder, setFieldsOrder] = useState({
-    "notChosen": ["status", "kategoria", "stan", "lokalizacja", "wlasciciel", "uzytkownik", "nazwa", "ilosc"],
-    "chosen": []
-  });
-
   function handleFieldMove(name, direction) {
 
     const notChosenID = fieldsOrder.notChosen.indexOf(name);
@@ -187,7 +188,7 @@ function SortujForm() {
     if(direction === "down") {
       if(notChosenID !== -1) {
         newFieldsOrder.notChosen.splice(notChosenID, 1);
-        newFieldsOrder.chosen.splice(0, 0, name);
+        newFieldsOrder.chosen.push(name);
       }
       if(chosenID !== -1) { // corner case jak element jest ostatni sam się rozwiązuje
         newFieldsOrder.chosen.splice(chosenID, 1);
