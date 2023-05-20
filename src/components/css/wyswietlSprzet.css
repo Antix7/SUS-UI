@@ -1,5 +1,7 @@
 .filterSidepanel {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   height: calc(100% - 75px);
   width: 100%;
   position: absolute;
@@ -13,4 +15,26 @@
 
 .filterSidepanelHidden {
   transform: translateX(100%);
+}
+
+.filterButton {
+  margin-top: 5px;
+  margin-bottom: 12px;
+}
+
+.filterAccordionButton {
+  display: block;
+  font-size: 15px;
+  background-color: var(--darker2);
+  border-radius: 15px;
+  padding: 5px 14px;
+  outline: none;
+  margin: 6px;
+  width: min(250px, 80vw);
+}
+.filterAccordionButton:hover {
+  background-color: var(--darker3);
+}
+.filterAccordionButton:active {
+  background-color: var(--darker4);
 }

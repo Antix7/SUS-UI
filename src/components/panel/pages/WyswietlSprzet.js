@@ -12,7 +12,7 @@ import FilterButton from "../../FilterButton";
 function CheckboxAccordion({ title, name, data, onChange, Ref }) {
   return (
     <Accordion
-      triggerContent={<p className="dropdownAccordionField disableSelect">{title}</p>}
+      triggerContent={<p className="filterAccordionButton disableSelect">{title}</p>}
       panelClass="dropdownAccordionPanel"
     >
       <form id={name+"_filter_form"} ref={Ref}>
@@ -209,6 +209,7 @@ export default function WyswietlSprzet() {
     <FilterButton onClick={()=>setSidepanelShown(!sidepanelShown)}/>
 
     <FilterSidepanel sidepanelShown={sidepanelShown}>
+      <p className="contentTitle">Filtruj</p>
       {filtersData ?
         <SprzetSelectForm filtersData={filtersData} onSubmit={handleSprzetSelectFormSubmit}/>
         :
