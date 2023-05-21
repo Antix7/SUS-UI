@@ -84,14 +84,21 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
       wlasciciel: FormDataToObject(new FormData(wlasciciel_form.current)),
       uzytkownik: FormDataToObject(new FormData(uzytkownik_form.current)),
       nazwa: FormDataToObject(new FormData(nazwa_form.current)),
-      sortOrder: fieldsOrder.chosen
+      sortOrder: fieldsOrder.chosen.map(value=>[value, checkedList[value]])
     });
   }
 
+  const fields = ["status", "kategoria", "stan", "lokalizacja", "wlasciciel", "uzytkownik", "nazwa", "ilosc"];
   const [fieldsOrder, setFieldsOrder] = useState({
-    "notChosen": ["status", "kategoria", "stan", "lokalizacja", "wlasciciel", "uzytkownik", "nazwa", "ilosc"],
+    "notChosen": fields,
     "chosen": []
   });
+  const [checkedList, setCheckedList] = useState(
+    Object.assign({}, ...fields.map(value=>{
+      return {[value]: false}
+    }))
+  );
+
 
   return (<div className="centeredForm">
 
@@ -149,8 +156,12 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
 
     <p className="contentTitle disableSelect" style={{marginTop:12}}>Sortuj</p>
 
-    <SortujForm fieldsOrder={fieldsOrder} setFieldsOrder={setFieldsOrder}/>
-
+    <SortujForm
+      fieldsOrder={fieldsOrder}
+      setFieldsOrder={setFieldsOrder}
+      checkedList={checkedList}
+      setCheckedList={setCheckedList}
+    />
 
     <button
       className="button submitButton"
@@ -163,30 +174,49 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
 
   </div>)
 }
-function SortujField({ title, name, handleMove }) {
+function SortujField({ title, name, handleMove, toggleChecked, onToggleClick }) {
   return (
     <li className="sortujField disableSelect" key={name}>
       <div className="arrowContainer">
         <Arrow onClick={()=>handleMove(name, "up")} rotation={180}/>
         <Arrow onClick={()=>handleMove(name, "down")}/>
       </div>
-      <CompactToggle name={name} stateFalse="ASC" stateTrue="DESC"/>
+      <CompactToggle stateFalse="ASC" stateTrue="DESC" checked={toggleChecked} onClick={onToggleClick}/>
       {title}
     </li>
   )
 }
-function SortujForm({ fieldsOrder, setFieldsOrder }) {
+function SortujForm({ fieldsOrder, setFieldsOrder, checkedList, setCheckedList }) {
 
-  const fieldsData = {
-    status: <SortujField title="Status" name="status" handleMove={handleFieldMove}/>,
-    kategoria: <SortujField title="Kategoria" name="kategoria" handleMove={handleFieldMove}/>,
-    stan: <SortujField title="Stan" name="stan" handleMove={handleFieldMove}/>,
-    lokalizacja: <SortujField title="Lokalizacja" name="lokalizacja" handleMove={handleFieldMove}/>,
-    wlasciciel: <SortujField title="Właściciel" name="wlasciciel" handleMove={handleFieldMove}/>,
-    uzytkownik: <SortujField title="Użytkownik" name="uzytkownik" handleMove={handleFieldMove}/>,
-    nazwa: <SortujField title="Nazwa" name="nazwa" handleMove={handleFieldMove}/>,
-    ilosc : <SortujField title="Ilość" name="ilosc" handleMove={handleFieldMove}/>
-  };
+  function handleCheckedChange(key) {
+    let newCheckedList = JSON.parse(JSON.stringify(checkedList));
+    newCheckedList[key] = !checkedList[key];
+    setCheckedList(newCheckedList);
+  }
+
+  const fieldsBuildData = [
+    ["status", "Status"],
+    ["kategoria", "Kategoria"],
+    ["stan", "Stan"],
+    ["lokalizacja", "Lokalizacja"],
+    ["wlasciciel", "Właściciel"],
+    ["uzytkownik", "Użytkownik"],
+    ["nazwa", "Nazwa"],
+    ["ilosc", "Ilość"]
+  ]
+
+  const fieldsData = Object.assign({}, ...fieldsBuildData.map(value => {
+    return {
+      [value[0]]: <SortujField
+        title={value[1]}
+        name={value[0]}
+        handleMove={handleFieldMove}
+        toggleChecked={checkedList[value[0]]}
+        onToggleClick={()=>handleCheckedChange(value[0])}
+      />
+    };
+  }
+  ));
 
   function handleFieldMove(name, direction) {
 

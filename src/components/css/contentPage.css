@@ -51,7 +51,7 @@
 }
 
 #submitButton, .submitButton {
-  margin: 5px 0;
+  margin: 5px 0 20px 0;
 }
 
 table {
@@ -164,7 +164,7 @@ tr:nth-child(2n+1) > * {
   display: none;
 }
 
-.toggleLabel {
+.compactToggle {
   display: inline-block;
   font-size: 10px;
   font-weight: bold;
