@@ -50,16 +50,15 @@
   margin: 10px 0;
 }
 
-#submitButton {
-  margin: 5px 0;
+#submitButton, .submitButton {
+  margin: 5px 0 20px 0;
 }
 
 table {
   display:block;
   width: auto;
   max-width: calc(100vw - 30px);
-  height: 90%;
-  overflow-y:auto;
+  overflow-y: auto;
   overflow-x: auto;
   margin: 0;
   border-spacing: 0;
@@ -155,4 +154,21 @@ tr:nth-child(2n+1) > * {
   border-radius: 8px;
   padding: 3px 7px;
   margin: 2px 5px 2px -7px;
+}
+
+.filterButton {
+  margin: 4px;
+}
+
+.invisibleCheckbox {
+  display: none;
+}
+
+.compactToggle {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: bold;
+  width: 35px;
+  text-align: center;
+  margin: 0 4px;
 }

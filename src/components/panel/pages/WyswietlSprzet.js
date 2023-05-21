@@ -1,16 +1,20 @@
 import {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import authHeader from "../../../authHeader";
-import "../../css/contentPage.css"
+import "../../css/contentPage.css";
+import "../../css/wyswietlSprzet.css";
 import SprzetTable from "./tables/SprzetTable";
 import LoadingIcon from "../../LoadingIcon";
 import Accordion from "../../Accordion";
+import FilterButton from "../../FilterButton";
+import Arrow from "../../Arrow";
+import CompactToggle from "../../CompactToggle";
 
 
 function CheckboxAccordion({ title, name, data, onChange, Ref }) {
   return (
     <Accordion
-      triggerContent={<p className="dropdownAccordionField disableSelect">{title}</p>}
+      triggerContent={<p className="filterAccordionButton disableSelect">{title}</p>}
       panelClass="dropdownAccordionPanel"
     >
       <form id={name+"_filter_form"} ref={Ref}>
@@ -31,8 +35,7 @@ function CheckboxAccordion({ title, name, data, onChange, Ref }) {
   )
 }
 
-
-function SprzetSelectForm({ filtersData, submit }) {
+function SprzetSelectForm({ filtersData, onSubmit }) {
 
   const [kategorie, setKategorie] = useState(new Set());
   const [stanData, setStanData] = useState({});
@@ -73,7 +76,7 @@ function SprzetSelectForm({ filtersData, submit }) {
     return object;
   }
   function handleSubmit() {
-    submit({
+    onSubmit({
       status: FormDataToObject(new FormData(status_form.current)),
       kategoria: FormDataToObject(new FormData(kategoria_form.current)),
       stan: FormDataToObject(new FormData(stan_form.current)),
@@ -81,8 +84,21 @@ function SprzetSelectForm({ filtersData, submit }) {
       wlasciciel: FormDataToObject(new FormData(wlasciciel_form.current)),
       uzytkownik: FormDataToObject(new FormData(uzytkownik_form.current)),
       nazwa: FormDataToObject(new FormData(nazwa_form.current)),
+      sortOrder: fieldsOrder.chosen.map(value=>[value, checkedList[value]])
     });
   }
+
+  const fields = ["status", "kategoria", "stan", "lokalizacja", "wlasciciel", "uzytkownik", "nazwa", "ilosc"];
+  const [fieldsOrder, setFieldsOrder] = useState({
+    "notChosen": fields,
+    "chosen": []
+  });
+  const [checkedList, setCheckedList] = useState(
+    Object.assign({}, ...fields.map(value=>{
+      return {[value]: false}
+    }))
+  );
+
 
   return (<div className="centeredForm">
 
@@ -138,23 +154,125 @@ function SprzetSelectForm({ filtersData, submit }) {
       />
     </form>
 
+    <p className="contentTitle disableSelect" style={{marginTop:12}}>Sortuj</p>
+
+    <SortujForm
+      fieldsOrder={fieldsOrder}
+      setFieldsOrder={setFieldsOrder}
+      checkedList={checkedList}
+      setCheckedList={setCheckedList}
+    />
+
     <button
-      className="button"
+      className="button submitButton"
       type="button"
       onClick={handleSubmit}
     >
       Filtruj
     </button>
 
+
   </div>)
 }
+function SortujField({ title, name, handleMove, toggleChecked, onToggleClick }) {
+  return (
+    <li className="sortujField disableSelect" key={name}>
+      <div className="arrowContainer">
+        <Arrow onClick={()=>handleMove(name, "up")} rotation={180}/>
+        <Arrow onClick={()=>handleMove(name, "down")}/>
+      </div>
+      <CompactToggle stateFalse="ASC" stateTrue="DESC" checked={toggleChecked} onClick={onToggleClick}/>
+      {title}
+    </li>
+  )
+}
+function SortujForm({ fieldsOrder, setFieldsOrder, checkedList, setCheckedList }) {
 
+  function handleCheckedChange(key) {
+    let newCheckedList = JSON.parse(JSON.stringify(checkedList));
+    newCheckedList[key] = !checkedList[key];
+    setCheckedList(newCheckedList);
+  }
+
+  const fieldsBuildData = [
+    ["status", "Status"],
+    ["kategoria", "Kategoria"],
+    ["stan", "Stan"],
+    ["lokalizacja", "Lokalizacja"],
+    ["wlasciciel", "Właściciel"],
+    ["uzytkownik", "Użytkownik"],
+    ["nazwa", "Nazwa"],
+    ["ilosc", "Ilość"]
+  ]
+
+  const fieldsData = Object.assign({}, ...fieldsBuildData.map(value => {
+    return {
+      [value[0]]: <SortujField
+        title={value[1]}
+        name={value[0]}
+        handleMove={handleFieldMove}
+        toggleChecked={checkedList[value[0]]}
+        onToggleClick={()=>handleCheckedChange(value[0])}
+      />
+    };
+  }
+  ));
+
+  function handleFieldMove(name, direction) {
+
+    const notChosenID = fieldsOrder.notChosen.indexOf(name);
+    const chosenID = fieldsOrder.chosen.indexOf(name);
+    let newFieldsOrder = JSON.parse(JSON.stringify(fieldsOrder));
+
+    if(direction === "down") {
+      if(notChosenID !== -1) {
+        newFieldsOrder.notChosen.splice(notChosenID, 1);
+        newFieldsOrder.chosen.push(name);
+      }
+      if(chosenID !== -1) { // corner case jak element jest ostatni sam się rozwiązuje
+        newFieldsOrder.chosen.splice(chosenID, 1);
+        newFieldsOrder.chosen.splice(chosenID+1, 0, name);
+      }
+    }
+    if(direction === "up" && chosenID !== -1) { // jeśli jest notChosen to nic się nie dzieje
+      if(chosenID === 0) {
+        newFieldsOrder.chosen.splice(0, 1);
+        newFieldsOrder.notChosen.push(name);
+      }
+      if(chosenID !== 0) {
+        newFieldsOrder.chosen.splice(chosenID, 1);
+        newFieldsOrder.chosen.splice(chosenID-1, 0, name);
+      }
+    }
+    setFieldsOrder(newFieldsOrder);
+  }
+
+  return (<>
+    <ol>
+      <div className="fieldsContainer">
+
+        {fieldsOrder.notChosen.map(field => fieldsData[field])}
+      </div>
+      <div className="fieldsContainer">
+        <p>Sortuj według</p>
+        {fieldsOrder.chosen.map(field => fieldsData[field])}
+      </div>
+    </ol>
+  </>)
+}
+
+function FilterSidepanel({ children, sidepanelShown }) {
+  return (<div className={"filterSidepanel" + (sidepanelShown ? "" : " filterSidepanelHidden")}>
+    {children}
+  </div>)
+}
 
 export default function WyswietlSprzet() {
 
   const [errorMessage, setErrorMessage] = useState(null);
   const [tableData, setTableData] = useState(null);
   const [filtersData, setFiltersData] = useState(null);
+  const [sidepanelShown, setSidepanelShown] = useState(false);
 
   function fetchFiltersData() {
     axios.get(
@@ -186,22 +304,33 @@ export default function WyswietlSprzet() {
       });
   }
 
+  function handleSprzetSelectFormSubmit(filterFormData) {
+    fetchTableData(filterFormData);
+    setSidepanelShown(false);
+  }
+
   useEffect(() => {
-    fetchFiltersData()
+    fetchFiltersData();
+    fetchTableData();
   }, []);
 
   return (<div className="contentDiv longForm">
     <p className="contentTitle disableSelect">Tabela sprzętu</p>
     <p id="errorMessage">{errorMessage}</p>
 
-    {filtersData ?
-      <SprzetSelectForm filtersData={filtersData} submit={fetchTableData}/>
-      :
-      errorMessage ?
-        null
+    <FilterButton onClick={()=>setSidepanelShown(!sidepanelShown)}/>
+
+    <FilterSidepanel sidepanelShown={sidepanelShown}>
+      <p className="contentTitle disableSelect">Filtruj</p>
+      {filtersData ?
+        <SprzetSelectForm filtersData={filtersData} onSubmit={handleSprzetSelectFormSubmit}/>
         :
-        <LoadingIcon/>
-    }
+        errorMessage ?
+          null
+          :
+          <LoadingIcon/>
+      }
+    </FilterSidepanel>
 
     {tableData && <SprzetTable array={tableData}/>}
 

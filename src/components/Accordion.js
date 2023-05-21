@@ -6,10 +6,10 @@ export default function Accordion({ triggerContent, triggerClass, panelClass, ch
 
   const [shown, setShown] = useState(false);
   const [panelHeight, setPanelHeight] = useState(0);
-  const panel = useRef(null);
+  const childrenRef = useRef(null);
 
   useEffect(() => {
-    setPanelHeight(shown ? panel.current.scrollHeight : 0);
+    setPanelHeight(shown ? childrenRef.current.scrollHeight : 0);
   }, [shown, children]);
   
   useEffect(() => {
@@ -25,10 +25,11 @@ export default function Accordion({ triggerContent, triggerClass, panelClass, ch
     </div>
     <div
       className={"accordionPanel " + panelClass}
-      ref={panel}
       style={{height:panelHeight}}
     >
-      {children}
+      <div ref={childrenRef}>
+        {children}
+      </div>
     </div>
 
   </>)
