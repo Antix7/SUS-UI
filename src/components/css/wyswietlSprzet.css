@@ -53,13 +53,14 @@ ol {
   background-color: inherit;
 }
 .arrowContainer {
-  margin: 0 5px 0 -5px;
+  margin: 0 0 0 -5px;
   display: inline-block;
   background-color: inherit;
 }
 
 .sortujField {
-  display: block;
+  display: flex;
+  align-items: center;
   font-size: 15px;
   border: 1px solid #AAA;
   border-radius: 15px;

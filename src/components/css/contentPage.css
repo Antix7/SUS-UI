@@ -159,3 +159,16 @@ tr:nth-child(2n+1) > * {
 .filterButton {
   margin: 4px;
 }
+
+.invisibleCheckbox {
+  display: none;
+}
+
+.toggleLabel {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: bold;
+  width: 35px;
+  text-align: center;
+  margin: 0 4px;
+}

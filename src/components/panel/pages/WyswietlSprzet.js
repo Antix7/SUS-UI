@@ -8,6 +8,7 @@ import LoadingIcon from "../../LoadingIcon";
 import Accordion from "../../Accordion";
 import FilterButton from "../../FilterButton";
 import Arrow from "../../Arrow";
+import CompactToggle from "../../CompactToggle";
 
 
 function CheckboxAccordion({ title, name, data, onChange, Ref }) {
@@ -164,11 +165,12 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
 }
 function SortujField({ title, name, handleMove }) {
   return (
-    <li className="sortujField" key={name}>
+    <li className="sortujField disableSelect" key={name}>
       <div className="arrowContainer">
         <Arrow onClick={()=>handleMove(name, "up")} rotation={180}/>
         <Arrow onClick={()=>handleMove(name, "down")}/>
       </div>
+      <CompactToggle name={name} stateFalse="ASC" stateTrue="DESC"/>
       {title}
     </li>
   )
