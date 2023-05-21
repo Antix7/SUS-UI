@@ -289,7 +289,6 @@ export default function WyswietlSprzet() {
   }
 
   function fetchTableData(filterFormData) {
-    console.log(filterFormData)
     axios.post(
       `${process.env.REACT_APP_SERVER_DOMAIN}/wyswietl`,
       filterFormData,
@@ -314,6 +313,20 @@ export default function WyswietlSprzet() {
     fetchTableData();
   }, []);
 
+  function handleUsun(id) {
+    axios.post(
+      `${process.env.REACT_APP_SERVER_DOMAIN}/usun_sprzet`,
+      {id: id},
+      {headers: authHeader()}
+    )
+      .then((response) => {
+        fetchTableData();
+      }).catch((error) => {
+      setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
+      console.log(error);
+    });
+  }
+
   return (<div className="contentDiv longForm">
     <p className="contentTitle disableSelect">Tabela sprzętu</p>
     <p id="errorMessage">{errorMessage}</p>
@@ -332,7 +345,7 @@ export default function WyswietlSprzet() {
       }
     </FilterSidepanel>
 
-    {tableData && <SprzetTable array={tableData}/>}
+    {tableData && <SprzetTable array={tableData} handleUsun={handleUsun}/>}
 
   </div>)
 }
