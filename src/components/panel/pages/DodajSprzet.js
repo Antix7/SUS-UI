@@ -177,7 +177,7 @@ export default function DodajSprzet() {
 
   useEffect(() => {
     axios.get(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/available_values`,
+      `${process.env.REACT_APP_SERVER_ADDRESS}/available_values`,
       {headers: authHeader()}
     )
       .then((response) => {
@@ -201,7 +201,7 @@ export default function DodajSprzet() {
     const formData = new FormData(form);
 
     axios.post(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/dodaj`,
+      `${process.env.REACT_APP_SERVER_ADDRESS}/dodaj`,
       formData,
       {headers: authHeader()}
     )

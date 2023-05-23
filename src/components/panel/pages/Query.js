@@ -18,7 +18,7 @@ export default function Query() {
     const formData = new FormData(form);
 
     axios.post(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/query`,
+      `${process.env.REACT_APP_SERVER_ADDRESS}/query`,
       formData,
       {headers: authHeader()} // passing JWT
     )

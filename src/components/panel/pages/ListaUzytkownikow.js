@@ -4,6 +4,7 @@ import authHeader from "../../../authHeader";
 import "../../css/contentPage.css"
 import UsersTable from "./tables/UsersTable";
 import LoadingIcon from "../../LoadingIcon";
+import ErrorMessage from "../../ErrorMessage";
 
 export default function ListaUzytkownikow() {
 
@@ -12,12 +13,12 @@ export default function ListaUzytkownikow() {
 
   function fetchData() {
     axios.get(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/uzytkownicy`,
+      `${process.env.REACT_APP_SERVER_ADDRESS}/uzytkownicy`,
       {headers: authHeader()} // passing JWT
     )
       .then((response) => {
-        setErrorMessage(response.data.message);
-        if(response.data.success) setResponseData(response.data.data);
+        if(!response.data.success) setErrorMessage(response.data.message);
+        else setResponseData(response.data.data);
       }).catch((error) => {
       setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
       console.log(error);
@@ -30,12 +31,27 @@ export default function ListaUzytkownikow() {
     // In production this problem is not present
   }, []);
 
+  function handleUsun(username) {
+    axios.post(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/usun_uzytkownika`,
+        {username: username},
+        {headers: authHeader()}
+    )
+        .then((response) => {
+          fetchData();
+          if(!response.data.success) setErrorMessage(response.data.message);
+        }).catch((error) => {
+      setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
+      console.log(error);
+    });
+  }
+
   return (<div className="contentDiv">
     <p className="contentTitle">Lista użytkowników</p>
-    <p id="errorMessage">{errorMessage}</p>
+    <ErrorMessage message={errorMessage} success={false}/>
 
     {responseData ?
-      <UsersTable array={responseData}/>
+      <UsersTable array={responseData} handleUsun={handleUsun}/>
       :
       errorMessage ?
           null

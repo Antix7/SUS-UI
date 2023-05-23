@@ -22,7 +22,7 @@ export default function AktywujKonto() {
       return;
     }
 
-    axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/aktywuj`, formData)
+    axios.post(`${process.env.REACT_APP_SERVER_ADDRESS}/aktywuj`, formData)
         .then((response) => {
           if(response.data.success) {
             setSuccessMessage(response.data.message);

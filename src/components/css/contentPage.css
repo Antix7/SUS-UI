@@ -71,7 +71,7 @@ th, td {
 th {
   position: sticky;
   top: 0;
-  font-size: 13px;
+  font-size: 12px;
   vertical-align: bottom;
   background-color: var(--darker4) !important;
 }
@@ -171,4 +171,18 @@ tr:nth-child(2n+1) > * {
   width: 35px;
   text-align: center;
   margin: 0 4px;
+}
+
+.smallButton {
+  background-color: var(--darker2);
+  border-radius: 2px;
+  padding: 3px 5px;
+  margin: 4px 4px 5px 0;
+  transition-duration: 0.1s;
+}
+.smallButton:hover {
+  background-color: var(--darker3);
+}
+.smallButton:active {
+  background-color: var(--darker4);
 }

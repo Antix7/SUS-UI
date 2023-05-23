@@ -17,7 +17,7 @@ export default function LoginPanel({ handleLogin }) {
     const formData = new FormData(form);
     // handleLogin(form.username.value, ""); // for mobile testing with GitHub Pages
 
-    axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/auth`, formData)
+    axios.post(`${process.env.REACT_APP_SERVER_ADDRESS}/auth`, formData)
       .then((response) => {
         if(response.data.success) handleLogin(form.username.value, response.data.token);
         else setErrorMessage(response.data.message);
@@ -30,13 +30,11 @@ export default function LoginPanel({ handleLogin }) {
 
   function handleActivateClick(e) {
     e.preventDefault();
-
     navigate("/aktywuj_konto");
   }
 
   function handleResetClick(e) {
     e.preventDefault();
-
     navigate("/resetuj_haslo");
   }
 
@@ -59,9 +57,12 @@ export default function LoginPanel({ handleLogin }) {
           <p className="loginErrorMessage">{errorMessage}</p>
           <button type="submit" className="loginButtonBig">Zaloguj</button>
         </form>
-
-        <button onClick={handleActivateClick} className="loginButtonSmall">Aktywuj konto</button>
-        <button onClick={handleResetClick} className="loginButtonSmall">Resetuj hasło</button>
+        <p className="pInfo">Zapomniałeś hasła?&nbsp;
+          <p className="pLink" onClick={handleResetClick}>Beka z ciebie</p>
+        </p>
+        <p className="pInfo">Masz kod do aktywacji?&nbsp;
+          <p className="pLink" onClick={handleActivateClick}>Aktywuj konto</p>
+        </p>
     </div>
   </div>
   )

@@ -213,6 +213,7 @@ function SortujForm({ fieldsOrder, setFieldsOrder, checkedList, setCheckedList }
         handleMove={handleFieldMove}
         toggleChecked={checkedList[value[0]]}
         onToggleClick={()=>handleCheckedChange(value[0])}
+        key={value[0]+"_element"} // f u React
       />
     };
   }
@@ -249,11 +250,11 @@ function SortujForm({ fieldsOrder, setFieldsOrder, checkedList, setCheckedList }
 
   return (<>
     <ol>
-      <div className="fieldsContainer">
+      <div className="fieldsContainer" key="fieldsContainer_1">
 
         {fieldsOrder.notChosen.map(field => fieldsData[field])}
       </div>
-      <div className="fieldsContainer">
+      <div className="fieldsContainer" key="fieldsContainer_2">
         <p>Sortuj według</p>
         {fieldsOrder.chosen.map(field => fieldsData[field])}
       </div>
@@ -276,7 +277,7 @@ export default function WyswietlSprzet() {
 
   function fetchFiltersData() {
     axios.get(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/available_values`,
+      `${process.env.REACT_APP_SERVER_ADDRESS}/available_values`,
       {headers: authHeader()}
     )
       .then((response) => {
@@ -289,9 +290,8 @@ export default function WyswietlSprzet() {
   }
 
   function fetchTableData(filterFormData) {
-    console.log(filterFormData)
     axios.post(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/wyswietl`,
+      `${process.env.REACT_APP_SERVER_ADDRESS}/wyswietl`,
       filterFormData,
       {headers: authHeader()}
     )
@@ -314,6 +314,20 @@ export default function WyswietlSprzet() {
     fetchTableData();
   }, []);
 
+  function handleUsun(id) {
+    axios.post(
+      `${process.env.REACT_APP_SERVER_ADDRESS}/usun_sprzet`,
+      {id: id},
+      {headers: authHeader()}
+    )
+      .then((response) => {
+        fetchTableData();
+      }).catch((error) => {
+      setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
+      console.log(error);
+    });
+  }
+
   return (<div className="contentDiv longForm">
     <p className="contentTitle disableSelect">Tabela sprzętu</p>
     <p id="errorMessage">{errorMessage}</p>
@@ -332,7 +346,7 @@ export default function WyswietlSprzet() {
       }
     </FilterSidepanel>
 
-    {tableData && <SprzetTable array={tableData}/>}
+    {tableData && <SprzetTable array={tableData} handleUsun={handleUsun}/>}
 
   </div>)
 }

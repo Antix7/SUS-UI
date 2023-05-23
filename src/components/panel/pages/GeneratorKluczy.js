@@ -16,7 +16,7 @@ export default function GeneratorKluczy() {
     const formData = new FormData(form);
 
     axios.post(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/generuj_klucz`,
+      `${process.env.REACT_APP_SERVER_ADDRESS}/generuj_klucz`,
       formData,
       {headers: authHeader()} // passing JWT
     )
