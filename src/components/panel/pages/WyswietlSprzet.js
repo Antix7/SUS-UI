@@ -177,11 +177,11 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
 function SortujField({ title, name, handleMove, toggleChecked, onToggleClick }) {
   return (
     <li className="sortujField disableSelect" key={name}>
-      <div className="arrowContainer">
-        <Arrow onClick={()=>handleMove(name, "up")} rotation={180}/>
-        <Arrow onClick={()=>handleMove(name, "down")}/>
-      </div>
-      <CompactToggle stateFalse="ASC" stateTrue="DESC" checked={toggleChecked} onClick={onToggleClick}/>
+      {/*<div className="arrowContainer">*/}
+      {/*  <Arrow onClick={()=>handleMove(name, "up")} rotation={180}/>*/}
+      {/*  <Arrow onClick={()=>handleMove(name, "down")}/>*/}
+      {/*</div>*/}
+      {/*<CompactToggle stateFalse="ASC" stateTrue="DESC" checked={toggleChecked} onClick={onToggleClick}/>*/}
       {title}
     </li>
   )
