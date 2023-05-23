@@ -177,11 +177,11 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
 function SortujField({ title, name, handleMove, toggleChecked, onToggleClick }) {
   return (
     <li className="sortujField disableSelect" key={name}>
-      <div className="arrowContainer">
-        <Arrow onClick={()=>handleMove(name, "up")} rotation={180}/>
-        <Arrow onClick={()=>handleMove(name, "down")}/>
-      </div>
-      <CompactToggle stateFalse="ASC" stateTrue="DESC" checked={toggleChecked} onClick={onToggleClick}/>
+      {/*<div className="arrowContainer">*/}
+      {/*  <Arrow onClick={()=>handleMove(name, "up")} rotation={180}/>*/}
+      {/*  <Arrow onClick={()=>handleMove(name, "down")}/>*/}
+      {/*</div>*/}
+      {/*<CompactToggle stateFalse="ASC" stateTrue="DESC" checked={toggleChecked} onClick={onToggleClick}/>*/}
       {title}
     </li>
   )
@@ -213,6 +213,7 @@ function SortujForm({ fieldsOrder, setFieldsOrder, checkedList, setCheckedList }
         handleMove={handleFieldMove}
         toggleChecked={checkedList[value[0]]}
         onToggleClick={()=>handleCheckedChange(value[0])}
+        key={value[0]+"_element"} // f u React
       />
     };
   }
@@ -249,11 +250,11 @@ function SortujForm({ fieldsOrder, setFieldsOrder, checkedList, setCheckedList }
 
   return (<>
     <ol>
-      <div className="fieldsContainer">
+      <div className="fieldsContainer" key="fieldsContainer_1">
 
         {fieldsOrder.notChosen.map(field => fieldsData[field])}
       </div>
-      <div className="fieldsContainer">
+      <div className="fieldsContainer" key="fieldsContainer_2">
         <p>Sortuj według</p>
         {fieldsOrder.chosen.map(field => fieldsData[field])}
       </div>
