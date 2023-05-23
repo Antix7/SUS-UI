@@ -21,7 +21,7 @@ function ResetForm() {
     }
 
     axios.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/resetuj_haslo`,
+        `${process.env.REACT_APP_SERVER_ADDRESS}/resetuj_haslo`,
         formData,
         {headers: authHeeader()} // passing JWT
     )
@@ -71,7 +71,7 @@ function SendResetCodeForm({formUsername, setFormUsername}) {
     const form = e.target;
     const formData = new FormData(form);
 
-    axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/send_reset_code`, formData)
+    axios.post(`${process.env.REACT_APP_SERVER_ADDRESS}/send_reset_code`, formData)
         .then((response) => {
           if(response.data.success) {
             setSuccessMessage(response.data.message);
@@ -117,7 +117,7 @@ function CheckResetCodeForm({setCurrentForms, handleResetLogin, formUsername}) {
     const formData = new FormData(form);
     formData.append('username', formUsername);
 
-    axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/check_reset_code`, formData)
+    axios.post(`${process.env.REACT_APP_SERVER_ADDRESS}/check_reset_code`, formData)
         .then((response) => {
           if(response.data.success) {
             setCurrentForms(<ResetForm />);

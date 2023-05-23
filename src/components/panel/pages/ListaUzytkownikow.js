@@ -12,7 +12,7 @@ export default function ListaUzytkownikow() {
 
   function fetchData() {
     axios.get(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/uzytkownicy`,
+      `${process.env.REACT_APP_SERVER_ADDRESS}/uzytkownicy`,
       {headers: authHeader()} // passing JWT
     )
       .then((response) => {

@@ -276,7 +276,7 @@ export default function WyswietlSprzet() {
 
   function fetchFiltersData() {
     axios.get(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/available_values`,
+      `${process.env.REACT_APP_SERVER_ADDRESS}/available_values`,
       {headers: authHeader()}
     )
       .then((response) => {
@@ -290,7 +290,7 @@ export default function WyswietlSprzet() {
 
   function fetchTableData(filterFormData) {
     axios.post(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/wyswietl`,
+      `${process.env.REACT_APP_SERVER_ADDRESS}/wyswietl`,
       filterFormData,
       {headers: authHeader()}
     )
@@ -315,7 +315,7 @@ export default function WyswietlSprzet() {
 
   function handleUsun(id) {
     axios.post(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/usun_sprzet`,
+      `${process.env.REACT_APP_SERVER_ADDRESS}/usun_sprzet`,
       {id: id},
       {headers: authHeader()}
     )

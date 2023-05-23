@@ -23,7 +23,7 @@ export default function ZmienHaslo({ handleLogout }) {
     const formData = new FormData(form);
 
     axios.post(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/zmien_haslo`,
+      `${process.env.REACT_APP_SERVER_ADDRESS}/zmien_haslo`,
       formData,
       {headers: authHeader()} // passing JWT
     )

@@ -17,7 +17,7 @@ export default function LoginPanel({ handleLogin }) {
     const formData = new FormData(form);
     // handleLogin(form.username.value, ""); // for mobile testing with GitHub Pages
 
-    axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/auth`, formData)
+    axios.post(`${process.env.REACT_APP_SERVER_ADDRESS}/auth`, formData)
       .then((response) => {
         if(response.data.success) handleLogin(form.username.value, response.data.token);
         else setErrorMessage(response.data.message);

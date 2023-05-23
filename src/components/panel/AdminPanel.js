@@ -12,7 +12,7 @@ export default function AdminPanel({ username, handleLogout, setUsername }) {
   }
 
   useEffect(() => {
-    axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/auth`,
+    axios.post(`${process.env.REACT_APP_SERVER_ADDRESS}/auth`,
         null,
         {headers: authHeader()})
         .then((response) => {
