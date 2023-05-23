@@ -213,6 +213,7 @@ function SortujForm({ fieldsOrder, setFieldsOrder, checkedList, setCheckedList }
         handleMove={handleFieldMove}
         toggleChecked={checkedList[value[0]]}
         onToggleClick={()=>handleCheckedChange(value[0])}
+        key={value[0]+"_element"} // f u React
       />
     };
   }
@@ -249,11 +250,11 @@ function SortujForm({ fieldsOrder, setFieldsOrder, checkedList, setCheckedList }
 
   return (<>
     <ol>
-      <div className="fieldsContainer">
+      <div className="fieldsContainer" key="fieldsContainer_1">
 
         {fieldsOrder.notChosen.map(field => fieldsData[field])}
       </div>
-      <div className="fieldsContainer">
+      <div className="fieldsContainer" key="fieldsContainer_2">
         <p>Sortuj według</p>
         {fieldsOrder.chosen.map(field => fieldsData[field])}
       </div>

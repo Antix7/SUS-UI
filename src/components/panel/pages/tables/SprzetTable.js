@@ -43,8 +43,8 @@ export default function SprzetTable({ array, handleUsun }) {
       {array.map(row => <TableAccordion
         triggerContent={<SprzetRowCells object={row}/>}
         colSpan={4}
-        Key={row.username}
-        key={row.username}
+        Key={row["ID"]}
+        key={row["ID"]+"_element"} // f u React
       >
         <SprzetRowAccordionContent object={row} handleUsun={handleUsun}/>
       </TableAccordion>)}

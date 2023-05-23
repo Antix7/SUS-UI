@@ -71,7 +71,7 @@ th, td {
 th {
   position: sticky;
   top: 0;
-  font-size: 13px;
+  font-size: 12px;
   vertical-align: bottom;
   background-color: var(--darker4) !important;
 }

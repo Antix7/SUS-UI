@@ -18,7 +18,7 @@ p {
   text-align: center;
   background-color: var(--darker2);
   width: min(70vw, 350px);
-  padding: 40px 40px 30px 40px;
+  padding: 40px 40px 20px 40px;
   border-radius: 15px;
   box-shadow: 0 15px 25px rgba(0,0,0,.1);
 }
@@ -46,7 +46,7 @@ p {
   background-color: var(--darker4);
   font-size: 20px;
   padding: 10px 15px;
-  margin-top: 10px;
+  margin: 10px;
   border-radius: 4px;
 }
 .loginButtonBig:hover {
@@ -100,4 +100,20 @@ p {
 
 .sendResetCodeMessage {
   margin-top: 0 !important;
+}
+
+.pInfo {
+  background-color: var(--darker2);
+}
+.pLink {
+  background-color: var(--darker2);
+  display: inline;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.pInfo, .pLink {
+  font-size: 14px;
+  width: 100%;
+  text-align: left;
+  margin: 2px 0;
 }
