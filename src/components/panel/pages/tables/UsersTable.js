@@ -23,17 +23,18 @@ function UsersRowCells({ object }) {
     }</td>
   </>)
 }
-function UsersRowAccordionContent({ object }) {
+function UsersRowAccordionContent({ object, handleUsun }) {
   return (<>
     <p>{`Adres e-mail: ${object.adres_email ? object.adres_email : "-"}`}</p>
     <p>{`Data wygaśnięcia: ${object.data_wygasniecia ? 
       new Date(object.data_wygasniecia).toLocaleDateString('en-GB')
       : "-"}`}
     </p>
+    <button type="button" className="smallButton" onClick={()=>handleUsun(object["username"])}>Usuń</button>
   </>)
 
 }
-export default function UsersTable({ array }) {
+export default function UsersTable({ array, handleUsun }) {
 
   return (
     <table id="usersTable">
@@ -45,7 +46,7 @@ export default function UsersTable({ array }) {
         Key={row.username}
         key={row.username}
       >
-        <UsersRowAccordionContent object={row}/>
+        <UsersRowAccordionContent object={row} handleUsun={handleUsun}/>
       </TableAccordion>)}
       </tbody>
     </table>
