@@ -334,6 +334,64 @@ export default function WyswietlSprzet() {
     navigate(`../edytuj_sprzet/${id}`);
   }
 
+  function handleZabierz(id) {
+    const ile = prompt("Ile chcesz zabrać?");
+    axios.post(
+        `${process.env.REACT_APP_SERVER_ADDRESS}/zabierz`,
+        {amount: ile, id: id},
+        {headers: authHeader()}
+    )
+        .then((response) => {
+          if(response.data.success) {
+            setTimeout(fetchTableData, 100);
+            return;
+          }
+          setErrorMessage(response.data.message);
+        })
+        .catch((error) => {
+          setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
+          console.log(error);
+        });
+  }
+
+  function handleOdloz(id) {
+    axios.post(
+        `${process.env.REACT_APP_SERVER_ADDRESS}/odloz`,
+        {id: id},
+        {headers: authHeader()}
+    )
+        .then((response) => {
+          if(response.data.success) {
+            setTimeout(fetchTableData, 100);
+            return;
+          }
+          setErrorMessage(response.data.message);
+        })
+        .catch((error) => {
+          setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
+          console.log(error);
+        });
+  }
+
+  function handleZapomnij(id) {
+    axios.post(
+        `${process.env.REACT_APP_SERVER_ADDRESS}/zapomnij`,
+        {id: id},
+        {headers: authHeader()}
+    )
+        .then((response) => {
+          if(response.data.success) {
+            setTimeout(fetchTableData, 100);
+            return;
+          }
+          setErrorMessage(response.data.message);
+        })
+        .catch((error) => {
+          setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
+          console.log(error);
+        });
+  }
+
   return (<div className="contentDiv longForm">
     <p className="contentTitle disableSelect">Tabela sprzętu</p>
     <p id="errorMessage">{errorMessage}</p>
@@ -352,7 +410,16 @@ export default function WyswietlSprzet() {
       }
     </FilterSidepanel>
 
-    {tableData && <SprzetTable array={tableData} handleUsun={handleUsun} handleEdytuj={handleEdytuj}/>}
+    {tableData
+        &&
+        <SprzetTable
+            array={tableData}
+            handleUsun={handleUsun}
+            handleEdytuj={handleEdytuj}
+            handleZabierz={handleZabierz}
+            handleOdloz={handleOdloz}
+            handleZapomnij={handleZapomnij}
+        />}
 
   </div>)
 }

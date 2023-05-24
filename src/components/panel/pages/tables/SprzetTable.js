@@ -20,7 +20,7 @@ function SprzetRowCells({ object }) {
     <td>{object["stan"] === "Dobry" || object["stan"] === "Nowy" ? <Checkmark/> : <Cross/>}</td>
   </>)
 }
-function SprzetRowAccordionContent({ object, handleUsun, handleEdytuj }) {
+function SprzetRowAccordionContent({ object, handleUsun, handleEdytuj, handleZabierz, handleOdloz, handleZapomnij }) {
   return (<>
     <p><strong>Status: </strong>{object["status"]}</p>
     <p><strong>Kategoria: </strong>{object["kategoria"]}</p>
@@ -30,13 +30,18 @@ function SprzetRowAccordionContent({ object, handleUsun, handleEdytuj }) {
     <p><strong>Użytkownik: </strong>{object["uzytkownik"]}</p>
     {object["opis"] && <p><strong>Opis: </strong>{object["opis"]}</p>}
     {object["zdjecie_path"] && <p><strong>Zdjęcie: </strong>{object["zdjecie_path"]}</p>}
-    {object["og_id"] && <p><strong>OG ID: </strong>{object["og_id"]}</p>}
     <button type="button" className="smallButton" onClick={()=>handleEdytuj(object["ID"])}>Edytuj</button>
     <button type="button" className="smallButton" onClick={()=>handleUsun(object["ID"])}>Usuń</button>
+
+    <p>OG ID</p>
+    {object["og_id"] && <p><strong>OG ID: </strong>{object["og_id"]}</p>}
+    <button type="button" className="smallButton" disabled={!!object["og_id"]} onClick={()=>handleZabierz(object["ID"])}>Zabier</button>
+    <button type="button" className="smallButton" disabled={!object["og_id"]} onClick={()=>handleOdloz(object["ID"])}>Oddej</button>
+    <button type="button" className="smallButton" disabled={!object["og_id"]} onClick={()=>handleZapomnij(object["ID"])}>Zapomnir</button>
   </>)
 
 }
-export default function SprzetTable({ array, handleUsun, handleEdytuj }) {
+export default function SprzetTable({ array, handleUsun, handleEdytuj, handleZabierz, handleOdloz, handleZapomnij }) {
   return (
     <table id="sprzetTable">
       <SprzetHeader/>
@@ -47,7 +52,14 @@ export default function SprzetTable({ array, handleUsun, handleEdytuj }) {
         Key={row["ID"]}
         key={row["ID"]+"_element"} // f u React
       >
-        <SprzetRowAccordionContent object={row} handleUsun={handleUsun} handleEdytuj={handleEdytuj}/>
+        <SprzetRowAccordionContent
+            object={row}
+            handleUsun={handleUsun}
+            handleEdytuj={handleEdytuj}
+            handleZabierz={handleZabierz}
+            handleZapomnij={handleZapomnij}
+            handleOdloz={handleOdloz}
+        />
       </TableAccordion>)}
       </tbody>
     </table>
