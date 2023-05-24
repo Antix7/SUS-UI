@@ -40,7 +40,7 @@ export default function App() {
 
   return (
     <>
-        <Routes>
+      <Routes>
           <Route path='/' element={
             <LoginPanel
                 handleLogin={handleLogin}
