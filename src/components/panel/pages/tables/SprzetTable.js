@@ -20,7 +20,7 @@ function SprzetRowCells({ object }) {
     <td>{object["stan"] === "Dobry" || object["stan"] === "Nowy" ? <Checkmark/> : <Cross/>}</td>
   </>)
 }
-function SprzetRowAccordionContent({ object, handleUsun }) {
+function SprzetRowAccordionContent({ object, handleUsun, handleEdytuj }) {
   return (<>
     <p><strong>Status: </strong>{object["status"]}</p>
     <p><strong>Kategoria: </strong>{object["kategoria"]}</p>
@@ -31,11 +31,12 @@ function SprzetRowAccordionContent({ object, handleUsun }) {
     {object["opis"] && <p><strong>Opis: </strong>{object["opis"]}</p>}
     {object["zdjecie_path"] && <p><strong>Zdjęcie: </strong>{object["zdjecie_path"]}</p>}
     {object["og_id"] && <p><strong>OG ID: </strong>{object["og_id"]}</p>}
+    <button type="button" className="smallButton" onClick={()=>handleEdytuj(object["ID"])}>Edytuj</button>
     <button type="button" className="smallButton" onClick={()=>handleUsun(object["ID"])}>Usuń</button>
   </>)
 
 }
-export default function SprzetTable({ array, handleUsun }) {
+export default function SprzetTable({ array, handleUsun, handleEdytuj }) {
   return (
     <table id="sprzetTable">
       <SprzetHeader/>
@@ -46,7 +47,7 @@ export default function SprzetTable({ array, handleUsun }) {
         Key={row["ID"]}
         key={row["ID"]+"_element"} // f u React
       >
-        <SprzetRowAccordionContent object={row} handleUsun={handleUsun}/>
+        <SprzetRowAccordionContent object={row} handleUsun={handleUsun} handleEdytuj={handleEdytuj}/>
       </TableAccordion>)}
       </tbody>
     </table>

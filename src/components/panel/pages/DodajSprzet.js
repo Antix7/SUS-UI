@@ -5,6 +5,7 @@ import "../../css/contentPage.css"
 import Accordion from "../../Accordion";
 import LoadingIcon from "../../LoadingIcon";
 import ErrorMessage from "../../ErrorMessage";
+import {useParams} from "react-router-dom";
 
 function DropdownAccordion({ children, title, selected, data, fieldText }) {
   return (<>
@@ -30,7 +31,8 @@ function DropdownOptions({ data, handleFormChange, name, selected }) {
           value={id}
           id={name+id} key={name+id}
           onChange={handleFormChange}
-          checked={id === selected}
+          // one of them is a string and the other is a number, so == has to be used in order for this to work
+          checked={id == selected}
         />
         <label htmlFor={name+id} className="radioLabel disableSelect">
           {nazwa}
@@ -59,7 +61,7 @@ function DropdownAccordionWithOptions({ title, selected, data, fieldText, handle
 }
 
 
-function SprzetForm({ data, handleSubmit, errorMessage, isErrorGood }) {
+function SprzetForm({ data, handleSubmit, errorMessage, isErrorGood, defaultValues, buttonValue, isEditing }) {
 
   const [formdata, setFormdata] = useState({
     status: 0,
@@ -70,6 +72,37 @@ function SprzetForm({ data, handleSubmit, errorMessage, isErrorGood }) {
     uzytkownik: 0
   });
 
+  // because react is a fucking mess
+  const [defaultIlosc, setDefaultIlosc] = useState(1);
+
+  if(!defaultValues) {
+    defaultValues = {
+      sts: 0,
+      kat: 0,
+      stn: 0,
+      lok: 0,
+      wla: 0,
+      uzy: 0,
+      nazwa: "",
+      opis: "",
+      ilosc: defaultIlosc
+    }
+  }
+
+  useEffect(() => {
+    setFormdata({
+      status: defaultValues.sts,
+      kategoria: defaultValues.kat,
+      stan: defaultValues.stn,
+      lokalizacja: defaultValues.lok,
+      wlasciciel: defaultValues.wla,
+      uzytkownik: defaultValues.uzy
+    });
+    setDefaultIlosc(defaultValues.ilosc);
+  }, [defaultValues]);
+
+
+
   function handleFormChange(e) {
     const nextFormdata = Object.assign({}, formdata);
     nextFormdata[e.target.name] = e.target.value;
@@ -78,7 +111,7 @@ function SprzetForm({ data, handleSubmit, errorMessage, isErrorGood }) {
 
   useEffect(() => {
     const nextFormdata = Object.assign({}, formdata);
-    nextFormdata.stan = 0;
+    nextFormdata.stan = (formdata.kategoria === defaultValues.kat ? defaultValues.stn : 0);
     setFormdata(nextFormdata);
   }, [formdata.kategoria]);
 
@@ -90,6 +123,7 @@ function SprzetForm({ data, handleSubmit, errorMessage, isErrorGood }) {
         className="textInput withLabel"
         name="nazwa" id="nazwa"
         type="text"
+        defaultValue={defaultValues.nazwa}
       />
 
       <label htmlFor="ilosc" className="formLabel disableSelect">Ilość</label>
@@ -97,7 +131,9 @@ function SprzetForm({ data, handleSubmit, errorMessage, isErrorGood }) {
         className="textInput withLabel"
         name="ilosc" id="ilosc"
         type="number"
-        defaultValue={1}
+        defaultValue={defaultIlosc}
+        // react is a fucking mess so in order for THIS SPECIFIC INPUT to load with the default value it has to have a key with the same default value
+        key={defaultIlosc}
       />
 
       <DropdownAccordionWithOptions
@@ -149,9 +185,11 @@ function SprzetForm({ data, handleSubmit, errorMessage, isErrorGood }) {
         name="opis" id="opisInput"
         placeholder="(opcjonalne)"
         rows="5"
+        defaultValue={defaultValues.opis}
       />
 
-      <label htmlFor="zdjecieInput" className="formLabel disableSelect">Zdjęcie</label>
+       {/*TODO: przy edytowaniu tak samo jak w legacy */}
+      <label htmlFor="zdjecieInput" className="formLabel disableSelect">{isEditing ? "Zdjęcie (puste = bez zmian)" : "Zdjęcie"}</label>
       <input
         className="textInput"
         type="file" accept="image/*"
@@ -163,17 +201,24 @@ function SprzetForm({ data, handleSubmit, errorMessage, isErrorGood }) {
         success={isErrorGood}
       />
 
-      <button className="button" type="submit" id="submitButton">Dodaj</button>
+      <button className="button" type="submit" id="submitButton">{buttonValue}</button>
 
     </form>
   </>)
 }
 
-export default function DodajSprzet() {
+export default function DodajSprzet({isEditing}) {
+  const {id} = useParams();
+  const editingID = isEditing ? id : null;
 
+  const [contentTitle, setContentTitle] = useState("Dodawanie sprzętu");
+  const [buttonValue, setButtonValue] = useState("Dodaj");
   const [errorMessage, setErrorMessage] = useState(null);
   const [isErrorGood, setIsErrorGood] = useState(null);
   const [data, setData] = useState(null);
+  // let defaultFormValues = null;
+  const [defaultValues, setDefaultValues] = useState(null);
+
 
   useEffect(() => {
     axios.get(
@@ -187,6 +232,27 @@ export default function DodajSprzet() {
           setIsErrorGood(true);
         }
         else setIsErrorGood(false);
+        if(!isEditing)
+          return;
+        setContentTitle("Edytowanie sprzętu");
+        setButtonValue("Edytuj");
+        axios.post(
+            `${process.env.REACT_APP_SERVER_ADDRESS}/editing_info`,
+            {editid: editingID},
+            {headers: authHeader()}
+        )
+            .then((response) => {
+              if(!response.data.success) {
+                setIsErrorGood(false);
+                setErrorMessage(response.data.message);
+              }
+              setDefaultValues(response.data);
+            })
+            .catch((error) => {
+              setIsErrorGood(false);
+              setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
+              console.log(error);
+            })
       })
       .catch((error) => {
         setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
@@ -194,32 +260,36 @@ export default function DodajSprzet() {
       });
   }, []);
 
+
   function handleSubmit(e) {
     e.preventDefault();
 
     const form = e.target;
     const formData = new FormData(form);
+    if(isEditing)
+      formData.append("editid", editingID);
 
     axios.post(
-      `${process.env.REACT_APP_SERVER_ADDRESS}/dodaj`,
+      `${process.env.REACT_APP_SERVER_ADDRESS}/${editingID ? "edytuj" : "dodaj"}`,
       formData,
       {headers: authHeader()}
     )
       .then((response) => {
         setErrorMessage(response.data.message);
         if(response.data.success) {
-          setErrorMessage("Dodano przedmiot do bazy danych");
+          setErrorMessage((editingID ? "Edytowano przedmiot w bazie danych" : "Dodano przedmiot do bazy danych"));
           setIsErrorGood(true);
         }
         else setIsErrorGood(false);
       }).catch((error) => {
-      setErrorMessage("Wystąpił błąd w komunikacji z serwerem")
-      console.log(error);
+        setIsErrorGood(false);
+        setErrorMessage("Wystąpił błąd w komunikacji z serwerem")
+        console.log(error);
     });
   }
 
   return (<div className="contentDiv longForm">
-    <p className="contentTitle">Dodawanie sprzętu</p>
+    <p className="contentTitle">{contentTitle}</p>
 
 
     {data ?
@@ -228,9 +298,18 @@ export default function DodajSprzet() {
         handleSubmit={handleSubmit}
         errorMessage={errorMessage}
         isErrorGood={isErrorGood}
+        defaultValues={defaultValues}
+        buttonValue={buttonValue}
+        isEditing={isEditing}
       />
       :
-      <LoadingIcon/>
+        errorMessage ?
+              <ErrorMessage
+                  message={errorMessage}
+                  success={isErrorGood}
+              />
+              :
+              <LoadingIcon/>
     }
 
   </div>)

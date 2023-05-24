@@ -9,6 +9,7 @@ import Accordion from "../../Accordion";
 import FilterButton from "../../FilterButton";
 import Arrow from "../../Arrow";
 import CompactToggle from "../../CompactToggle";
+import {useNavigate} from "react-router-dom";
 
 
 function CheckboxAccordion({ title, name, data, onChange, Ref }) {
@@ -269,6 +270,7 @@ function FilterSidepanel({ children, sidepanelShown }) {
 }
 
 export default function WyswietlSprzet() {
+  const navigate = useNavigate();
 
   const [errorMessage, setErrorMessage] = useState(null);
   const [tableData, setTableData] = useState(null);
@@ -328,6 +330,10 @@ export default function WyswietlSprzet() {
     });
   }
 
+  function handleEdytuj(id) {
+    navigate(`../edytuj_sprzet/${id}`);
+  }
+
   return (<div className="contentDiv longForm">
     <p className="contentTitle disableSelect">Tabela sprzętu</p>
     <p id="errorMessage">{errorMessage}</p>
@@ -346,7 +352,7 @@ export default function WyswietlSprzet() {
       }
     </FilterSidepanel>
 
-    {tableData && <SprzetTable array={tableData} handleUsun={handleUsun}/>}
+    {tableData && <SprzetTable array={tableData} handleUsun={handleUsun} handleEdytuj={handleEdytuj}/>}
 
   </div>)
 }
