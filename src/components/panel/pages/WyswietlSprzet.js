@@ -9,6 +9,7 @@ import Accordion from "../../Accordion";
 import FilterButton from "../../FilterButton";
 import Arrow from "../../Arrow";
 import CompactToggle from "../../CompactToggle";
+import {type} from "@testing-library/user-event/dist/type";
 
 
 function CheckboxAccordion({ title, name, data, onChange, Ref }) {
@@ -298,6 +299,8 @@ export default function WyswietlSprzet() {
   const [filtersData, setFiltersData] = useState(null);
   const [sidepanelShown, setSidepanelShown] = useState(false);
   const [filterFormData, setFilterFormData] = useState({});
+  const [zdjeciePath, setZdjeciePath] = useState(null);
+  const modalRef = useRef();
 
   function fetchFiltersData() {
     axios.get(
@@ -351,6 +354,24 @@ export default function WyswietlSprzet() {
       console.log(error);
     });
   }
+  function handleShowZdjecie(id) {
+    axios.post(
+      `${process.env.REACT_APP_SERVER_ADDRESS}/wyswietl_zdjecie`,
+      {id: id},
+      {headers: authHeader(), responseType: 'blob'}
+    )
+      .then((response) => {
+        const imageUrl = URL.createObjectURL(response.data); // Create a temporary URL for the image file
+        setZdjeciePath(imageUrl);
+        modalRef.current.showModal();
+        modalRef.current.style.display="flex"; // incorrect <dialog> size fix
+      })
+      .catch((error) => {
+        setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
+        console.log(error);
+      });
+  }
+
 
   return (<div className="contentDiv longForm">
     <p className="contentTitle disableSelect">Tabela sprzętu</p>
@@ -370,7 +391,15 @@ export default function WyswietlSprzet() {
       }
     </FilterSidepanel>
 
-    {tableData && <SprzetTable array={tableData} handleUsun={handleUsun}/>}
+    {tableData && <SprzetTable array={tableData} handleUsun={handleUsun} handleShowZdjecie={handleShowZdjecie}/>}
+
+    <dialog
+      className="modal"
+      ref={modalRef}
+      onClick={()=>{modalRef.current.close(); setZdjeciePath(null); modalRef.current.style.display="none"}}
+    >
+      <img className="modalImage" src={zdjeciePath} alt="Coś poszło nie tak :/"/>
+    </dialog>
 
   </div>)
 }
