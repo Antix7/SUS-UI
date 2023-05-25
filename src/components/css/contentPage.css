@@ -14,7 +14,7 @@
 .contentTitle {
   font-weight: bold;
   font-size: 20px;
-  margin: 5px 0 10px 0;
+  margin: 10px 0;
 }
 
 .textInput, .dropdownAccordionField {
@@ -51,7 +51,7 @@
 }
 
 #submitButton, .submitButton {
-  margin: 5px 0 20px 0;
+  margin: 15px 0 20px 0;
 }
 
 table {
@@ -101,9 +101,13 @@ tr:nth-child(2n+1) > * {
   transition: height 0.2s ease-out;
 }
 .accordionPanelWrapper {
-  transition: padding 0.2s ease-out;
+  padding: 0 !important;
+}
+.visualFixWrapper { /* another wrapper is needed to achieve the desired animation look */
+  padding: 2px 6px;
 }
 .tableAccordionPanel {
+  padding: 0;
   max-width: calc(100vw - 52px);
 }
 .tableAccordionPanel > * {

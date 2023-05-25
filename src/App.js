@@ -12,6 +12,7 @@ import Query from "./components/panel/pages/Query";
 import Welcome from "./components/panel/pages/Welcome";
 import AktywujKonto from "./components/login/AktywujKonto";
 import ResetujHaslo from "./components/login/ResetujHaslo";
+import NoPage from "./components/panel/pages/NoPage";
 
 export default function App() {
   const navigate = useNavigate();
@@ -38,34 +39,33 @@ export default function App() {
     navigate('/');
   }
 
-  return (
-    <>
+  return (<>
       <Routes>
-          <Route path='/' element={
-            <LoginPanel
-                handleLogin={handleLogin}
-            />
-          } />
-          <Route path='/aktywuj_konto' element={<AktywujKonto />} />
-          <Route path='/resetuj_haslo' element={<ResetujHaslo handleResetLogin={handleResetLogin}/>} />
-          <Route path='/panel' element={
-            <AdminPanel
-                username={`${username}@${process.env.REACT_APP_ORGANISATION_NAME}`}
-                handleLogout={handleLogout}
-                setUsername={setUsername}
-            />
-          }>
-            <Route index element={<Welcome username={username}/>} />
-            <Route path='zmien_haslo' element={<ZmienHaslo/>} />
-            <Route path='wyswietl_sprzet' element={<WyswietlSprzet/>} />
-            <Route path='dodaj_sprzet' element={<DodajSprzet/>} />
-            <Route path='generator_kluczy' element={<GeneratorKluczy/>} />
-            <Route path='lista_uzytkownikow' element={<ListaUzytkownikow/>} />
-            <Route path='query' element={<Query />} />
-          </Route>
-        </Routes>
-    </>
-  )
+        <Route path='/' element={
+          <LoginPanel
+            handleLogin={handleLogin}
+          />}
+        />
+        <Route path='*' element={<NoPage/>}/>
+        <Route path='/aktywuj_konto' element={<AktywujKonto/>} />
+        <Route path='/resetuj_haslo' element={<ResetujHaslo handleResetLogin={handleResetLogin}/>} />
+        <Route path='/panel' element={
+          <AdminPanel
+            username={`${username}@${process.env.REACT_APP_ORGANISATION_NAME}`}
+            handleLogout={handleLogout}
+            setUsername={setUsername}
+          />
+        }>
+          <Route index element={<Welcome username={username}/>} />
+          <Route path='zmien_haslo' element={<ZmienHaslo/>} />
+          <Route path='wyswietl_sprzet' element={<WyswietlSprzet/>} />
+          <Route path='dodaj_sprzet' element={<DodajSprzet/>} />
+          <Route path='generator_kluczy' element={<GeneratorKluczy/>} />
+          <Route path='lista_uzytkownikow' element={<ListaUzytkownikow/>} />
+          <Route path='query' element={<Query/>} />
+        </Route>
+      </Routes>
+  </>)
 }
 
 

@@ -35,7 +35,9 @@ export default function TableAccordion({ triggerContent, triggerClass, children,
           ref={panel}
           style={{height:panelHeight}}
         >
-          {children}
+          <div className="visualFixWrapper">
+            {children}
+          </div>
         </div>
       </td>
     </tr>
