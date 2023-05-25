@@ -14,7 +14,7 @@ function SprzetHeader() {
 }
 function SprzetRowCells({ object }) {
   return (<>
-    <td>{object["nazwa"]}</td>
+    <td className="long_td">{object["nazwa"]}</td>
     <td>{object["ilosc"]}</td>
     <td>{object["status"] === "Dostępny" ? <Checkmark/> : <Cross/>}</td>
     <td>{object["stan"] === "Dobry" || object["stan"] === "Nowy" ? <Checkmark/> : <Cross/>}</td>
@@ -30,14 +30,15 @@ function SprzetRowAccordionContent({ object, handleUsun, handleShowZdjecie }) {
     <p><strong>Właściciel: </strong>{object["wlasciciel"]}</p>
     <p><strong>Użytkownik: </strong>{object["uzytkownik"]}</p>
     {object["opis"] && <p><strong>Opis: </strong>{object["opis"]}</p>}
-    {object["zdjecie_path"] && <p><strong>Zdjęcie: </strong>{object["zdjecie_path"]}</p>}
-    {object["og_id"] && <p><strong>OG ID: </strong>{object["og_id"]}</p>}
+    {/*{object["og_id"] && <p><strong>OG ID: </strong>{object["og_id"]}</p>}*/}
     <button type="button" className="smallButton" onClick={()=>handleUsun(object["ID"])}>
       {object["czy_usuniete"] ? "Przywróć" : "Usuń"}
     </button>
-    <button type="button" className="smallButton" onClick={()=>handleShowZdjecie(object["ID"])}>
-      Zdjęcie
-    </button>
+    {object["zdjecie_path"] &&
+      <button type="button" className="smallButton" onClick={()=>handleShowZdjecie(object["ID"])}>
+        Zdjęcie
+      </button>
+    }
   </>)
 
 }

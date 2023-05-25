@@ -16,7 +16,7 @@ export default function TableAccordion({ triggerContent, triggerClass, children,
   return (<>
     <tr
       key={Key + "_trigger"}
-      className={"accordionTrigger tableAccordionTrigger disableSelect " + triggerClass}
+      className={"accordionTrigger tableAccordionTrigger " + triggerClass}
       onClick={()=>setShown(!shown)}
     >
       {triggerContent}

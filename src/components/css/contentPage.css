@@ -55,18 +55,20 @@
 }
 
 table {
-  display:block;
   width: auto;
   max-width: calc(100vw - 30px);
-  overflow-y: auto;
-  overflow-x: auto;
   margin: 0;
   border-spacing: 0;
+  table-layout: auto; /* Allow cells to adjust width based on content */
 }
 th, td {
   text-align: left;
   padding: 2px 6px;
   margin: 0;
+}
+td {
+  white-space: normal; /* Allow content to wrap within cells */
+  word-break: break-word; /* Break words if necessary */
 }
 th {
   position: sticky;
@@ -104,6 +106,7 @@ tr:nth-child(2n+1) > * {
   padding: 0 !important;
 }
 .visualFixWrapper { /* another wrapper is needed to achieve the desired animation look */
+  width: calc(100% - 12px);
   padding: 2px 6px;
 }
 .tableAccordionPanel {
