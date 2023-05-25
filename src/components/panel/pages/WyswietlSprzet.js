@@ -68,6 +68,7 @@ function SprzetSelectForm({ filtersData, setFilterFormData }) {
   const wlasciciel_form = useRef();
   const uzytkownik_form = useRef();
   const nazwa_form = useRef();
+  const box_id_form = useRef();
 
   function FormDataToObject(formdata) {
     let object = {};
@@ -85,12 +86,13 @@ function SprzetSelectForm({ filtersData, setFilterFormData }) {
       wlasciciel: FormDataToObject(new FormData(wlasciciel_form.current)),
       uzytkownik: FormDataToObject(new FormData(uzytkownik_form.current)),
       nazwa: FormDataToObject(new FormData(nazwa_form.current)),
+      box_id: FormDataToObject(new FormData(box_id_form.current)),
       sortOrder: fieldsOrder.chosen.map(value=>[value, checkedList[value]]),
       usuniete: czyUsuniete
     });
   }
 
-  const fields = ["status", "kategoria", "stan", "lokalizacja", "wlasciciel", "uzytkownik", "nazwa", "ilosc"];
+  const fields = ["status", "kategoria", "stan", "lokalizacja", "box_id", "wlasciciel", "uzytkownik", "nazwa", "ilosc"];
   const [fieldsOrder, setFieldsOrder] = useState({
     "notChosen": fields,
     "chosen": []
@@ -156,6 +158,15 @@ function SprzetSelectForm({ filtersData, setFilterFormData }) {
       />
     </form>
 
+    <form id="box_id_filter_form" ref={box_id_form}>
+      <input
+        className="textInput"
+        type="text"
+        name="box_id"
+        placeholder="Numer pudła"
+      />
+    </form>
+
     <p className="contentTitle disableSelect" style={{marginTop:12}}>Sortuj</p>
 
     <SortujForm
@@ -211,6 +222,7 @@ function SortujForm({ fieldsOrder, setFieldsOrder, checkedList, setCheckedList }
     ["kategoria", "Kategoria"],
     ["stan", "Stan"],
     ["lokalizacja", "Lokalizacja"],
+    ["box_id", "Numer pudła"],
     ["wlasciciel", "Właściciel"],
     ["uzytkownik", "Użytkownik"],
     ["nazwa", "Nazwa"],
@@ -263,7 +275,6 @@ function SortujForm({ fieldsOrder, setFieldsOrder, checkedList, setCheckedList }
   return (<>
     <ol>
       <div className="fieldsContainer" key="fieldsContainer_1">
-
         {fieldsOrder.notChosen.map(field => fieldsData[field])}
       </div>
       <div className="fieldsContainer" key="fieldsContainer_2">
