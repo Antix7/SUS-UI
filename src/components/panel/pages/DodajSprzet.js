@@ -129,6 +129,14 @@ function SprzetForm({ data, handleSubmit, errorMessage, isErrorGood }) {
         handleFormChange={handleFormChange}
       />
 
+      <label htmlFor="box_id" className="formLabel disableSelect">Numer pudła</label>
+      <input
+        className="textInput withLabel"
+        name="box_id" id="box_id"
+        type="number"
+        placeholder="(opcjonalne)"
+      />
+
       <DropdownAccordionWithOptions
         title="Właściciel" name="wlasciciel"
         data={data["podmioty"]}
