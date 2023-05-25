@@ -84,7 +84,8 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
       wlasciciel: FormDataToObject(new FormData(wlasciciel_form.current)),
       uzytkownik: FormDataToObject(new FormData(uzytkownik_form.current)),
       nazwa: FormDataToObject(new FormData(nazwa_form.current)),
-      sortOrder: fieldsOrder.chosen.map(value=>[value, checkedList[value]])
+      sortOrder: fieldsOrder.chosen.map(value=>[value, checkedList[value]]),
+      usuniete: true
     });
   }
 
