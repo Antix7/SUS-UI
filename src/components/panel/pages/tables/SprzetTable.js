@@ -26,6 +26,7 @@ function SprzetRowAccordionContent({ object, handleUsun }) {
     <p><strong>Kategoria: </strong>{object["kategoria"]}</p>
     <p><strong>Stan: </strong>{object["stan"]}</p>
     <p><strong>Lokalizacja: </strong>{object["lokalizacja"]}</p>
+    {object["box_id"] && <p><strong>Numer pudła: </strong>{object["box_id"]}</p>}
     <p><strong>Właściciel: </strong>{object["wlasciciel"]}</p>
     <p><strong>Użytkownik: </strong>{object["uzytkownik"]}</p>
     {object["opis"] && <p><strong>Opis: </strong>{object["opis"]}</p>}
