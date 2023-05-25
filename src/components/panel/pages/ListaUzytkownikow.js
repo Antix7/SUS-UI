@@ -33,7 +33,7 @@ export default function ListaUzytkownikow() {
 
   function handleUsun(username) {
     axios.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/usun_uzytkownika`,
+        `${process.env.REACT_APP_SERVER_ADDRESS}/usun_uzytkownika`,
         {username: username},
         {headers: authHeader()}
     )

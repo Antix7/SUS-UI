@@ -10,6 +10,7 @@ import FilterButton from "../../FilterButton";
 import Arrow from "../../Arrow";
 import CompactToggle from "../../CompactToggle";
 import {useNavigate} from "react-router-dom";
+import {type} from "@testing-library/user-event/dist/type";
 
 
 function CheckboxAccordion({ title, name, data, onChange, Ref }) {
@@ -36,10 +37,11 @@ function CheckboxAccordion({ title, name, data, onChange, Ref }) {
   )
 }
 
-function SprzetSelectForm({ filtersData, onSubmit }) {
+function SprzetSelectForm({ filtersData, setFilterFormData }) {
 
   const [kategorie, setKategorie] = useState(new Set());
   const [stanData, setStanData] = useState({});
+  const [czyUsuniete, setCzyUsuniete] = useState(false);
 
   function handleKategoriaChange(e) {
     let newKategorie = new Set(kategorie);
@@ -68,6 +70,7 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
   const wlasciciel_form = useRef();
   const uzytkownik_form = useRef();
   const nazwa_form = useRef();
+  const box_id_form = useRef();
 
   function FormDataToObject(formdata) {
     let object = {};
@@ -76,8 +79,8 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
     });
     return object;
   }
-  function handleSubmit() {
-    onSubmit({
+  function handleSubmit() { // submitting handled by useEffect on parent component
+    setFilterFormData({
       status: FormDataToObject(new FormData(status_form.current)),
       kategoria: FormDataToObject(new FormData(kategoria_form.current)),
       stan: FormDataToObject(new FormData(stan_form.current)),
@@ -85,11 +88,13 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
       wlasciciel: FormDataToObject(new FormData(wlasciciel_form.current)),
       uzytkownik: FormDataToObject(new FormData(uzytkownik_form.current)),
       nazwa: FormDataToObject(new FormData(nazwa_form.current)),
-      sortOrder: fieldsOrder.chosen.map(value=>[value, checkedList[value]])
+      box_id: FormDataToObject(new FormData(box_id_form.current)),
+      sortOrder: fieldsOrder.chosen.map(value=>[value, checkedList[value]]),
+      usuniete: czyUsuniete
     });
   }
 
-  const fields = ["status", "kategoria", "stan", "lokalizacja", "wlasciciel", "uzytkownik", "nazwa", "ilosc"];
+  const fields = ["status", "kategoria", "stan", "lokalizacja", "box_id", "wlasciciel", "uzytkownik", "nazwa", "ilosc"];
   const [fieldsOrder, setFieldsOrder] = useState({
     "notChosen": fields,
     "chosen": []
@@ -155,6 +160,15 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
       />
     </form>
 
+    <form id="box_id_filter_form" ref={box_id_form}>
+      <input
+        className="textInput"
+        type="text"
+        name="box_id"
+        placeholder="Numer pudła"
+      />
+    </form>
+
     <p className="contentTitle disableSelect" style={{marginTop:12}}>Sortuj</p>
 
     <SortujForm
@@ -163,6 +177,16 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
       checkedList={checkedList}
       setCheckedList={setCheckedList}
     />
+
+    <div className="checkboxContainer">
+      <input
+        type="checkbox"
+        id="czy_usuniete" name="czy_usuniete"
+        checked={czyUsuniete}
+        onChange={()=>setCzyUsuniete(!czyUsuniete)}
+      />
+      <label htmlFor="czy_usuniete" className="checkboxLabel">Wyświetl tylko usunięte</label>
+    </div>
 
     <button
       className="button submitButton"
@@ -200,6 +224,7 @@ function SortujForm({ fieldsOrder, setFieldsOrder, checkedList, setCheckedList }
     ["kategoria", "Kategoria"],
     ["stan", "Stan"],
     ["lokalizacja", "Lokalizacja"],
+    ["box_id", "Numer pudła"],
     ["wlasciciel", "Właściciel"],
     ["uzytkownik", "Użytkownik"],
     ["nazwa", "Nazwa"],
@@ -252,7 +277,6 @@ function SortujForm({ fieldsOrder, setFieldsOrder, checkedList, setCheckedList }
   return (<>
     <ol>
       <div className="fieldsContainer" key="fieldsContainer_1">
-
         {fieldsOrder.notChosen.map(field => fieldsData[field])}
       </div>
       <div className="fieldsContainer" key="fieldsContainer_2">
@@ -276,6 +300,9 @@ export default function WyswietlSprzet() {
   const [tableData, setTableData] = useState(null);
   const [filtersData, setFiltersData] = useState(null);
   const [sidepanelShown, setSidepanelShown] = useState(false);
+  const [filterFormData, setFilterFormData] = useState({});
+  const [zdjeciePath, setZdjeciePath] = useState(null);
+  const modalRef = useRef();
 
   function fetchFiltersData() {
     axios.get(
@@ -291,7 +318,7 @@ export default function WyswietlSprzet() {
       });
   }
 
-  function fetchTableData(filterFormData) {
+  function fetchTableData() {
     axios.post(
       `${process.env.REACT_APP_SERVER_ADDRESS}/wyswietl`,
       filterFormData,
@@ -305,11 +332,11 @@ export default function WyswietlSprzet() {
       console.log(error);
       });
   }
-
-  function handleSprzetSelectFormSubmit(filterFormData) {
-    fetchTableData(filterFormData);
+  
+  useEffect(()=>{ // handling submitting the filter form
+    fetchTableData();
     setSidepanelShown(false);
-  }
+  }, [filterFormData]);
 
   useEffect(() => {
     fetchFiltersData();
@@ -329,6 +356,24 @@ export default function WyswietlSprzet() {
       console.log(error);
     });
   }
+  function handleShowZdjecie(id) {
+    axios.post(
+      `${process.env.REACT_APP_SERVER_ADDRESS}/wyswietl_zdjecie`,
+      {id: id},
+      {headers: authHeader(), responseType: 'blob'}
+    )
+      .then((response) => {
+        const imageUrl = URL.createObjectURL(response.data); // Create a temporary URL for the image file
+        setZdjeciePath(imageUrl);
+        modalRef.current.showModal();
+        modalRef.current.style.display="flex"; // incorrect <dialog> size fix
+      })
+      .catch((error) => {
+        setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
+        console.log(error);
+      });
+  }
+
 
   function handleEdytuj(id) {
     navigate(`../edytuj_sprzet/${id}`);
@@ -401,7 +446,7 @@ export default function WyswietlSprzet() {
     <FilterSidepanel sidepanelShown={sidepanelShown}>
       <p className="contentTitle disableSelect">Filtruj</p>
       {filtersData ?
-        <SprzetSelectForm filtersData={filtersData} onSubmit={handleSprzetSelectFormSubmit}/>
+        <SprzetSelectForm filtersData={filtersData} setFilterFormData={setFilterFormData}/>
         :
         errorMessage ?
           null
@@ -419,7 +464,16 @@ export default function WyswietlSprzet() {
             handleZabierz={handleZabierz}
             handleOdloz={handleOdloz}
             handleZapomnij={handleZapomnij}
+            handleShowZdjecie={handleShowZdjecie}
         />}
 
+    <dialog
+      className="modal"
+      ref={modalRef}
+      onClick={()=>{modalRef.current.close(); setZdjeciePath(null); modalRef.current.style.display="none"}}
+    >
+      <img className="modalImage" src={zdjeciePath} alt="Coś poszło nie tak :/"/>
+    </dialog>
+       
   </div>)
 }
