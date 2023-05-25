@@ -107,7 +107,7 @@ tr:nth-child(2n+1) > * {
 }
 .visualFixWrapper { /* another wrapper is needed to achieve the desired animation look */
   width: calc(100% - 12px);
-  padding: 2px 6px;
+  padding: 2px 4px;
 }
 .tableAccordionPanel {
   padding: 0;

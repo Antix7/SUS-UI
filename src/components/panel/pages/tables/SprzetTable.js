@@ -1,6 +1,7 @@
 import Cross from "../../Cross";
 import Checkmark from "../../Checkmark";
 import TableAccordion from "../../../TableAccordion";
+import Mid from "../../Mid";
 
 function SprzetHeader() {
   const headers = ["Nazwa", "Ilość", "Status", "Stan"];
@@ -13,11 +14,18 @@ function SprzetHeader() {
   )
 }
 function SprzetRowCells({ object }) {
+  let statusValue = <Mid/>
+  if(object["status"] === "Dostępny") statusValue = <Checkmark/>
+  if(object["status"] === "Zgubiony") statusValue = <Cross/>
+  let stanValue = <Mid/>
+  if(object["stan"] === "Dobry" || object["stan"] === "Nowy") stanValue = <Checkmark/>
+  if(object["stan"] === "Zły") stanValue = <Cross/>
+
   return (<>
     <td className="long_td">{object["nazwa"]}</td>
     <td>{object["ilosc"]}</td>
-    <td>{object["status"] === "Dostępny" ? <Checkmark/> : <Cross/>}</td>
-    <td>{object["stan"] === "Dobry" || object["stan"] === "Nowy" ? <Checkmark/> : <Cross/>}</td>
+    <td>{statusValue}</td>
+    <td>{stanValue}</td>
   </>)
 }
 function SprzetRowAccordionContent({ object, handleUsun, handleShowZdjecie }) {
