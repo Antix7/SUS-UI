@@ -35,10 +35,11 @@ function CheckboxAccordion({ title, name, data, onChange, Ref }) {
   )
 }
 
-function SprzetSelectForm({ filtersData, onSubmit }) {
+function SprzetSelectForm({ filtersData, setFilterFormData }) {
 
   const [kategorie, setKategorie] = useState(new Set());
   const [stanData, setStanData] = useState({});
+  const [czyUsuniete, setCzyUsuniete] = useState(false);
 
   function handleKategoriaChange(e) {
     let newKategorie = new Set(kategorie);
@@ -75,8 +76,8 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
     });
     return object;
   }
-  function handleSubmit() {
-    onSubmit({
+  function handleSubmit() { // submitting handled by useEffect on parent component
+    setFilterFormData({
       status: FormDataToObject(new FormData(status_form.current)),
       kategoria: FormDataToObject(new FormData(kategoria_form.current)),
       stan: FormDataToObject(new FormData(stan_form.current)),
@@ -85,7 +86,7 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
       uzytkownik: FormDataToObject(new FormData(uzytkownik_form.current)),
       nazwa: FormDataToObject(new FormData(nazwa_form.current)),
       sortOrder: fieldsOrder.chosen.map(value=>[value, checkedList[value]]),
-      usuniete: true
+      usuniete: czyUsuniete
     });
   }
 
@@ -163,6 +164,16 @@ function SprzetSelectForm({ filtersData, onSubmit }) {
       checkedList={checkedList}
       setCheckedList={setCheckedList}
     />
+
+    <div className="checkboxContainer">
+      <input
+        type="checkbox"
+        id="czy_usuniete" name="czy_usuniete"
+        checked={czyUsuniete}
+        onChange={()=>setCzyUsuniete(!czyUsuniete)}
+      />
+      <label htmlFor="czy_usuniete" className="checkboxLabel">Wyświetl tylko usunięte</label>
+    </div>
 
     <button
       className="button submitButton"
@@ -275,6 +286,7 @@ export default function WyswietlSprzet() {
   const [tableData, setTableData] = useState(null);
   const [filtersData, setFiltersData] = useState(null);
   const [sidepanelShown, setSidepanelShown] = useState(false);
+  const [filterFormData, setFilterFormData] = useState({});
 
   function fetchFiltersData() {
     axios.get(
@@ -290,7 +302,7 @@ export default function WyswietlSprzet() {
       });
   }
 
-  function fetchTableData(filterFormData) {
+  function fetchTableData() {
     axios.post(
       `${process.env.REACT_APP_SERVER_ADDRESS}/wyswietl`,
       filterFormData,
@@ -304,11 +316,11 @@ export default function WyswietlSprzet() {
       console.log(error);
       });
   }
-
-  function handleSprzetSelectFormSubmit(filterFormData) {
-    fetchTableData(filterFormData);
+  
+  useEffect(()=>{ // handling submitting the filter form
+    fetchTableData();
     setSidepanelShown(false);
-  }
+  }, [filterFormData]);
 
   useEffect(() => {
     fetchFiltersData();
@@ -338,7 +350,7 @@ export default function WyswietlSprzet() {
     <FilterSidepanel sidepanelShown={sidepanelShown}>
       <p className="contentTitle disableSelect">Filtruj</p>
       {filtersData ?
-        <SprzetSelectForm filtersData={filtersData} onSubmit={handleSprzetSelectFormSubmit}/>
+        <SprzetSelectForm filtersData={filtersData} setFilterFormData={setFilterFormData}/>
         :
         errorMessage ?
           null
