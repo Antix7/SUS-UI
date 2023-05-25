@@ -216,7 +216,6 @@ export default function DodajSprzet({isEditing}) {
   const [errorMessage, setErrorMessage] = useState(null);
   const [isErrorGood, setIsErrorGood] = useState(null);
   const [data, setData] = useState(null);
-  // let defaultFormValues = null;
   const [defaultValues, setDefaultValues] = useState(null);
 
 
@@ -268,6 +267,12 @@ export default function DodajSprzet({isEditing}) {
     const formData = new FormData(form);
     if(isEditing)
       formData.append("editid", editingID);
+
+    if(formData.get("ilosc") <= 0) {
+      setErrorMessage("Niepoprawna ilość");
+      setIsErrorGood(false);
+      return;
+    }
 
     axios.post(
       `${process.env.REACT_APP_SERVER_ADDRESS}/${editingID ? "edytuj" : "dodaj"}`,
