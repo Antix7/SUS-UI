@@ -31,7 +31,9 @@ function SprzetRowAccordionContent({ object, handleUsun }) {
     {object["opis"] && <p><strong>Opis: </strong>{object["opis"]}</p>}
     {object["zdjecie_path"] && <p><strong>Zdjęcie: </strong>{object["zdjecie_path"]}</p>}
     {object["og_id"] && <p><strong>OG ID: </strong>{object["og_id"]}</p>}
-    <button type="button" className="smallButton" onClick={()=>handleUsun(object["ID"])}>Usuń</button>
+    <button type="button" className="smallButton" onClick={()=>handleUsun(object["ID"])}>
+      {object["czy_usuniete"] ? "Przywróć" : "Usuń"}
+    </button>
   </>)
 
 }
