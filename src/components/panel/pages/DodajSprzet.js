@@ -75,20 +75,6 @@ function SprzetForm({ data, handleSubmit, errorMessage, isErrorGood, defaultValu
   // because react is a fucking mess
   const [defaultIlosc, setDefaultIlosc] = useState(1);
 
-  if(!defaultValues) {
-    defaultValues = {
-      sts: 0,
-      kat: 0,
-      stn: 0,
-      lok: 0,
-      wla: 0,
-      uzy: 0,
-      nazwa: "",
-      opis: "",
-      ilosc: defaultIlosc
-    }
-  }
-
   useEffect(() => {
     setFormdata({
       status: defaultValues.sts,
@@ -216,7 +202,17 @@ export default function DodajSprzet({isEditing}) {
   const [errorMessage, setErrorMessage] = useState(null);
   const [isErrorGood, setIsErrorGood] = useState(null);
   const [data, setData] = useState(null);
-  const [defaultValues, setDefaultValues] = useState(null);
+  const [defaultValues, setDefaultValues] = useState({
+    sts: 0,
+    kat: 0,
+    stn: 0,
+    lok: 0,
+    wla: 0,
+    uzy: 0,
+    nazwa: "",
+    opis: "",
+    ilosc: 1
+  });
 
 
   useEffect(() => {
