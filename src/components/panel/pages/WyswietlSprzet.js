@@ -366,13 +366,22 @@ export default function WyswietlSprzet() {
       .then((response) => {
         const imageUrl = URL.createObjectURL(response.data); // Create a temporary URL for the image file
         setZdjeciePath(imageUrl);
-        modalRef.current.showModal();
-        modalRef.current.style.display="flex"; // incorrect <dialog> size fix
+        showModal();
       })
       .catch((error) => {
         setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
         console.log(error);
       });
+  }
+
+  function showModal() {
+    modalRef.current.showModal();
+    modalRef.current.style.display="flex"; // incorrect <dialog> size fix
+  }
+  function hideModal() {
+    modalRef.current.close();
+    setZdjeciePath(null);
+    modalRef.current.style.display="none"
   }
 
 
@@ -399,7 +408,7 @@ export default function WyswietlSprzet() {
     <dialog
       className="modal"
       ref={modalRef}
-      onClick={()=>{modalRef.current.close(); setZdjeciePath(null); modalRef.current.style.display="none"}}
+      onClick={()=>hideModal()}
     >
       <img className="modalImage" src={zdjeciePath} alt="Coś poszło nie tak :/"/>
     </dialog>

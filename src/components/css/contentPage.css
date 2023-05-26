@@ -194,15 +194,3 @@ tr:nth-child(2n+1) > * {
 .smallButton:active {
   background-color: var(--darker4);
 }
-
-.modal {
-  padding: 0;
-  border: 0;
-  /*incorrect <dialog> size fix*/
-  display: none;
-  align-items: flex-start;
-}
-.modalImage {
-  max-width: 100%;
-  height: auto;
-}

@@ -91,3 +91,20 @@ ol {
 .checkboxContainer {
   margin-top: 10px;
 }
+
+.modal {
+  max-width: 90vw;
+  padding: 10px;
+  border: 1px black solid;
+  border-radius: 10px;
+  /*incorrect <dialog> size fix*/
+  display: none;
+  align-items: flex-start;
+}
+.modalImage {
+  max-width: 100%;
+  height: auto;
+}
+.modalCloseButton {
+  position: absolute;
+}
