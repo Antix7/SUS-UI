@@ -19,7 +19,10 @@ export default function LoginPanel({ handleLogin }) {
 
     axios.post(`${process.env.REACT_APP_SERVER_ADDRESS}/auth`, formData)
       .then((response) => {
-        if(response.data.success) handleLogin(form.username.value, response.data.token);
+        if(response.data.success) handleLogin(
+          form.username.value,
+          response.data.token,
+          response.data.isAdmin);
         else setErrorMessage(response.data.message);
       })
       .catch((error) => {

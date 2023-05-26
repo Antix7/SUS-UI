@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './App.css';
-import AdminPanel from "./components/panel/AdminPanel";
+import Panel from "./components/panel/Panel";
 import LoginPanel from "./components/login/LoginPanel";
 import {Route, Routes, useNavigate} from "react-router-dom";
 import ZmienHaslo from "./components/panel/pages/ZmienHaslo";
@@ -18,11 +18,15 @@ export default function App() {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState(null);
+  // this is safe because server endpoints require admin information stored in token
+  const [isAdmin, setIsAdmin] = useState(null);
 
-  function handleLogin(username, token) {
+  function handleLogin(username, token, isAdmin) {
     setUsername(username);
+    setIsAdmin(isAdmin);
     sessionStorage.setItem("username", username);
     sessionStorage.setItem("token", token);
+    sessionStorage.setItem("isAdmin", isAdmin);
     navigate('/panel');
   }
 
@@ -36,6 +40,7 @@ export default function App() {
     setUsername(null);
     sessionStorage.removeItem("username");
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("isAdmin");
     navigate('/');
   }
 
@@ -50,10 +55,12 @@ export default function App() {
         <Route path='/aktywuj_konto' element={<AktywujKonto/>} />
         <Route path='/resetuj_haslo' element={<ResetujHaslo handleResetLogin={handleResetLogin}/>} />
         <Route path='/panel' element={
-          <AdminPanel
+          <Panel
             username={`${username}@${process.env.REACT_APP_ORGANISATION_NAME}`}
-            handleLogout={handleLogout}
             setUsername={setUsername}
+            isAdmin={isAdmin}
+            setIsAdmin={setIsAdmin}
+            handleLogout={handleLogout}
           />
         }>
           <Route index element={<Welcome username={username}/>} />
