@@ -73,6 +73,7 @@ function SprzetSelectForm({ filtersData, setFilterFormData }) {
   const uzytkownik_form = useRef();
   const nazwa_form = useRef();
   const box_id_form = useRef();
+  const oznaczenie_form = useRef();
 
   function FormDataToObject(formdata) {
     let object = {};
@@ -91,12 +92,13 @@ function SprzetSelectForm({ filtersData, setFilterFormData }) {
       uzytkownik: FormDataToObject(new FormData(uzytkownik_form.current)),
       nazwa: FormDataToObject(new FormData(nazwa_form.current)),
       box_id: FormDataToObject(new FormData(box_id_form.current)),
+      oznaczenie: FormDataToObject(new FormData(oznaczenie_form.current)),
       sortOrder: fieldsOrder.chosen.map(value=>[value, checkedList[value]]),
       usuniete: czyUsuniete
     });
   }
 
-  const fields = ["status", "kategoria", "stan", "lokalizacja", "box_id", "wlasciciel", "uzytkownik", "nazwa", "ilosc"];
+  const fields = ["status", "kategoria", "stan", "lokalizacja", "box_id", "oznaczenie", "wlasciciel", "uzytkownik", "nazwa", "ilosc"];
   const [fieldsOrder, setFieldsOrder] = useState({
     "notChosen": fields,
     "chosen": []
@@ -172,6 +174,15 @@ function SprzetSelectForm({ filtersData, setFilterFormData }) {
       />
     </form>
 
+    <form id="oznaczenie_filter_form" ref={oznaczenie_form}>
+      <input
+        className="textInput"
+        type="text"
+        name="oznaczenie"
+        placeholder="Oznaczenie"
+      />
+    </form>
+
     <p className="contentTitle disableSelect" style={{marginTop:12}}>Sortuj</p>
 
     <SortujForm
@@ -228,6 +239,7 @@ function SortujForm({ fieldsOrder, setFieldsOrder, checkedList, setCheckedList }
     ["stan", "Stan"],
     ["lokalizacja", "Lokalizacja"],
     ["box_id", "Numer pudła"],
+    ["oznaczenie", "Oznaczenie"],
     ["wlasciciel", "Właściciel"],
     ["uzytkownik", "Użytkownik"],
     ["nazwa", "Nazwa"],

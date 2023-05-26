@@ -158,6 +158,7 @@ function SprzetForm({ data, handleSubmit, message, defaultValues, buttonValue, i
         name="box_id" id="box_id"
         type="number"
         placeholder="(opcjonalne)"
+        defaultValue={defaultValues.box_id}
       />
 
       <DropdownAccordionWithOptions
@@ -172,6 +173,15 @@ function SprzetForm({ data, handleSubmit, message, defaultValues, buttonValue, i
         data={data["podmioty"]}
         selected={formdata.uzytkownik}
         handleFormChange={handleFormChange}
+      />
+
+      <label htmlFor="oznaczenie" className="formLabel disableSelect">Oznaczenie</label>
+      <input
+        className="textInput withLabel"
+        name="oznaczenie" id="oznaczenie"
+        type="text"
+        placeholder="(opcjonalne)"
+        defaultValue={defaultValues.oznaczenie}
       />
 
       <label htmlFor="opisInput" className="formLabel disableSelect">Opis</label>
@@ -218,7 +228,9 @@ export default function DodajSprzet({isEditing}) {
     uzy: 0,
     nazwa: "",
     opis: "",
-    ilosc: 1
+    ilosc: 1,
+    box_id:null,
+    oznaczenie:""
   });
 
 
