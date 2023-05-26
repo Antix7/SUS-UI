@@ -255,7 +255,7 @@ function SortujForm({ fieldsOrder, setFieldsOrder, checkedList, setCheckedList }
     let newFieldsOrder = JSON.parse(JSON.stringify(fieldsOrder));
 
     if(direction === "down") {
-      if(chosenID === newFieldsOrder.chosen.length-1) {
+      if(chosenID === newFieldsOrder.chosen.length-1 && notChosenID === -1) {
         newFieldsOrder.chosen.pop();
         newFieldsOrder.notChosen.splice(0, 0, name);
       }
