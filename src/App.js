@@ -13,6 +13,8 @@ import Welcome from "./components/panel/pages/Welcome";
 import AktywujKonto from "./components/login/AktywujKonto";
 import ResetujHaslo from "./components/login/ResetujHaslo";
 import NoPage from "./components/panel/pages/NoPage";
+import ErrorMessage from "./components/ErrorMessage";
+
 
 export default function App() {
   const navigate = useNavigate();
@@ -66,6 +68,10 @@ export default function App() {
           <Route index element={<Welcome username={username}/>} />
           <Route path='zmien_haslo' element={<ZmienHaslo/>} />
           <Route path='wyswietl_sprzet' element={<WyswietlSprzet/>} />
+          <Route path='edytuj_sprzet'>
+              <Route index element={<ErrorMessage success={false} message="brak id" />} />
+              <Route path=':id' element={<DodajSprzet isEditing={true} />} />
+            </Route>
           <Route path='dodaj_sprzet' element={<DodajSprzet/>} />
           <Route path='generator_kluczy' element={<GeneratorKluczy/>} />
           <Route path='lista_uzytkownikow' element={<ListaUzytkownikow/>} />
@@ -74,5 +80,3 @@ export default function App() {
       </Routes>
   </>)
 }
-
-
