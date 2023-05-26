@@ -4,7 +4,7 @@ import {Outlet, useNavigate} from "react-router-dom";
 import axios from "axios";
 import authHeader from "../../authHeader";
 
-export default function Panel({ username, setUsername, isAdmin, setIsAdmin, handleLogout }) {
+export default function Panel({ username, setUsername, isAdmin, setIsAdmin, handleLogout, setLoginMessage }) {
   const navigate = useNavigate();
 
   function handleNavButtonClick(address) {
@@ -20,7 +20,10 @@ export default function Panel({ username, setUsername, isAdmin, setIsAdmin, hand
             setUsername(sessionStorage.getItem("username"));
             setIsAdmin(sessionStorage.getItem("isAdmin"));
           }
-          else navigate('/');
+          else {
+              setLoginMessage(response.data.message);
+              navigate('/');
+          }
         });
   }, []);
 
