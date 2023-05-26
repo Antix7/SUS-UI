@@ -6,10 +6,14 @@ import {useNavigate} from "react-router-dom";
 import MessageBox from "../MessageBox";
 
 
-export default function LoginPanel({ handleLogin }) {
+export default function LoginPanel({ handleLogin, defaultMessage }) {
   const navigate = useNavigate();
 
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState({
+    text: defaultMessage,
+    type: "error",
+  });
+  console.log(defaultMessage);
 
   function handleSubmit(e) {
     e.preventDefault();

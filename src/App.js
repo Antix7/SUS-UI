@@ -20,6 +20,7 @@ export default function App() {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState(null);
+  const [loginMessage, setLoginMessage] = useState(null);
   // this is safe because server endpoints require admin information stored in token
   const [isAdmin, setIsAdmin] = useState(null);
 
@@ -51,6 +52,7 @@ export default function App() {
         <Route path='/' element={
           <LoginPanel
             handleLogin={handleLogin}
+            defaultMessage={loginMessage}
           />}
         />
         <Route path='*' element={<NoPage/>}/>
@@ -63,6 +65,7 @@ export default function App() {
             isAdmin={isAdmin}
             setIsAdmin={setIsAdmin}
             handleLogout={handleLogout}
+            setLoginMessage={setLoginMessage}
           />
         }>
           <Route index element={<Welcome username={username}/>} />
