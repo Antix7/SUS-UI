@@ -4,24 +4,24 @@ import {useEffect, useState} from "react";
 function Message({ text, type, handleDismiss }) {
   let colour;
   if (type === "error") {
-    colour = "#f36257";
+    colour = "#ff5353";
   } else if (type === "warning") {
     colour = "#fda82a";
   } else if (type === "info") {
     colour = "#46a6f3"
   } else if (type === "success") {
-    colour = "#1cbd61"
+    colour = "#2fd33f"
   }
   return (
     <div
-      className="messageDiv"
+      className="messageDiv disableSelect"
       style={{
         backgroundColor:colour
       }}
     >
       {text}
       <span
-        className="messageCloseButton"
+        className="messageCloseButton disableSelect"
         onClick={handleDismiss}
       >&times;
       </span>
