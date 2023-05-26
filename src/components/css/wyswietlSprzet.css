@@ -69,13 +69,25 @@ ol {
   margin: 3px;
   width: min(220px, 80vw);
 }
+.sortujFieldFake {
+  width: min(256px, 80vw);
+  height: 0;
+  overflow: hidden;
+}
 
 .fieldsContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 7px;
-  padding: 8px;
+  padding: 0 8px 8px 8px;
   border: 1px solid #AAA;
   border-radius: 16px;
+}
+
+.sortujFieldsTitle {
+  margin: 10px 0 5px 0;
+}
+.checkboxContainer {
+  margin-top: 10px;
 }

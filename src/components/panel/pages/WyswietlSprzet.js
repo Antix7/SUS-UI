@@ -251,21 +251,21 @@ function SortujForm({ fieldsOrder, setFieldsOrder, checkedList, setCheckedList }
     let newFieldsOrder = JSON.parse(JSON.stringify(fieldsOrder));
 
     if(direction === "down") {
-      if(notChosenID !== -1) {
-        newFieldsOrder.notChosen.splice(notChosenID, 1);
-        newFieldsOrder.chosen.push(name);
+      if(chosenID === newFieldsOrder.chosen.length-1) {
+        newFieldsOrder.chosen.pop();
+        newFieldsOrder.notChosen.splice(0, 0, name);
       }
-      if(chosenID !== -1) { // corner case jak element jest ostatni sam się rozwiązuje
+      else if(chosenID !== -1) {
         newFieldsOrder.chosen.splice(chosenID, 1);
         newFieldsOrder.chosen.splice(chosenID+1, 0, name);
       }
     }
-    if(direction === "up" && chosenID !== -1) { // jeśli jest notChosen to nic się nie dzieje
-      if(chosenID === 0) {
-        newFieldsOrder.chosen.splice(0, 1);
-        newFieldsOrder.notChosen.push(name);
+    if(direction === "up") {
+      if(notChosenID !== -1) {
+        newFieldsOrder.notChosen.splice(notChosenID, 1);
+        newFieldsOrder.chosen.push(name);
       }
-      if(chosenID !== 0) {
+      if(chosenID !== -1 && chosenID !== 0) {
         newFieldsOrder.chosen.splice(chosenID, 1);
         newFieldsOrder.chosen.splice(chosenID-1, 0, name);
       }
@@ -276,11 +276,14 @@ function SortujForm({ fieldsOrder, setFieldsOrder, checkedList, setCheckedList }
   return (<>
     <ol>
       <div className="fieldsContainer" key="fieldsContainer_1">
-        {fieldsOrder.notChosen.map(field => fieldsData[field])}
+        <p className="sortujFieldFake"></p> {/* maintain proper width */}
+        <p className="sortujFieldsTitle">Kolejność sortowania</p>
+        {fieldsOrder.chosen.map(field => fieldsData[field])}
       </div>
       <div className="fieldsContainer" key="fieldsContainer_2">
-        <p>Sortuj według</p>
-        {fieldsOrder.chosen.map(field => fieldsData[field])}
+        <p className="sortujFieldFake"></p> {/* maintain proper width */}
+        <p className="sortujFieldsTitle">Dostępne pola</p>
+        {fieldsOrder.notChosen.map(field => fieldsData[field])}
       </div>
     </ol>
   </>)
