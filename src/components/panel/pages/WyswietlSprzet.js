@@ -11,6 +11,7 @@ import Arrow from "../../Arrow";
 import CompactToggle from "../../CompactToggle";
 import {useNavigate} from "react-router-dom";
 import {type} from "@testing-library/user-event/dist/type";
+import MessageBox from "../../MessageBox";
 
 
 function CheckboxAccordion({ title, name, data, onChange, Ref, additionalContent }) {
@@ -301,7 +302,7 @@ function FilterSidepanel({ children, sidepanelShown }) {
 export default function WyswietlSprzet() {
   const navigate = useNavigate();
 
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [message, setMessage] = useState(null);
   const [tableData, setTableData] = useState(null);
   const [filtersData, setFiltersData] = useState(null);
   const [sidepanelShown, setSidepanelShown] = useState(false);
@@ -316,10 +317,15 @@ export default function WyswietlSprzet() {
     )
       .then((response) => {
         if(response.data.success) setFiltersData(response.data.data);
-        else setErrorMessage(response.data.message);
+        else setMessage({
+          text: response.data.message,
+          type: "error",
+        });
       }).catch((error) => {
-        setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
-        console.log(error);
+        setMessage({
+          text: "Wystąpił błąd w komunikacji z serwerem",
+          type: "error",
+        });
       });
   }
 
@@ -330,11 +336,16 @@ export default function WyswietlSprzet() {
       {headers: authHeader()}
     )
       .then((response) => {
-        setErrorMessage(response.data.message);
         if(response.data.success) setTableData(response.data.data);
+        else setMessage({
+          text: response.data.message,
+          type: "error",
+        });
       }).catch((error) => {
-      setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
-      console.log(error);
+        setMessage({
+          text: "Wystąpił błąd w komunikacji z serwerem",
+          type: "error",
+        });
       });
   }
   
@@ -357,8 +368,10 @@ export default function WyswietlSprzet() {
       .then((response) => {
         fetchTableData();
       }).catch((error) => {
-      setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
-      console.log(error);
+        setMessage({
+          text: "Wystąpił błąd w komunikacji z serwerem",
+          type: "error",
+        });
     });
   }
   function handleShowZdjecie(id) {
@@ -373,8 +386,10 @@ export default function WyswietlSprzet() {
         showModal();
       })
       .catch((error) => {
-        setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
-        console.log(error);
+        setMessage({
+          text: "Wystąpił błąd w komunikacji z serwerem",
+          type: "error",
+        });
       });
   }
 
@@ -405,11 +420,16 @@ export default function WyswietlSprzet() {
             setTimeout(fetchTableData, 100);
             return;
           }
-          setErrorMessage(response.data.message);
+          setMessage({
+            text: response.data.message,
+            type: "error",
+          });
         })
         .catch((error) => {
-          setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
-          console.log(error);
+          setMessage({
+            text: "Wystąpił błąd w komunikacji z serwerem",
+            type: "error",
+          });
         });
   }
 
@@ -424,11 +444,16 @@ export default function WyswietlSprzet() {
             setTimeout(fetchTableData, 100);
             return;
           }
-          setErrorMessage(response.data.message);
+          setMessage({
+            text: response.data.message,
+            type: "error",
+          });
         })
         .catch((error) => {
-          setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
-          console.log(error);
+          setMessage({
+            text: "Wystąpił błąd w komunikacji z serwerem",
+            type: "error",
+          });
         });
   }
 
@@ -443,17 +468,23 @@ export default function WyswietlSprzet() {
             setTimeout(fetchTableData, 100);
             return;
           }
-          setErrorMessage(response.data.message);
+          setMessage({
+            text: response.data.message,
+            type: "error",
+          });
         })
         .catch((error) => {
-          setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
-          console.log(error);
+          setMessage({
+            text: "Wystąpił błąd w komunikacji z serwerem",
+            type: "error",
+          });
         });
   }
 
   return (<div className="contentDiv longForm">
     <p className="contentTitle disableSelect">Tabela sprzętu</p>
-    <p id="errorMessage">{errorMessage}</p>
+
+    <MessageBox message={message}/>
 
     <FilterButton onClick={()=>setSidepanelShown(!sidepanelShown)}/>
 
@@ -462,10 +493,7 @@ export default function WyswietlSprzet() {
       {filtersData ?
         <SprzetSelectForm filtersData={filtersData} setFilterFormData={setFilterFormData}/>
         :
-        errorMessage ?
-          null
-          :
-          <LoadingIcon/>
+        <LoadingIcon/>
       }
     </FilterSidepanel>
 

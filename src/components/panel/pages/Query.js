@@ -2,7 +2,7 @@ import {useState} from "react";
 import axios from "axios";
 import authHeader from "../../../authHeader";
 import "../../css/contentPage.css"
-import ErrorMessage from "../../ErrorMessage";
+import ErrorMessage from "../../MessageBox";
 
 export default function Query() {
 
