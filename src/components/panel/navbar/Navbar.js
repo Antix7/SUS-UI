@@ -4,7 +4,7 @@ import UserPanel from "./UserPanel";
 import MenuButton from "./MenuButton";
 import Sidepanel from "./Sidepanel";
 
-export default function Navbar({ handleNavbarButtonClick, username, handleLogout }) {
+export default function Navbar({ handleNavbarButtonClick, username, handleLogout, isAdmin }) {
 
   const [sidepanelShown, setSidepanelShown] = useState(false);
 
@@ -12,13 +12,17 @@ export default function Navbar({ handleNavbarButtonClick, username, handleLogout
     setSidepanelShown(!sidepanelShown);
   }
 
-  const sidepanelOptions = [
+  let sidepanelOptions = [
     {text: "Wyświetl sprzęt", link: 'wyswietl_sprzet'},
     {text: "Dodaj sprzęt", link:'dodaj_sprzet'},
-    {text: "Generator kluczy", link:'generator_kluczy'},
-    {text: "Lista użytkowników", link:'lista_uzytkownikow'},
-    {text: "Query", link:'query'}
   ]
+  if(isAdmin === "true") {
+    sidepanelOptions = [...sidepanelOptions,
+      {text: "Generator kluczy", link:'generator_kluczy'},
+      {text: "Lista użytkowników", link:'lista_uzytkownikow'},
+      {text: "Query", link:'query'}
+    ]
+  }
 
   return (
     <div id="navbar">

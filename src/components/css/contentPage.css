@@ -14,7 +14,7 @@
 .contentTitle {
   font-weight: bold;
   font-size: 20px;
-  margin: 5px 0 10px 0;
+  margin: 10px 0;
 }
 
 .textInput, .dropdownAccordionField {
@@ -51,22 +51,24 @@
 }
 
 #submitButton, .submitButton {
-  margin: 5px 0 20px 0;
+  margin: 15px 0 20px 0;
 }
 
 table {
-  display:block;
   width: auto;
   max-width: calc(100vw - 30px);
-  overflow-y: auto;
-  overflow-x: auto;
   margin: 0;
   border-spacing: 0;
+  table-layout: auto; /* Allow cells to adjust width based on content */
 }
 th, td {
   text-align: left;
   padding: 2px 6px;
   margin: 0;
+}
+td {
+  white-space: normal; /* Allow content to wrap within cells */
+  word-break: break-word; /* Break words if necessary */
 }
 th {
   position: sticky;
@@ -101,9 +103,14 @@ tr:nth-child(2n+1) > * {
   transition: height 0.2s ease-out;
 }
 .accordionPanelWrapper {
-  transition: padding 0.2s ease-out;
+  padding: 0 !important;
+}
+.visualFixWrapper { /* another wrapper is needed to achieve the desired animation look */
+  width: calc(100% - 12px);
+  padding: 2px 4px;
 }
 .tableAccordionPanel {
+  padding: 0;
   max-width: calc(100vw - 52px);
 }
 .tableAccordionPanel > * {
@@ -154,6 +161,7 @@ tr:nth-child(2n+1) > * {
   border-radius: 8px;
   padding: 3px 7px;
   margin: 2px 5px 2px -7px;
+  color: #333;
 }
 
 .filterButton {
@@ -185,16 +193,4 @@ tr:nth-child(2n+1) > * {
 }
 .smallButton:active {
   background-color: var(--darker4);
-}
-
-.modal {
-  padding: 0;
-  border: 0;
-  /*incorrect <dialog> size fix*/
-  display: none;
-  align-items: flex-start;
-}
-.modalImage {
-  max-width: 100%;
-  height: auto;
 }

@@ -1,6 +1,7 @@
 import Cross from "../../Cross";
 import Checkmark from "../../Checkmark";
 import TableAccordion from "../../../TableAccordion";
+import Mid from "../../Mid";
 
 function SprzetHeader() {
   const headers = ["Nazwa", "Ilość", "Status", "Stan"];
@@ -13,11 +14,18 @@ function SprzetHeader() {
   )
 }
 function SprzetRowCells({ object }) {
+  let statusValue = <Mid/>
+  if(object["status"] === "Dostępny") statusValue = <Checkmark/>
+  if(object["status"] === "Zgubiony") statusValue = <Cross/>
+  let stanValue = <Mid/>
+  if(object["stan"] === "Dobry" || object["stan"] === "Nowy") stanValue = <Checkmark/>
+  if(object["stan"] === "Zły") stanValue = <Cross/>
+
   return (<>
-    <td>{object["nazwa"]}</td>
+    <td className="long_td">{object["nazwa"]}</td>
     <td>{object["ilosc"]}</td>
-    <td>{object["status"] === "Dostępny" ? <Checkmark/> : <Cross/>}</td>
-    <td>{object["stan"] === "Dobry" || object["stan"] === "Nowy" ? <Checkmark/> : <Cross/>}</td>
+    <td>{statusValue}</td>
+    <td>{stanValue}</td>
   </>)
 }
 function SprzetRowAccordionContent({ object, handleUsun, handleEdytuj, handleZabierz, handleOdloz, handleZapomnij, handleShowZdjecie }) {
@@ -30,20 +38,22 @@ function SprzetRowAccordionContent({ object, handleUsun, handleEdytuj, handleZab
     <p><strong>Właściciel: </strong>{object["wlasciciel"]}</p>
     <p><strong>Użytkownik: </strong>{object["uzytkownik"]}</p>
     {object["opis"] && <p><strong>Opis: </strong>{object["opis"]}</p>}
-    {object["zdjecie_path"] && <p><strong>Zdjęcie: </strong>{object["zdjecie_path"]}</p>}
-    <button type="button" className="smallButton" onClick={()=>handleShowZdjecie(object["ID"])}>
-      Zdjęcie
-    </button>
+    
+    {object["zdjecie_path"] &&
+      <button type="button" className="smallButton" onClick={()=>handleShowZdjecie(object["ID"])}>
+        Zdjęcie
+      </button>
+    }
     <button type="button" className="smallButton" onClick={()=>handleEdytuj(object["ID"])}>Edytuj</button>
     <button type="button" className="smallButton" onClick={()=>handleUsun(object["ID"])}>
       {object["czy_usuniete"] ? "Przywróć" : "Usuń"}
     </button>
-
     <p>OG ID</p>
     {object["og_id"] && <p><strong>OG ID: </strong>{object["og_id"]}</p>}
     <button type="button" className="smallButton" disabled={!!object["og_id"]} onClick={()=>handleZabierz(object["ID"])}>Zabier</button>
     <button type="button" className="smallButton" disabled={!object["og_id"]} onClick={()=>handleOdloz(object["ID"])}>Oddej</button>
     <button type="button" className="smallButton" disabled={!object["og_id"]} onClick={()=>handleZapomnij(object["ID"])}>Zapomnir</button>
+
   </>)
 
 }

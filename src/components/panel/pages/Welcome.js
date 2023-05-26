@@ -4,14 +4,7 @@ export default function Welcome({ username }) {
 
   return (
     <div className="contentDiv">
-      <p className="contentTitle">{username}, witamy Cię w SUSie!</p>
-      <p>
-        Najpewniej jesteś tu, żeby dowiedzieć się czegoś na temat sprzętu,
-        zatem otwórz menu hamburgerowe i wybierz opcję 'Wyświetl sprzęt'.
-      </p>
-      <p>
-        Miłego przeglądania!
-      </p>
+      <p className="contentTitle">{username}, witaj w SUS!</p>
     </div>
   );
 }

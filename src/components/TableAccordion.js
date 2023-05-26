@@ -16,7 +16,7 @@ export default function TableAccordion({ triggerContent, triggerClass, children,
   return (<>
     <tr
       key={Key + "_trigger"}
-      className={"accordionTrigger tableAccordionTrigger disableSelect " + triggerClass}
+      className={"accordionTrigger tableAccordionTrigger " + triggerClass}
       onClick={()=>setShown(!shown)}
     >
       {triggerContent}
@@ -35,7 +35,9 @@ export default function TableAccordion({ triggerContent, triggerClass, children,
           ref={panel}
           style={{height:panelHeight}}
         >
-          {children}
+          <div className="visualFixWrapper">
+            {children}
+          </div>
         </div>
       </td>
     </tr>

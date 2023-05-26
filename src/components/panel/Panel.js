@@ -4,7 +4,7 @@ import {Outlet, useNavigate} from "react-router-dom";
 import axios from "axios";
 import authHeader from "../../authHeader";
 
-export default function AdminPanel({ username, handleLogout, setUsername }) {
+export default function Panel({ username, setUsername, isAdmin, setIsAdmin, handleLogout }) {
   const navigate = useNavigate();
 
   function handleNavButtonClick(address) {
@@ -16,15 +16,23 @@ export default function AdminPanel({ username, handleLogout, setUsername }) {
         null,
         {headers: authHeader()})
         .then((response) => {
-          if(response.data.success) setUsername(sessionStorage.getItem("username"));
+          if(response.data.success) {
+            setUsername(sessionStorage.getItem("username"));
+            setIsAdmin(sessionStorage.getItem("isAdmin"));
+          }
           else navigate('/');
         });
-  }, [navigate, setUsername]);
+  }, []);
 
   return (
     <>
       <div id="adminPanel">
-        <Navbar handleNavbarButtonClick={handleNavButtonClick} username={username} handleLogout={handleLogout}/>
+        <Navbar
+          handleNavbarButtonClick={handleNavButtonClick}
+          username={username}
+          handleLogout={handleLogout}
+          isAdmin={isAdmin}
+        />
         <div id="content">
           <Outlet />
         </div>
