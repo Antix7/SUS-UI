@@ -1,6 +1,7 @@
 import Cross from "../../Cross";
 import Checkmark from "../../Checkmark";
 import TableAccordion from "../../../TableAccordion";
+import Mid from "../../Mid";
 
 function UsersHeader() {
   const headers = ["Nazwa", "Admin", "Aktywne"];
