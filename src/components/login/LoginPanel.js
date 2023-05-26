@@ -63,14 +63,15 @@ export default function LoginPanel({ handleLogin }) {
             type="password"
             placeholder="Hasło"/>
 
-          <button type="submit" className="loginButtonBig">Zaloguj</button>
           <MessageBox message={message}/>
+          <button type="submit" className="loginButtonBig">Zaloguj</button>
+
         </form>
         <p className="pInfo">Zapomniałeś hasła?&nbsp;
-          <p className="pLink" onClick={handleResetClick}>Beka z ciebie</p>
+          <span className="pLink" onClick={handleResetClick}>Resetuj hasło</span>
         </p>
         <p className="pInfo">Masz kod do aktywacji?&nbsp;
-          <p className="pLink" onClick={handleActivateClick}>Aktywuj konto</p>
+          <span className="pLink" onClick={handleActivateClick}>Aktywuj konto</span>
         </p>
     </div>
   </div>

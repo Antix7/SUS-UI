@@ -48,11 +48,9 @@ function SprzetRowAccordionContent({ object, handleUsun, handleEdytuj, handleZab
     <button type="button" className="smallButton" onClick={()=>handleUsun(object["ID"])}>
       {object["czy_usuniete"] ? "Przywróć" : "Usuń"}
     </button>
-    <p>OG ID</p>
-    {object["og_id"] && <p><strong>OG ID: </strong>{object["og_id"]}</p>}
-    <button type="button" className="smallButton" disabled={!!object["og_id"]} onClick={()=>handleZabierz(object["ID"])}>Zabier</button>
-    <button type="button" className="smallButton" disabled={!object["og_id"]} onClick={()=>handleOdloz(object["ID"])}>Oddej</button>
-    <button type="button" className="smallButton" disabled={!object["og_id"]} onClick={()=>handleZapomnij(object["ID"])}>Zapomnir</button>
+    <button type="button" className="smallButton" disabled={!!object["og_id"]} onClick={()=>handleZabierz(object["ID"])}>Zabierz</button>
+    <button type="button" className="smallButton" disabled={!object["og_id"]} onClick={()=>handleOdloz(object["ID"])}>Oddaj</button>
+    <button type="button" className="smallButton" disabled={!object["og_id"]} onClick={()=>handleZapomnij(object["ID"])}>Zapomnij</button>
 
   </>)
 
