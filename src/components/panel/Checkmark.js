@@ -1,7 +1,7 @@
 export default function Checkmark() {
   return (
     <p
-      className="checkmark"
+      className="checkmark disableSelect"
       style={{
         margin: 0,
         padding: 0,

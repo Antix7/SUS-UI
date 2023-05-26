@@ -196,7 +196,7 @@ function SprzetForm({ data, handleSubmit, message, defaultValues, buttonValue, i
        {/*TODO: przy edytowaniu tak samo jak w legacy */}
       <label htmlFor="zdjecieInput" className="formLabel disableSelect">{isEditing ? "Zdjęcie (puste = bez zmian)" : "Zdjęcie"}</label>
       <input
-        className="textInput"
+        className="textInput disableSelect"
         type="file" accept="image/*"
         name="zdjecie" id="zdjecieInput"
       />
@@ -205,7 +205,7 @@ function SprzetForm({ data, handleSubmit, message, defaultValues, buttonValue, i
         message={message}
       />
 
-      <button className="button" type="submit" id="submitButton">{buttonValue}</button>
+      <button className="button disableSelect" type="submit" id="submitButton">{buttonValue}</button>
 
     </form>
   </>)
@@ -322,7 +322,7 @@ export default function DodajSprzet({isEditing}) {
   }
 
   return (<div className="contentDiv longForm">
-    <p className="contentTitle">{contentTitle}</p>
+    <p className="contentTitle disableSelect">{contentTitle}</p>
 
 
     {data ?

@@ -78,11 +78,15 @@ th {
   background-color: var(--darker4) !important;
 }
 #tableHeaderRow {
-  background-color: var(--darker3);
+  background-color: var(--darker4);
 }
-tr:nth-child(2n+1) > * {
+tr:nth-child(4n+1) > * {
   vertical-align: top;
   background-color: var(--darker1);
+}
+tr:nth-child(4n+3) > * {
+  vertical-align: top;
+  background-color: var(--darker2);
 }
 
 ::-webkit-scrollbar {
@@ -116,7 +120,7 @@ tr:nth-child(2n+1) > * {
 .tableAccordionPanel > * {
   overflow-wrap: break-word;
 }
-.disableSelect {
+.disableSelect, img, ::placeholder, .smallButton { /* this is so much technical debt, fuck me :skull: */
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */

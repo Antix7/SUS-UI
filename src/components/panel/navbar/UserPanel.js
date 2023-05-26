@@ -1,15 +1,15 @@
 
 export default function UserPanel({ username, handleNavbarButtonClick, handleLogout }) {
   return (
-    <div id="userPanel">
-      <p id="username">{username}</p><br/>
+    <div id="userPanel" className="disableSelect">
+      <p id="username" className="disableSelect">{username}</p><br/>
       <button
-        className="userPanelButton"
+        className="userPanelButton disableSelect"
         onClick={()=>handleNavbarButtonClick('zmien_haslo')}
       >
         Zmień hasło
       </button>
-      <button className="userPanelButton" onClick={handleLogout}>Wyloguj</button>
+      <button className="userPanelButton disableSelect" onClick={handleLogout}>Wyloguj</button>
     </div>
   )
 }

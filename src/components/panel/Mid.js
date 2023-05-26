@@ -1,7 +1,7 @@
 export default function Mid() {
   return (
     <p
-      className="mid"
+      className="mid disableSelect"
       style={{
         margin: 0,
         padding: 0,
