@@ -13,13 +13,14 @@ import {useNavigate} from "react-router-dom";
 import {type} from "@testing-library/user-event/dist/type";
 
 
-function CheckboxAccordion({ title, name, data, onChange, Ref }) {
+function CheckboxAccordion({ title, name, data, onChange, Ref, additionalContent }) {
   return (
     <Accordion
       triggerContent={<p className="filterAccordionButton disableSelect">{title}</p>}
       panelClass="dropdownAccordionPanel"
     >
       <form id={name+"_filter_form"} ref={Ref}>
+        {additionalContent}
         {Object.entries(data).map(([id, nazwa]) => <div key={id} className="disappear">
           <input
             className="checkboxInput"
@@ -128,6 +129,7 @@ function SprzetSelectForm({ filtersData, setFilterFormData }) {
       name="stan"
       data={stanData}
       Ref={stan_form}
+      additionalContent={kategorie.size===0 ? <p>Najpierw wybierz kategorię</p> : null}
     />
 
     <CheckboxAccordion
