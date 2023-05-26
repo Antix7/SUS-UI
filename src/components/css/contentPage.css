@@ -133,12 +133,13 @@ tr:nth-child(2n+1) > * {
 }
 
 .radioInput {
+  float: left;
 /* TODO style */
 }
 .radioLabel {
-  /*margin: 5px 0;*/
+  display: block;
+  margin: 0 0 -17px 23px;
   font-size: 15px;
-  margin-left: 5px;
   vertical-align:top;
 }
 
@@ -193,4 +194,8 @@ tr:nth-child(2n+1) > * {
 }
 .smallButton:active {
   background-color: var(--darker4);
+}
+.checkboxInput {
+  margin-right: -18px;
+  float: left;
 }
