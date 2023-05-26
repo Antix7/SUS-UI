@@ -3,12 +3,10 @@
 ## Node.js server setup
 
 In the [System-Udokumentowywania-Sprzetu-SUS](https://github.com/Antix7/System-Udokumentowywania-Sprzetu-SUS)
-project, switch to the `react-integration` branch and run `main.js`
+project, run `main.js`
 
-Right now the server address is set to `http://localhost:3001`
-in the `.env` file.\
 Please note that the app will not function correctly when deployed to Github Pages
-unless this address is changed to a public server.
+unless the server address in the `.env` file is set to a public server.
 
 ## Available Scripts
 
