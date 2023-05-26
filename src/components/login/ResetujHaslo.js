@@ -4,10 +4,10 @@ import "./LoginPanel.css";
 import "../css/input.css";
 import authHeeader from "../../authHeader";
 import {useNavigate} from "react-router-dom";
+import MessageBox from "../MessageBox";
 
 function ResetForm() {
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(null);
+  const [message, setMessage] = useState(null);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -15,8 +15,10 @@ function ResetForm() {
     const form = e.target;
     const formData = new FormData(form);
     if(form.password1.value !== form.password2.value) {
-      setSuccessMessage(null);
-      setErrorMessage("Hasła nie są takie same");
+      setMessage({
+        text: "Hasła nie są takie same",
+        type: "error",
+      });
       return;
     }
 
@@ -27,17 +29,23 @@ function ResetForm() {
     )
         .then((response) => {
           if(response.data.success) {
-            setSuccessMessage(response.data.message);
-            setErrorMessage(null);
+            setMessage({
+              text: response.data.message,
+              type: "success",
+            });
           }
           else {
-            setErrorMessage(response.data.message);
-            setSuccessMessage(null);
+            setMessage({
+              text: response.data.message,
+              type: "error",
+            });
           }
         })
         .catch((err) => {
-          setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
-          console.log(err);
+          setMessage({
+            text: "Wystąpił błąd w komunikacji z serwerem",
+            type: "error",
+          });
         });
   }
 
@@ -54,17 +62,14 @@ function ResetForm() {
             type="password"
             placeholder="Powtórz nowe hasło"/>
 
-        <p className="loginErrorMessage">{errorMessage}</p>
-        <p className="loginSuccessMessage">{successMessage}</p>
+        <MessageBox message={message}/>
         <button type="submit" className="loginButtonBig">Resetuj hasło</button>
       </form>
   )
 }
 
 function SendResetCodeForm({formUsername, setFormUsername}) {
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(null);
-
+  const [message, setMessage] = useState(null);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -74,17 +79,23 @@ function SendResetCodeForm({formUsername, setFormUsername}) {
     axios.post(`${process.env.REACT_APP_SERVER_ADDRESS}/send_reset_code`, formData)
         .then((response) => {
           if(response.data.success) {
-            setSuccessMessage(response.data.message);
-            setErrorMessage(null);
+            setMessage({
+              text: response.data.message,
+              type: "success",
+            });
           }
           else {
-            setErrorMessage(response.data.message);
-            setSuccessMessage(null);
+            setMessage({
+              text: response.data.message,
+              type: "error",
+            });
           }
         })
         .catch((err) => {
-          setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
-          console.log(err);
+          setMessage({
+            text: "Wystąpił błąd w komunikacji z serwerem",
+            type: "error",
+          });
         });
   }
 
@@ -100,15 +111,14 @@ function SendResetCodeForm({formUsername, setFormUsername}) {
               setFormUsername(e.target.value);
             }}
         />
-        <p className="loginErrorMessage sendResetCodeMessage">{errorMessage}</p>
-        <p className="loginSuccessMessage sendResetCodeMessage">{successMessage}</p>
+        <MessageBox message={message}/>
         <button type="submit" className="loginButtonSmall" id="sendCodeButton">Wyślij kod na email</button>
       </form>
   )
 }
 
 function CheckResetCodeForm({setCurrentForms, handleResetLogin, formUsername}) {
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [message, setMessage] = useState(null);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -123,11 +133,16 @@ function CheckResetCodeForm({setCurrentForms, handleResetLogin, formUsername}) {
             setCurrentForms(<ResetForm />);
             handleResetLogin(formUsername, response.data.token);
           }
-          else setErrorMessage(response.data.message);
+          else setMessage({
+            text: response.data.message,
+            type: "error",
+          });;
         })
         .catch((err) => {
-          setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
-          console.log(err);
+          setMessage({
+            text: "Wystąpił błąd w komunikacji z serwerem",
+            type: "error",
+          });
         });
   }
 
@@ -139,7 +154,7 @@ function CheckResetCodeForm({setCurrentForms, handleResetLogin, formUsername}) {
             type="text"
             placeholder="Kod otrzymany mailem"/>
 
-        <p className="loginErrorMessage">{errorMessage}</p>
+        <MessageBox message={message}/>
         <button type="submit" className="loginButtonBig">Resetuj hasło</button>
       </form>
   );

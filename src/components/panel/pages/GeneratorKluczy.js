@@ -2,10 +2,11 @@ import {useState} from "react";
 import axios from "axios";
 import authHeader from "../../../authHeader";
 import "../../css/contentPage.css"
+import MessageBox from "../../MessageBox";
 
 export default function GeneratorKluczy() {
 
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [message, setMessage] = useState(null);
   const [key, setKey] = useState(null);
 
   function handleSubmit(e) {
@@ -22,12 +23,14 @@ export default function GeneratorKluczy() {
     )
       .then((response) => {
         if(!response.data.success)
-          setErrorMessage(response.data.message);
+          setMessage(response.data.message);
         else
-          setKey(response.data.klucz);
+          setKey(response.data["klucz"]);
       }).catch((error) => {
-      setErrorMessage("Wystąpił błąd w komunikacji z serwerem")
-      console.log(error);
+      setMessage({
+        text: "Wystąpił błąd w komunikacji z serwerem",
+        type: "error",
+      });
     });
   }
 
@@ -57,7 +60,9 @@ export default function GeneratorKluczy() {
 
       <button className="button" type="submit" id="submitButton">Generuj klucz</button>
     </form>
-    <p id="errorMessage">{errorMessage}</p>
     <p id="generatedKey">{key}</p>
+
+    <MessageBox message={message}/>
+
   </div>)
 }

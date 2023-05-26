@@ -2,21 +2,28 @@ import {useState} from "react";
 import axios from "axios";
 import authHeader from "../../../authHeader";
 import "../../css/contentPage.css"
+import MessageBox from "../../MessageBox";
 
 export default function ZmienHaslo({ handleLogout }) {
 
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [message, setMessage] = useState(null);
 
   function handleSubmit(e) {
     e.preventDefault();
 
     const form = e.target;
     if(form.password_new1.value !== form.password_new2.value) {
-      setErrorMessage("Hasła nie są takie same");
+      setMessage({
+        text: "Hasła nie są takie same",
+        type: "error",
+      });
       return;
     }
     if(form.password_old.value === form.password_new1.value) {
-      setErrorMessage("Nowe hasło musi być inne od poprzedniego");
+      setMessage({
+        text: "Nowe hasło musi być inne od poprzedniego",
+        type: "error",
+      });
       return;
     }
 
@@ -28,14 +35,22 @@ export default function ZmienHaslo({ handleLogout }) {
       {headers: authHeader()} // passing JWT
     )
       .then((response) => {
-        setErrorMessage(response.data.message);
         if(response.data.success) {
-          setErrorMessage("Hasło zostało zmienione pomyślnie");
+          setMessage({
+            text: "Hasło zostało zmienione pomyślnie",
+            type: "success",
+          });
           // TODO handle logging out after password reset
         }
+        else setMessage({
+          text: response.data.message,
+          type: "error",
+        });
       }).catch((error) => {
-        setErrorMessage("Wystąpił błąd w komunikacji z serwerem")
-        console.log(error);
+        setMessage({
+          text: "Wystąpił błąd w komunikacji z serwerem",
+          type: "error",
+        });
       });
   }
 
@@ -65,7 +80,7 @@ export default function ZmienHaslo({ handleLogout }) {
 
       <button className="button" type="submit" id="submitButton">Zmień hasło</button>
     </form>
-    <p id="errorMessage">{errorMessage}</p>
+    <MessageBox message={message}/>
   </div>
   )
 }

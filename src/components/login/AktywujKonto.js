@@ -3,13 +3,13 @@ import axios from "axios";
 import "./LoginPanel.css";
 import "../css/input.css";
 import {useNavigate} from "react-router-dom";
+import MessageBox from "../MessageBox";
 
 
 export default function AktywujKonto() {
   const navigate = useNavigate();
 
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(null);
+  const [message, setMessage] = useState(null);
 
   function handleActivateSubmit(e) {
     e.preventDefault();
@@ -18,24 +18,33 @@ export default function AktywujKonto() {
     const formData = new FormData(form);
 
     if(form.password1.value !== form.password2.value) {
-      setErrorMessage("Hasła się nie zgadzają");
+      setMessage({
+        text: "Hasła nie są takie same",
+        type: "error",
+      });
       return;
     }
 
     axios.post(`${process.env.REACT_APP_SERVER_ADDRESS}/aktywuj`, formData)
         .then((response) => {
           if(response.data.success) {
-            setSuccessMessage(response.data.message);
-            setErrorMessage(null);
+            setMessage({
+              text: response.data.message,
+              type: "success",
+            });
           }
           else {
-            setErrorMessage(response.data.message);
-            setSuccessMessage(null);
+            setMessage({
+              text: response.data.message,
+              type: "error",
+            });
           }
         })
         .catch((error) => {
-          setErrorMessage("Wystąpił błąd w komunikacji z serwerem")
-          console.log(error);
+          setMessage({
+            text: "Wystąpił błąd w komunikacji z serwerem",
+            type: "error",
+          });
         });
   }
 
@@ -76,8 +85,7 @@ export default function AktywujKonto() {
                   type="password"
                   placeholder="Powtórz hasło"/>
 
-              <p className="loginErrorMessage">{errorMessage}</p>
-              <p className="loginSuccessMessage">{successMessage}</p>
+              <MessageBox message={message}/>
               <button type="submit" className="loginButtonBig">Aktywuj</button>
             </form>
           <button className="loginButtonSmall" onClick={handleGoBack}>Wróć</button>

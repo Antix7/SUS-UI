@@ -3,12 +3,13 @@ import axios from "axios";
 import "./LoginPanel.css";
 import "../css/input.css";
 import {useNavigate} from "react-router-dom";
+import MessageBox from "../MessageBox";
 
 
 export default function LoginPanel({ handleLogin }) {
   const navigate = useNavigate();
 
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [message, setMessage] = useState(null);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -23,11 +24,16 @@ export default function LoginPanel({ handleLogin }) {
           form.username.value,
           response.data.token,
           response.data.isAdmin);
-        else setErrorMessage(response.data.message);
+        else setMessage({
+          text: response.data.message,
+          type: "error",
+        });
       })
       .catch((error) => {
-        setErrorMessage("Wystąpił błąd w komunikacji z serwerem")
-        console.log(error);
+        setMessage({
+          text: "Wystąpił błąd w komunikacji z serwerem",
+          type: "error",
+        });
       });
   }
 
@@ -57,8 +63,8 @@ export default function LoginPanel({ handleLogin }) {
             type="password"
             placeholder="Hasło"/>
 
-          <p className="loginErrorMessage">{errorMessage}</p>
           <button type="submit" className="loginButtonBig">Zaloguj</button>
+          <MessageBox message={message}/>
         </form>
         <p className="pInfo">Zapomniałeś hasła?&nbsp;
           <p className="pLink" onClick={handleResetClick}>Beka z ciebie</p>

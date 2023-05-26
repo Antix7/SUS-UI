@@ -13,7 +13,7 @@ import Welcome from "./components/panel/pages/Welcome";
 import AktywujKonto from "./components/login/AktywujKonto";
 import ResetujHaslo from "./components/login/ResetujHaslo";
 import NoPage from "./components/panel/pages/NoPage";
-import ErrorMessage from "./components/ErrorMessage";
+import ErrorMessage from "./components/MessageBox";
 
 
 export default function App() {

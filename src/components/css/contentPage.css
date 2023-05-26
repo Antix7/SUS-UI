@@ -199,3 +199,26 @@ tr:nth-child(2n+1) > * {
   margin-right: -18px;
   float: left;
 }
+.messageBox {
+  width: min(276px, 80vw);
+  background: transparent;
+}
+
+.messageDiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  border-radius: 14px;
+  font-size: 14px;
+  margin: 7px 0;
+  width: calc(100% - 20px);
+  text-align: left !important;
+}
+.messageCloseButton {
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 10px;
+}

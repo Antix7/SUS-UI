@@ -4,8 +4,9 @@ import authHeader from "../../../authHeader";
 import "../../css/contentPage.css"
 import Accordion from "../../Accordion";
 import LoadingIcon from "../../LoadingIcon";
-import ErrorMessage from "../../ErrorMessage";
+import ErrorMessage from "../../MessageBox";
 import {useParams} from "react-router-dom";
+import MessageBox from "../../MessageBox";
 
 function DropdownAccordion({ children, title, selected, data, fieldText }) {
   return (<>
@@ -61,7 +62,7 @@ function DropdownAccordionWithOptions({ title, selected, data, fieldText, handle
 }
 
 
-function SprzetForm({ data, handleSubmit, errorMessage, isErrorGood, defaultValues, buttonValue, isEditing }) {
+function SprzetForm({ data, handleSubmit, message, defaultValues, buttonValue, isEditing }) {
 
   const [formdata, setFormdata] = useState({
     status: 0,
@@ -190,9 +191,8 @@ function SprzetForm({ data, handleSubmit, errorMessage, isErrorGood, defaultValu
         name="zdjecie" id="zdjecieInput"
       />
 
-      <ErrorMessage
-        message={errorMessage}
-        success={isErrorGood}
+      <MessageBox
+        message={message}
       />
 
       <button className="button" type="submit" id="submitButton">{buttonValue}</button>
@@ -207,8 +207,7 @@ export default function DodajSprzet({isEditing}) {
 
   const [contentTitle, setContentTitle] = useState("Dodawanie sprzętu");
   const [buttonValue, setButtonValue] = useState("Dodaj");
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [isErrorGood, setIsErrorGood] = useState(null);
+  const [message, setMessage] = useState(null);
   const [data, setData] = useState(null);
   const [defaultValues, setDefaultValues] = useState({
     sts: 0,
@@ -229,12 +228,13 @@ export default function DodajSprzet({isEditing}) {
       {headers: authHeader()}
     )
       .then((response) => {
-        setErrorMessage(response.data.message);
         if(response.data.success) {
           setData(response.data.data);
-          setIsErrorGood(true);
         }
-        else setIsErrorGood(false);
+        else setMessage({
+          text: response.data.message,
+          type: "error"
+        });
         if(!isEditing)
           return;
         setContentTitle("Edytowanie sprzętu");
@@ -246,20 +246,25 @@ export default function DodajSprzet({isEditing}) {
         )
             .then((response) => {
               if(!response.data.success) {
-                setIsErrorGood(false);
-                setErrorMessage(response.data.message);
+                setMessage({
+                  text: response.data.message,
+                  type: "error"
+                });
               }
               setDefaultValues(response.data);
             })
             .catch((error) => {
-              setIsErrorGood(false);
-              setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
-              console.log(error);
+              setMessage({
+                text: "Wystąpił błąd w komunikacji z serwerem",
+                type: "error",
+              });
             })
       })
       .catch((error) => {
-        setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
-        console.log(error);
+        setMessage({
+          text: "Wystąpił błąd w komunikacji z serwerem",
+          type: "error",
+        });
       });
   }, []);
 
@@ -273,8 +278,10 @@ export default function DodajSprzet({isEditing}) {
       formData.append("editid", editingID);
 
     if(formData.get("ilosc") <= 0) {
-      setErrorMessage("Niepoprawna ilość");
-      setIsErrorGood(false);
+      setMessage({
+        text: "Niepoprawna ilosć",
+        type: "error",
+      });
       return;
     }
 
@@ -284,16 +291,21 @@ export default function DodajSprzet({isEditing}) {
       {headers: authHeader()}
     )
       .then((response) => {
-        setErrorMessage(response.data.message);
         if(response.data.success) {
-          setErrorMessage((editingID ? "Edytowano przedmiot w bazie danych" : "Dodano przedmiot do bazy danych"));
-          setIsErrorGood(true);
+          setMessage({
+            text: editingID ? "Edytowano przedmiot w bazie danych" : "Dodano przedmiot do bazy danych",
+            type: "success",
+          });
         }
-        else setIsErrorGood(false);
+        else setMessage({
+          text: response.data.message,
+          type: "error",
+        });
       }).catch((error) => {
-        setIsErrorGood(false);
-        setErrorMessage("Wystąpił błąd w komunikacji z serwerem")
-        console.log(error);
+        setMessage({
+          text: "Wystąpił błąd w komunikacji z serwerem",
+          type: "error",
+        });
     });
   }
 
@@ -305,20 +317,13 @@ export default function DodajSprzet({isEditing}) {
       <SprzetForm
         data={data}
         handleSubmit={handleSubmit}
-        errorMessage={errorMessage}
-        isErrorGood={isErrorGood}
+        message={message}
         defaultValues={defaultValues}
         buttonValue={buttonValue}
         isEditing={isEditing}
       />
       :
-        errorMessage ?
-              <ErrorMessage
-                  message={errorMessage}
-                  success={isErrorGood}
-              />
-              :
-              <LoadingIcon/>
+      <LoadingIcon/>
     }
 
   </div>)

@@ -4,7 +4,7 @@ import authHeader from "../../../authHeader";
 import "../../css/contentPage.css"
 import UsersTable from "./tables/UsersTable";
 import LoadingIcon from "../../LoadingIcon";
-import ErrorMessage from "../../ErrorMessage";
+import ErrorMessage from "../../MessageBox";
 
 export default function ListaUzytkownikow() {
 
