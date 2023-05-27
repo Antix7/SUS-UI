@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 function SidepanelOptions({ options, toggleSidepanel, handleNavbarButtonClick }) {
   return options.map(option =>
-    <Link className="sidepanelOption"
+    <Link className="sidepanelOption disableSelect"
             key={option.text}
             onClick={()=>{
               toggleSidepanel();

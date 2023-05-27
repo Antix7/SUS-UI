@@ -37,6 +37,7 @@ function SprzetRowAccordionContent({ object, handleUsun, handleEdytuj, handleZab
     {object["box_id"] && <p><strong>Numer pudła: </strong>{object["box_id"]}</p>}
     <p><strong>Właściciel: </strong>{object["wlasciciel"]}</p>
     <p><strong>Użytkownik: </strong>{object["uzytkownik"]}</p>
+    {object["oznaczenie"] && <p><strong>Oznaczenie: </strong>{object["oznaczenie"]}</p>}
     {object["opis"] && <p><strong>Opis: </strong>{object["opis"]}</p>}
     
     {object["zdjecie_path"] &&

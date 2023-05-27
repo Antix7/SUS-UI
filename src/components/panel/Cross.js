@@ -1,7 +1,7 @@
 export default function Cross() {
   return (
     <p
-      className="cross"
+      className="cross disableSelect"
       style={{
         margin: 0,
         padding: 0,

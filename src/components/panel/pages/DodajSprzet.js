@@ -158,6 +158,7 @@ function SprzetForm({ data, handleSubmit, message, defaultValues, buttonValue, i
         name="box_id" id="box_id"
         type="number"
         placeholder="(opcjonalne)"
+        defaultValue={defaultValues.box_id}
       />
 
       <DropdownAccordionWithOptions
@@ -174,6 +175,15 @@ function SprzetForm({ data, handleSubmit, message, defaultValues, buttonValue, i
         handleFormChange={handleFormChange}
       />
 
+      <label htmlFor="oznaczenie" className="formLabel disableSelect">Oznaczenie</label>
+      <input
+        className="textInput withLabel"
+        name="oznaczenie" id="oznaczenie"
+        type="text"
+        placeholder="(opcjonalne)"
+        defaultValue={defaultValues.oznaczenie}
+      />
+
       <label htmlFor="opisInput" className="formLabel disableSelect">Opis</label>
       <textarea
         className="textareaInput textInput"
@@ -186,7 +196,7 @@ function SprzetForm({ data, handleSubmit, message, defaultValues, buttonValue, i
        {/*TODO: przy edytowaniu tak samo jak w legacy */}
       <label htmlFor="zdjecieInput" className="formLabel disableSelect">{isEditing ? "Zdjęcie (puste = bez zmian)" : "Zdjęcie"}</label>
       <input
-        className="textInput"
+        className="textInput disableSelect"
         type="file" accept="image/*"
         name="zdjecie" id="zdjecieInput"
       />
@@ -195,7 +205,7 @@ function SprzetForm({ data, handleSubmit, message, defaultValues, buttonValue, i
         message={message}
       />
 
-      <button className="button" type="submit" id="submitButton">{buttonValue}</button>
+      <button className="button disableSelect" type="submit" id="submitButton">{buttonValue}</button>
 
     </form>
   </>)
@@ -218,7 +228,9 @@ export default function DodajSprzet({isEditing}) {
     uzy: 0,
     nazwa: "",
     opis: "",
-    ilosc: 1
+    ilosc: 1,
+    box_id:null,
+    oznaczenie:""
   });
 
 
@@ -310,7 +322,7 @@ export default function DodajSprzet({isEditing}) {
   }
 
   return (<div className="contentDiv longForm">
-    <p className="contentTitle">{contentTitle}</p>
+    <p className="contentTitle disableSelect">{contentTitle}</p>
 
 
     {data ?
