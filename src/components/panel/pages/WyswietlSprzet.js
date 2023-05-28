@@ -505,7 +505,10 @@ export default function WyswietlSprzet() {
       {filtersData ?
         <SprzetSelectForm filtersData={filtersData} setFilterFormData={setFilterFormData}/>
         :
-        <LoadingIcon/>
+        message ?
+            null
+            :
+            <LoadingIcon/>
       }
     </FilterSidepanel>
 
@@ -519,7 +522,11 @@ export default function WyswietlSprzet() {
         handleZapomnij={handleZapomnij}
         handleShowZdjecie={handleShowZdjecie}
       />
-    : <LoadingIcon/>
+    :
+        message ?
+            null
+            :
+            <LoadingIcon/>
     }
 
     <dialog

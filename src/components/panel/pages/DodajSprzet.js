@@ -235,6 +235,10 @@ export default function DodajSprzet({isEditing}) {
 
 
   useEffect(() => {
+    if(isEditing) {
+      setContentTitle("Edytowanie sprzętu");
+      setButtonValue("Edytuj");
+    }
     axios.get(
       `${process.env.REACT_APP_SERVER_ADDRESS}/available_values`,
       {headers: authHeader()}
@@ -249,8 +253,6 @@ export default function DodajSprzet({isEditing}) {
         });
         if(!isEditing)
           return;
-        setContentTitle("Edytowanie sprzętu");
-        setButtonValue("Edytuj");
         axios.post(
             `${process.env.REACT_APP_SERVER_ADDRESS}/editing_info`,
             {editid: editingID},
@@ -335,7 +337,10 @@ export default function DodajSprzet({isEditing}) {
         isEditing={isEditing}
       />
       :
-      <LoadingIcon/>
+      message ?
+          <MessageBox message={message} />
+          :
+          <LoadingIcon/>
     }
 
   </div>)
