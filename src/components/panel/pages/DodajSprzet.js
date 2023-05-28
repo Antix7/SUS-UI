@@ -62,7 +62,7 @@ function DropdownAccordionWithOptions({ title, selected, data, fieldText, handle
 }
 
 
-function SprzetForm({ data, handleSubmit, message, defaultValues, buttonValue, isEditing }) {
+function SprzetForm({ data, handleSubmit, message, defaultValues, buttonValue, isEditing, sending }) {
 
   const [formdata, setFormdata] = useState({
     status: 0,
@@ -205,6 +205,12 @@ function SprzetForm({ data, handleSubmit, message, defaultValues, buttonValue, i
         message={message}
       />
 
+      {sending ?
+          <LoadingIcon />
+          :
+          null
+      }
+
       <button className="button disableSelect" type="submit" id="submitButton">{buttonValue}</button>
 
     </form>
@@ -319,6 +325,7 @@ export default function DodajSprzet({isEditing}) {
           type: "error",
         });
       }).catch((error) => {
+        setSending(false);
         setMessage({
           text: "Wystąpił błąd w komunikacji z serwerem",
           type: "error",
@@ -338,17 +345,13 @@ export default function DodajSprzet({isEditing}) {
         defaultValues={defaultValues}
         buttonValue={buttonValue}
         isEditing={isEditing}
+        sending={sending}
       />
       :
       message ?
           <MessageBox message={message} />
           :
           <LoadingIcon/>
-    }
-    {sending ?
-        <LoadingIcon />
-        :
-        null
     }
 
   </div>)
