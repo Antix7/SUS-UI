@@ -5,10 +5,11 @@ import "../../css/contentPage.css"
 import UsersTable from "./tables/UsersTable";
 import LoadingIcon from "../../LoadingIcon";
 import ErrorMessage from "../../MessageBox";
+import MessageBox from "../../MessageBox";
 
 export default function ListaUzytkownikow() {
 
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [message, setMessage] = useState(null);
   const [responseData, setResponseData] = useState(null);
 
   function fetchData() {
@@ -17,11 +18,16 @@ export default function ListaUzytkownikow() {
       {headers: authHeader()} // passing JWT
     )
       .then((response) => {
-        if(!response.data.success) setErrorMessage(response.data.message);
+        if(!response.data.success) setMessage({
+          text: response.data.message,
+          type: "error"
+        });
         else setResponseData(response.data.data);
       }).catch((error) => {
-      setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
-      console.log(error);
+        setMessage({
+          text: "Wystąpił błąd w komunikacji z serwerem",
+          type: "error"
+        });
       });
   }
 
@@ -37,26 +43,28 @@ export default function ListaUzytkownikow() {
         {username: username},
         {headers: authHeader()}
     )
-        .then((response) => {
-          fetchData();
-          if(!response.data.success) setErrorMessage(response.data.message);
-        }).catch((error) => {
-      setErrorMessage("Wystąpił błąd w komunikacji z serwerem");
-      console.log(error);
+      .then((response) => {
+        if(!response.data.success) setMessage({
+          text: response.data.message,
+          type: "error"
+        });
+        fetchData();
+      }).catch((error) => {
+        setMessage({
+          text: "Wystąpił błąd w komunikacji z serwerem",
+          type: "error"
+        });
     });
   }
 
   return (<div className="contentDiv">
     <p className="contentTitle">Lista użytkowników</p>
-    <ErrorMessage message={errorMessage} success={false}/>
+    <MessageBox message={message}/>
 
     {responseData ?
       <UsersTable array={responseData} handleUsun={handleUsun}/>
       :
-      errorMessage ?
-          null
-          :
-          <LoadingIcon/>
+      <LoadingIcon/>
     }
 
   </div>)
