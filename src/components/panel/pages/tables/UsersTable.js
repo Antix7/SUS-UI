@@ -31,7 +31,10 @@ function UsersRowAccordionContent({ object, handleUsun }) {
       new Date(object.data_wygasniecia).toLocaleDateString('en-GB')
       : "-"}`}
     </p>
-    <button type="button" className="smallButton" onClick={()=>handleUsun(object["username"])}>Usuń</button>
+    <button type="button" className="smallButton" onClick={
+      ()=>{if(window.confirm(`Czy na pewno chcesz usunąć tego użytkownika?`)) handleUsun(object["username"])}
+    }
+    >Usuń</button>
   </>)
 
 }

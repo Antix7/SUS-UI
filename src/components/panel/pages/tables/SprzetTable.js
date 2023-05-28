@@ -46,7 +46,11 @@ function SprzetRowAccordionContent({ object, handleUsun, handleEdytuj, handleZab
       </button>
     }
     <button type="button" className="smallButton" onClick={()=>handleEdytuj(object["ID"])}>Edytuj</button>
-    <button type="button" className="smallButton" onClick={()=>handleUsun(object["ID"])}>
+    <button type="button" className="smallButton" onClick={
+      ()=>{
+        if(window.confirm(`Czy na pewno chcesz ${object["czy_usuniete"] ? "przywrócić" : "usunąć"} ten przedmiot?`)) handleUsun(object["ID"])}
+    }
+    >
       {object["czy_usuniete"] ? "Przywróć" : "Usuń"}
     </button>
     <button type="button" className="smallButton" disabled={!!object["og_id"]} onClick={()=>handleZabierz(object["ID"])}>Zabierz</button>
