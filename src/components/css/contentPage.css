@@ -142,7 +142,7 @@ tr:nth-child(4n+3) > * {
 }
 .radioLabel {
   display: block;
-  margin: 0 0 -17px 23px;
+  margin: 1px 0 -17px 22px;
   font-size: 15px;
   vertical-align:top;
 }
@@ -200,7 +200,7 @@ tr:nth-child(4n+3) > * {
   background-color: var(--darker4);
 }
 .checkboxInput {
-  margin-right: -18px;
+  margin-right: -20px;
   float: left;
 }
 .messageBox {
