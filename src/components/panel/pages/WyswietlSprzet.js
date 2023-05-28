@@ -320,6 +320,7 @@ export default function WyswietlSprzet() {
   const [sidepanelShown, setSidepanelShown] = useState(false);
   const [filterFormData, setFilterFormData] = useState({});
   const [zdjeciePath, setZdjeciePath] = useState(null);
+  const [isImageLoading, setIsImageLoading] = useState(false);
   const modalRef = useRef();
 
   function fetchFiltersData() {
@@ -387,6 +388,8 @@ export default function WyswietlSprzet() {
     });
   }
   function handleShowZdjecie(id) {
+    showModal();
+    setIsImageLoading(true);
     axios.post(
       `${process.env.REACT_APP_SERVER_ADDRESS}/wyswietl_zdjecie`,
       {id: id},
@@ -395,9 +398,10 @@ export default function WyswietlSprzet() {
       .then((response) => {
         const imageUrl = URL.createObjectURL(response.data); // Create a temporary URL for the image file
         setZdjeciePath(imageUrl);
-        showModal();
+        setIsImageLoading(false);
       })
       .catch((error) => {
+        hideModal();
         setMessage({
           text: "Wystąpił błąd w komunikacji z serwerem",
           type: "error",
@@ -534,7 +538,10 @@ export default function WyswietlSprzet() {
       ref={modalRef}
       onClick={()=>hideModal()}
     >
-      <img className="modalImage" src={zdjeciePath} alt="Coś poszło nie tak :/"/>
+      {zdjeciePath ?
+          <img className="modalImage" src={zdjeciePath} alt="Coś poszło nie tak :/"/>
+          :
+          <LoadingIcon />}
     </dialog>
        
   </div>)
