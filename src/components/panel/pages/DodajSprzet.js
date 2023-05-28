@@ -62,7 +62,7 @@ function DropdownAccordionWithOptions({ title, selected, data, fieldText, handle
 }
 
 
-function SprzetForm({ data, handleSubmit, message, defaultValues, buttonValue, isEditing, sending }) {
+function SprzetForm({ data, handleSubmit, message, defaultValues, buttonValue, isEditing, sending, isImgChosen, setIsImgChosen, deletePhoto, setDeletePhoto }) {
 
   const [formdata, setFormdata] = useState({
     status: 0,
@@ -96,12 +96,23 @@ function SprzetForm({ data, handleSubmit, message, defaultValues, buttonValue, i
     setFormdata(nextFormdata);
   }
 
+  function handleImgChange(e) {
+    if(e.target.value)
+      setIsImgChosen(true);
+  }
+
+  function toggleDeletePhoto(e) {
+    e.preventDefault();
+    setDeletePhoto(!deletePhoto);
+  }
+
   useEffect(() => {
     const nextFormdata = Object.assign({}, formdata);
     nextFormdata.stan = (formdata.kategoria === defaultValues.kat ? defaultValues.stn : 0);
     setFormdata(nextFormdata);
   }, [formdata.kategoria]);
 
+  // console.log(deletePhoto, deletePhoto ? "Usuń" : "Zachowaj");
   return(<>
     <form className="centeredForm" id="dodajSprzetForm" onSubmit={handleSubmit}>
 
@@ -194,12 +205,20 @@ function SprzetForm({ data, handleSubmit, message, defaultValues, buttonValue, i
       />
 
        {/*TODO: przy edytowaniu tak samo jak w legacy */}
-      <label htmlFor="zdjecieInput" className="formLabel disableSelect">{isEditing ? "Zdjęcie (puste = bez zmian)" : "Zdjęcie"}</label>
+      <label htmlFor="zdjecieInput" className="formLabel disableSelect">Zdjęcie</label>
       <input
         className="textInput disableSelect"
         type="file" accept="image/*"
         name="zdjecie" id="zdjecieInput"
+        onChange={handleImgChange}
       />
+      {(isEditing && defaultValues.zdjecie_path && !isImgChosen) ?
+          <button className="button" onClick={toggleDeletePhoto}>
+            {deletePhoto ? "Usuń" : "Zachowaj"} zdjęcie
+          </button>
+          :
+          null
+      }
 
       <MessageBox
         message={message}
@@ -236,9 +255,12 @@ export default function DodajSprzet({isEditing}) {
     opis: "",
     ilosc: 1,
     box_id:null,
-    oznaczenie:""
+    oznaczenie:"",
+    zdjecie_path: null
   });
   const [sending, setSending] = useState(false);
+  const [isImgChosen, setIsImgChosen] = useState(false);
+  const [deletePhoto, setDeletePhoto] = useState(false);
 
 
   useEffect(() => {
@@ -295,8 +317,11 @@ export default function DodajSprzet({isEditing}) {
 
     const form = e.target;
     const formData = new FormData(form);
-    if(isEditing)
+    if(isEditing) {
       formData.append("editid", editingID);
+      if(!isImgChosen)
+        formData.append("deletePhoto", deletePhoto);
+    }
 
     if(formData.get("ilosc") <= 0) {
       setMessage({
@@ -346,6 +371,10 @@ export default function DodajSprzet({isEditing}) {
         buttonValue={buttonValue}
         isEditing={isEditing}
         sending={sending}
+        isImgChosen={isImgChosen}
+        setIsImgChosen={setIsImgChosen}
+        deletePhoto={deletePhoto}
+        setDeletePhoto={setDeletePhoto}
       />
       :
       message ?
