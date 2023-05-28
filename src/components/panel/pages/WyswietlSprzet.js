@@ -509,17 +509,18 @@ export default function WyswietlSprzet() {
       }
     </FilterSidepanel>
 
-    {tableData
-        &&
-        <SprzetTable
-            array={tableData}
-            handleUsun={handleUsun}
-            handleEdytuj={handleEdytuj}
-            handleZabierz={handleZabierz}
-            handleOdloz={handleOdloz}
-            handleZapomnij={handleZapomnij}
-            handleShowZdjecie={handleShowZdjecie}
-        />}
+    {tableData ?
+      <SprzetTable
+        array={tableData}
+        handleUsun={handleUsun}
+        handleEdytuj={handleEdytuj}
+        handleZabierz={handleZabierz}
+        handleOdloz={handleOdloz}
+        handleZapomnij={handleZapomnij}
+        handleShowZdjecie={handleShowZdjecie}
+      />
+    : <LoadingIcon/>
+    }
 
     <dialog
       className="modal"
