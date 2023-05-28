@@ -226,3 +226,7 @@ tr:nth-child(4n+3) > * {
   font-weight: bold;
   margin-left: 10px;
 }
+#queryResult {
+  width: 90vw;
+  overflow-wrap: break-word;
+}

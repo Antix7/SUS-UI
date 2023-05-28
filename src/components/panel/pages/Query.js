@@ -3,11 +3,11 @@ import axios from "axios";
 import authHeader from "../../../authHeader";
 import "../../css/contentPage.css"
 import ErrorMessage from "../../MessageBox";
+import MessageBox from "../../MessageBox";
 
 export default function Query() {
 
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [isErrorGood, setIsErrorGood] = useState(null);
+  const [message, setMessage] = useState(null);
   const [queryResult, setQueryResult] = useState(null);
 
   function handleSubmit(e) {
@@ -23,14 +23,18 @@ export default function Query() {
       {headers: authHeader()} // passing JWT
     )
       .then((response) => {
-        setErrorMessage(response.data.message);
         if(response.data.success) {
           setQueryResult(JSON.stringify(response.data.result));
-          setIsErrorGood(true);
         }
-        else setIsErrorGood(false);
+        else setMessage({
+          text: response.data.message,
+          type: "error"
+        });
       }).catch((error) => {
-      setErrorMessage("Wystąpił błąd w komunikacji z serwerem")
+        setMessage({
+          text: "Wystąpił błąd w komunikacji z serwerem",
+          type: "error"
+        });
       console.log(error);
       });
   }
@@ -51,10 +55,9 @@ export default function Query() {
 
       <button className="button" type="submit" id="submitButton">Wykonaj</button>
     </form>
-    <ErrorMessage
-      message={errorMessage}
-      success={isErrorGood}
-    />
+
+    <MessageBox message={message}/>
+
     <p id="queryResult">{queryResult}</p>
   </div>)
 }
