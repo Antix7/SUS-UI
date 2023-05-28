@@ -232,6 +232,7 @@ export default function DodajSprzet({isEditing}) {
     box_id:null,
     oznaczenie:""
   });
+  const [sending, setSending] = useState(false);
 
 
   useEffect(() => {
@@ -299,12 +300,14 @@ export default function DodajSprzet({isEditing}) {
       return;
     }
 
+    setSending(true);
     axios.post(
       `${process.env.REACT_APP_SERVER_ADDRESS}/${editingID ? "edytuj" : "dodaj"}`,
       formData,
       {headers: authHeader()}
     )
       .then((response) => {
+        setSending(false);
         if(response.data.success) {
           setMessage({
             text: editingID ? "Edytowano przedmiot w bazie danych" : "Dodano przedmiot do bazy danych",
@@ -341,6 +344,11 @@ export default function DodajSprzet({isEditing}) {
           <MessageBox message={message} />
           :
           <LoadingIcon/>
+    }
+    {sending ?
+        <LoadingIcon />
+        :
+        null
     }
 
   </div>)
