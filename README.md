@@ -11,8 +11,8 @@ unless the server address in the `.env` file is set to a public server.
 ## Dependencies
 The following programs must be installed in order for SUS-UI to work:
 
-  node.js (version 18.12)
-  npm (version 8.19)
+    node.js (version 18.12)
+    npm (version 8.19)
 We also use various node.js packages as listed in package.json
 
 ## Available Scripts
