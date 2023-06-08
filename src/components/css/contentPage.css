@@ -8,6 +8,7 @@
 }
 
 .contentDiv {
+  overflow-y: scroll;
   height: 100%;
 }
 
@@ -152,7 +153,6 @@ tr:nth-child(4n+3) > * {
   width: min(270px, 87vw);
 }
 .longForm {
-  overflow-y: scroll;
   width: 100%;
 }
 #opisInput {
